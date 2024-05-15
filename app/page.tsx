@@ -1,113 +1,84 @@
-import Image from "next/image";
+'use client';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { TopNav } from '@/components/top-nav';
+import { usePathname } from 'next/navigation';
 
 export default function Home() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isTextVisible, setIsTextVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const textRef1 = useRef<HTMLDivElement>(null);
+  const textRef2 = useRef<HTMLDivElement>(null);
+  const textRef3 = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    ref.current!.style.width = '0';
+    setTimeout(() => {
+      setIsLoaded(true);
+      textRef1.current!.style.transition = '500ms';
+      textRef2.current!.style.transition = '500ms';
+      textRef3.current!.style.transition = '500ms';
+    }, 1000);
+
+    setTimeout(() => {
+      setIsTextVisible(true);
+    }, 700);
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      {!isLoaded && <div className='fixed w-screen h-screen bg-primary-400 duration-1000 z-50' ref={ref} />}
+      <main className='w-full h-full lg:min-h-[750px] text-primary-400 text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-widest flex flex-col gap-20 items-center justify-center'>
+        <div className='relative group overflow-hidden'>
+          <h2
+            className={`py-1 relative duration-500 group-hover:translate-y-28 ${!isTextVisible && 'translate-y-28'}`}
+            ref={textRef1}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            안녕하세요
+          </h2>
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          className='relative text-xl font-semibold h-[200px] w-[200px] spin text-primary-400/80 hover:text-primary-400 duration-150 cursor-pointer flex2'
+          href='/project'
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+          <span className='circle rotate-[20deg]'>안</span>
+          <span className='circle rotate-[40deg]'>녕</span>
+          <span className='circle rotate-[60deg]'>하</span>
+          <span className='circle rotate-[80deg]'>세</span>
+          <span className='circle rotate-[100deg]'>요</span>
+          <span className='circle rotate-[120deg]'>·</span>
+          <span className='circle rotate-[140deg]'>반</span>
+          <span className='circle rotate-[160deg]'>갑</span>
+          <span className='circle rotate-[180deg]'>습</span>
+          <span className='circle rotate-[200deg]'>니</span>
+          <span className='circle rotate-[220deg]'>다</span>
+          <span className='circle rotate-[240deg]'>다</span>
+          <span className='circle rotate-[260deg]'>·</span>
+          <span className='circle rotate-[280deg]'>살</span>
+          <span className='circle rotate-[300deg]'>펴</span>
+          <span className='circle rotate-[320deg]'>보</span>
+          <span className='circle rotate-[340deg]'>기</span>
+          <span className='circle rotate-[360deg]'>·</span>
+        </Link>
+        <div className='relative group overflow-hidden'>
+          <h2
+            className={`py-1 relative duration-700 group-hover:translate-y-28 ${!isTextVisible && 'translate-y-28'}`}
+            ref={textRef2}
+          >
+            저의 포트폴리오
           </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+        </div>
+        <div className='relative group overflow-hidden'>
+          <h2
+            className={`py-1 relative group-hover:translate-y-28 ${!isTextVisible && 'translate-y-28'}`}
+            ref={textRef3}
+            style={{ transitionDuration: '750ms' }}
+          >
+            방문에 감사드립니다.
           </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   );
 }
