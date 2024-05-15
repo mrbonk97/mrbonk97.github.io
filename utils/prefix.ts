@@ -1,1 +1,1 @@
-export const prefix = process.env.BASE_PATH || '';
+export const prefix = 'https://mrbonk97.github.io/' || '';
