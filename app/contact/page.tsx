@@ -1,4 +1,5 @@
 'use client';
+import { prefix } from '@/lib/prefix';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
@@ -33,7 +34,7 @@ const ContactPage = () => {
             <h3 className='text-xl font-semibold'>hyunsuk1997@naver.com</h3>
           </div>
         </hgroup>
-        <Image src={'/me4.jpg'} width={550} height={200} alt='me' className='px-10 lg:px-0 mt-10 lg:mt-0' />
+        <Image src={`${prefix}/me4.jpg`} width={550} height={200} alt='me' className='px-10 lg:px-0 mt-10 lg:mt-0' />
       </main>
     </>
   );
