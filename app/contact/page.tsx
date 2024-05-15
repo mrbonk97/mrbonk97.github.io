@@ -1,5 +1,5 @@
 'use client';
-import { prefix } from '@/lib/prefix';
+import { prefix } from '@/utils/prefix';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 

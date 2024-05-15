@@ -1,4 +1,4 @@
-import { prefix } from '@/lib/prefix';
+import { prefix } from '@/utils/prefix';
 
 export const projects = [
   {
