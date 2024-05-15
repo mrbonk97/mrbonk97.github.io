@@ -1,5 +1,3 @@
-import { prefix } from '@/utils/prefix';
-
 export const projects = [
   {
     title: '한수원 ERP 고도화',
@@ -15,7 +13,7 @@ export const projects = [
       github: null,
       web: null,
     },
-    image: `${prefix}/khnp.svg`,
+    image: '/khnp.svg',
   },
   {
     title: '우만시',
@@ -31,7 +29,7 @@ export const projects = [
       github: 'https://github.com/mrbonk97/jyck',
       web: null,
     },
-    image: `${prefix}/our-memory.svg`,
+    image: '/our-memory.svg',
   },
   {
     title: '공유',
@@ -47,7 +45,7 @@ export const projects = [
       github: 'https://github.com/mrbonk97/file-share-client',
       web: 'https://github.com/mrbonk97/file-share-client',
     },
-    image: `${prefix}/0u.png`,
+    image: '/0u.png',
   },
   {
     title: '피어',
@@ -63,6 +61,6 @@ export const projects = [
       github: 'https://github.com/swyp-peer/peer-client',
       web: 'https://github.com/mrbonk97/file-share-client',
     },
-    image: `${prefix}/peer.png`,
+    image: '/peer.png',
   },
 ];
