@@ -1,7 +1,7 @@
-'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,55 +10,52 @@ export const TopNav = () => {
   return (
     <header>
       <nav
-        className={`fixed right-8 top-8 h-16 bg-primary-400 text-secondary-400 text-lg lg:text-2xl gap-7 md:gap-10 lg:gap-20 z-20 items-center justify-start rounded-sm flex overflow-hidden
-      ${isOpen ? 'w-[320px] lg:w-[450px] duration-500' : 'w-16 duration-500'} `}
+        className={`bg-primary-400 fixed right-24 top-10 h-16 z-40 duration-500 overflow-hidden
+        ${isOpen ? "w-96" : " w-0"}`}
+      >
+        <ul className="text-secondary-400 w-96 justify-evenly flex h-full items-center text-xl font-semibold">
+          <li
+            className={`nt text-center hover:underline underline-offset-8 duration-150
+            ${pathname === "/project" && "underline"}`}
+          >
+            <Link href="/project">프로젝트</Link>
+          </li>
+          <li
+            className={`nt text-center hover:underline underline-offset-8 duration-150
+          ${pathname === "/about-me" && "underline"}`}
+          >
+            <Link href="/about-me">소개</Link>
+          </li>
+          <li
+            className={`nt text-center hover:underline underline-offset-8 duration-150
+           ${pathname === "/contact" && "underline"}`}
+          >
+            <Link href="/contact">연락</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <button
+        className="bg-primary-400 fixed right-10 top-10 h-16 w-16 p-4 overflow-hidden z-50"
         onClick={() => setIsOpen((cur) => !cur)}
       >
-        <Link
-          href='/project'
-          className={`font-bold  nt  hover:underline underline-offset-8
-        ${isOpen ? 'duration-500 ml-5 opacity-100 delay-100' : 'duration-200 ml-10 opacity-0'}
-        ${pathname === '/project' && 'underline'}`}
-        >
-          프로젝트
-        </Link>
-
-        <Link
-          href='/about-me'
-          className={`font-bold  nt2 hover:underline underline-offset-8
-        ${isOpen ? 'duration-1000 opacity-100 delay-100' : 'duration-200 opacity-0'}
-        ${pathname === '/about-me' && 'underline'}`}
-        >
-          소개
-        </Link>
-
-        <Link
-          href='/contact'
-          className={`font-bold nt2 hover:underline underline-offset-8
-        ${isOpen ? 'duration-1000 opacity-100 delay-150' : 'duration-200 opacity-0'}
-        ${pathname === '/contact' && 'underline'}`}
-        >
-          연락
-        </Link>
-        <div className='fixed right-11 top-13 h-10 w-10 overflow-hidden cursor-pointer'>
-          <div
-            className={`absolute h-1 rounded-full  bg-[#F3EFE7] top-[4px] duration-500 w-8 
-            ${isOpen ? 'ml-10 opacity-0' : 'ml-1'}`}
-          />
-          <div
-            className={`absolute w-8 ml-1 h-1 rounded-full bg-[#F3EFE7] top-[17px] duration-500 
-            ${isOpen ? 'rotate-45' : 'rotate-0'}`}
-          />
-          <div
-            className={`absolute w-8 ml-1 h-1 rounded-full bg-[#F3EFE7] top-[17px] duration-500 
-            ${isOpen ? '-rotate-45' : 'rotate-0'}`}
-          />
-          <div
-            className={`absolute h-1 rounded-full  bg-[#F3EFE7] top-[30px] duration-500 w-6 
-            ${isOpen ? '-ml-10 opacity-0' : 'ml-3'}`}
-          />
-        </div>
-      </nav>
+        <div
+          className={`bg-secondary-400 absolute top-4 h-1 w-8 rounded-full duration-500
+            ${isOpen && "ml-10 opacity-0"}`}
+        />
+        <div
+          className={`bg-secondary-400 absolute top-[30px] h-1 w-7 ml-1 rounded-full duration-500 
+            ${isOpen && "-rotate-45"}`}
+        />
+        <div
+          className={`bg-secondary-400 absolute top-[30px] h-1 w-7 ml-1 rounded-full duration-500 
+            ${isOpen && "rotate-45"}`}
+        />
+        <div
+          className={`bg-secondary-400 absolute h-1 w-6 bottom-4 rounded-full duration-500
+            ${isOpen ? "-ml-10 opacity-0" : "ml-2"}`}
+        />
+      </button>
     </header>
   );
 };

@@ -5,6 +5,7 @@
 * {
   padding: 0;
   margin: 0;
+  /* border: 1px solid black; */
 }
 
 html,
@@ -48,4 +49,8 @@ body,
   flex-basis: 50px;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+.toggle:focus + nav {
+  width: 450px;
 }
