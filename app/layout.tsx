@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "김현석의 포트폴리오",
     description: "김현석의 포트폴리오",
-    images: "https://mrbonk97.github.io/meta-me.png",
+    images: "https://mrbonk97.github.io/images/meta-me.png",
     type: "website",
   },
 };
