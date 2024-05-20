@@ -40,13 +40,11 @@ body,
 }
 
 .nt {
-  flex-basis: 95px;
   flex-grow: 0;
   flex-shrink: 0;
 }
 
 .nt2 {
-  flex-basis: 50px;
   flex-grow: 0;
   flex-shrink: 0;
 }
