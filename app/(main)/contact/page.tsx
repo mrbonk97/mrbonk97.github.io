@@ -28,8 +28,8 @@ const ContactPage = () => {
       <div className="p-10 pt-24 max-w-[800px] flex flex-col items-center border-l border-r bg-white">
         <Image
           src={"/me4.jpg"}
-          width={1000}
-          height={1000}
+          width={720}
+          height={720}
           alt="me"
           className="max-w-80 max-h-80 sm:max-w-96 sm:max-h-96 rounded-full border"
         />

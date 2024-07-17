@@ -47,6 +47,22 @@ export const projects = [
     },
     image: "/0u.png",
   },
+  {
+    title: "Year Month 달력",
+    duration: "2024.07 ~ 2024.07",
+    size: "1명",
+    work: "프론트",
+    desc: "년월 달력 UI 라이브러리",
+    stack: ["ParcelJs"],
+    bg: "rgb(51, 65, 85)",
+    bg2: "rgb(255, 255, 255)",
+    tc: "white",
+    link: {
+      github: "https://github.com/mrbonk97/react-year-date-picker",
+      web: "https://www.npmjs.com/package/react-year-date-picker",
+    },
+    image: "/images/calendar.png",
+  },
 ];
 
 export const WORK_LIST = [
