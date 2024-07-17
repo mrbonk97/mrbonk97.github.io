@@ -1,233 +1,113 @@
-'use client';
-import { easeIn, motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+"use client";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { InfoList } from "./_component/info-list";
+import { CertiList } from "./_component/certi-list";
+import { AboutMeSection } from "./_component/section";
+import { Separator } from "@/components/separator";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { CERTI_LIST, EDU_LIST, WORK_LIST } from "@/constants";
 
 const ProfilePage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-    },
-    smooth: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        delay: 0.5,
-      },
-    },
-    smooth2: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        delay: 0.3,
-      },
-    },
-
-    seperator1: {
-      width: '70%',
-      y: 0,
-      transition: {
-        duration: 0.3,
-        delay: 0.9,
-        ease: easeIn,
-      },
-    },
-    seperator2: {
-      width: '70%',
-      y: 0,
-      transition: {
-        duration: 0.3,
-        delay: 0.3,
-        ease: easeIn,
-      },
-    },
-    separatorHidden: {
-      width: 0,
-      y: 1,
-    },
-    smoothDelay: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        delay: 0.7,
-      },
-    },
-    smoothDelay2: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        delay: 0.2,
-      },
-    },
-  };
   useEffect(() => {
-    ref.current!.style.width = '0';
+    ref.current!.style.width = "0";
     setTimeout(() => {
       setIsLoaded(true);
     }, 1000);
   }, []);
 
+  if (!isLoaded) {
+    return (
+      <div
+        className="fixed w-screen h-screen bg-primary-400 duration-1000 z-50"
+        ref={ref}
+      />
+    );
+  }
+
   return (
-    <>
-      {!isLoaded && <div className='fixed w-screen h-screen bg-primary-400 duration-1000 z-50' ref={ref} />}
-      <main className='flex flex-col items-center'>
-        <section className='mt-20 xl:mt-52 w-full flex flex-col items-center justify-center'>
-          <motion.h1
-            className='text-4xl xl:text-7xl font-bold'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth'
-            viewport={{ once: true }}
-            style={{ lineHeight: 1.625 }}
-          >
-            안녕하세요!
-            <br />
-            <span className='text-blue-500'>프론트엔드</span> 개발자
-            <br />
-            지망생 <span className='text-blue-500'>김현석</span>입니다.
-          </motion.h1>
-          <motion.div
-            className='w-3/4 h-0.5 rounded-full bg-neutral-300 my-10'
-            variants={variants}
-            initial='separatorHidden'
-            whileInView='seperator1'
-            viewport={{ once: true }}
-          />
-          <motion.p
-            className='px-10 text-sm xl:text-xl xl:leading-10 font-semibold text-center max-w-[750px]'
-            variants={variants}
-            initial='hidden'
-            whileInView='smoothDelay'
-            viewport={{ once: true }}
-          >
-            저는 현대적인 UI·UX를 통해 사용자의 경험을 높이는 것을 목표로 삼고 있습니다. 애니메이션과 레이아웃을
-            적절하게 활용하여 사용자의 시선을 집중시키고 Sementic 코드를 작성하여 사용자 접근성을 높이기 위해
-            노력합니다.
-          </motion.p>
-        </section>
-        <section className='w-full lg:w-auto mt-32 xl:mt-60 font-semibold max-w-[600px]'>
-          <motion.h2
-            className='pl-2 text-center lg:text-left text-2xl lg:text-4xl text-primary-400 mb-10'
-            variants={variants}
-            initial='hidden'
-            whileInView='smoothDelay2'
-            viewport={{ once: true }}
-          >
-            CAREER
-          </motion.h2>
-          <motion.article
-            className='mt-8 space-y-3 px-10 lg:px-0'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth2'
-            viewport={{ once: true }}
-          >
-            <div className='flex items-center gap-5 justify-between'>
-              <h2 className='text-3xl lg:text-6xl'>한전KDN</h2>
-              <h3 className='text-xl lg:text-3xl font-medium'>2022.12 ~ 2024.02</h3>
-            </div>
-            <h3 className='text-xl text-right px-1 lg:px-0'>경영ERP고도화TF</h3>
-            <h3 className='text-xl text-right px-1 lg:px-0'>직원</h3>
-          </motion.article>
-          <motion.article
-            className='mt-20 space-y-3 px-10 lg:px-0'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth2'
-            viewport={{ once: true }}
-          >
-            <div className='flex items-center gap-5 justify-between'>
-              <h2 className='text-3xl lg:text-6xl'>전남대학교</h2>
-              <h3 className='text-xl lg:text-3xl font-medium'>2021.07 ~ 2022.08</h3>
-            </div>
-            <h3 className='text-xl text-right'>손동작 인식 머신러닝 연구</h3>
-            <h3 className='text-xl text-right'>학부연구생</h3>
-          </motion.article>
-        </section>
-        <motion.div
-          className='w-3/4 h-0.5 rounded-full bg-neutral-300 my-20'
-          variants={variants}
-          initial='separatorHidden'
-          whileInView='seperator2'
+    <main className="min-h-full h-full">
+      <section className="mb-10 relative min-h-[800px] h-full w-full flex flex-col items-center pt-16 xl:pt-40">
+        <motion.h1
+          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center md:text-left"
+          initial={{ y: 60, opacity: 0 }}
+          // prettier-ignore
+          whileInView={{ y: 0, opacity: 1, transition: {duration: 0.8, delay: 0.2, } }}
           viewport={{ once: true }}
-        />
-        <section className='w-full lg:w-auto font-semibold max-w-[600px]'>
-          <motion.h2
-            className='pl-2 text-center lg:text-left text-2xl lg:text-4xl text-primary-400 mb-10'
-            variants={variants}
-            initial='hidden'
-            whileInView='smoothDelay2'
-            viewport={{ once: true }}
-          >
-            EDUCATION
-          </motion.h2>
-          <motion.article
-            className='mt-8 space-y-3 px-10 lg:px-0'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth2'
-            viewport={{ once: true }}
-          >
-            <div className='flex items-center gap-5 justify-between'>
-              <h2 className='text-3xl lg:text-6xl'>하나금융TI</h2>
-              <h3 className='text-xl lg:text-3xl font-medium'>2024.02 ~ 진행중</h3>
-            </div>
-            <h3 className='text-xl text-right'>데이터분석 채용연계형 교육생</h3>
-          </motion.article>
-          <motion.article
-            className='mt-20 space-y-3 px-10 lg:px-0'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth2'
-            viewport={{ once: true }}
-          >
-            <div className='flex items-center gap-5 justify-between'>
-              <h2 className='text-3xl lg:text-6xl'>전남대학교</h2>
-              <h3 className='text-xl lg:text-3xl font-medium'>2016.03 ~ 2023.02</h3>
-            </div>
-            <h3 className='text-xl text-right'>컴퓨터정보통신공학</h3>
-          </motion.article>
-        </section>
-        <motion.div
-          className='w-3/4 h-0.5 rounded-full bg-neutral-300 my-20'
-          variants={variants}
-          initial='separatorHidden'
-          whileInView='seperator2'
+          style={{ lineHeight: "150%" }}
+        >
+          안녕하세요!
+          <br />
+          <span className="text-blue-500">프론트엔드</span> 개발자
+          <br />
+          지망생 <span className="text-blue-500">김현석</span>입니다.
+        </motion.h1>
+        <Separator width="60%" mt={50} mb={50} />
+        <motion.p
+          className="pb-16 px-10 text-sm xl:text-xl xl:leading-10 font-semibold text-center max-w-[750px]"
+          initial={{ y: 40, opacity: 0 }}
+          // prettier-ignore
+          whileInView={{ y: 0, opacity: 1, transition: {duration: 0.6, delay: 0.7, } }}
           viewport={{ once: true }}
-        />
-        <section className='w-full lg:w-[550px] font-semibold mb-40 max-w-[600px]'>
-          <motion.h2
-            className='pl-2 text-center lg:text-left text-2xl lg:text-4xl text-primary-400 mb-10'
-            variants={variants}
-            initial='hidden'
-            whileInView='smoothDelay2'
-            viewport={{ once: true }}
-          >
-            CERTIFICATE
-          </motion.h2>
-          <motion.article
-            className='mt-8 space-y-14'
-            variants={variants}
-            initial='hidden'
-            whileInView='smooth2'
-            viewport={{ once: true }}
-          >
-            <hgroup className='px-10 lg:px-0'>
-              <h3 className='text-3xl lg:text-6xl text-center lg:text-left'>정보처리기사</h3>
-              <h3 className='mt-10 text-3xl lg:text-6xl text-center lg:text-left'>토익 935</h3>
-              <h3 className='mt-10 text-3xl lg:text-6xl text-center lg:text-left'>토스 IH</h3>
-            </hgroup>
-          </motion.article>
-        </section>
-      </main>
-    </>
+        >
+          저는 현대적인 UI·UX를 통해 사용자의 경험을 높이는 것을 목표로 삼고
+          있습니다. 애니메이션과 레이아웃을 적절하게 활용하여 사용자의 시선을
+          집중시키고 Sementic 코드를 작성하여 사용자 접근성을 높이기 위해
+          노력합니다.
+        </motion.p>
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          //prettier-ignore
+          whileInView={{y: 0, opacity: 1, transition: {duration: 0.4, delay: 1.2, ease:'easeIn'}}}
+          viewport={{ once: true }}
+          className="absolute bottom-14 flex justify-center text-blue-500"
+        >
+          <MdKeyboardArrowDown className="animate-bounce" size={64} />
+        </motion.div>
+      </section>
+
+      <AboutMeSection title="CAREER">
+        <ul className="space-y-10 sm:space-y-14 md:space-y-20">
+          {WORK_LIST.map((item) => (
+            <InfoList
+              key={item.title}
+              title={item.title}
+              duration={item.duration}
+              info1={item.info1}
+              info2={item.info2}
+            />
+          ))}
+        </ul>
+      </AboutMeSection>
+
+      <Separator width="60%" mt={100} mb={100} />
+
+      <AboutMeSection title="EDUCATION">
+        <ul className="space-y-10 sm:space-y-14 md:space-y-20">
+          {EDU_LIST.map((item) => (
+            <InfoList
+              key={item.title}
+              title={item.title}
+              duration={item.duration}
+              info1={item.info1}
+            />
+          ))}
+        </ul>
+      </AboutMeSection>
+
+      <Separator width="60%" mt={100} mb={100} />
+
+      <AboutMeSection title="CERTIFICATE">
+        <ul className="mb-40 space-y-10 sm:space-y-14 md:space-y-16">
+          {CERTI_LIST.map((item) => (
+            <CertiList title={item.title} idx={item.idx} key={item.idx} />
+          ))}
+        </ul>
+      </AboutMeSection>
+    </main>
   );
 };
 

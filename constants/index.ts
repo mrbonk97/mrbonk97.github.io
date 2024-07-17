@@ -48,3 +48,38 @@ export const projects = [
     image: "/0u.png",
   },
 ];
+
+export const WORK_LIST = [
+  {
+    title: "한전KDN",
+    duration: "2022.12 ~ 2024.02",
+    info1: "경영ERP고도화TF",
+    info2: "직원",
+  },
+  {
+    title: "전남대학교",
+    duration: "2021.07 ~ 2022.08",
+    info1: "손동작 인식 머신러닝 연구",
+    info2: "학부연구생",
+  },
+];
+
+export const EDU_LIST = [
+  {
+    title: "한국폴리텍",
+    duration: "2024.02 ~ 진행중",
+    info1: "데이터분석 채용연계형 교육생",
+  },
+  {
+    title: "전남대학교",
+    duration: "2016.03 ~ 2023.02",
+    info1: "컴퓨터정보통신공학",
+  },
+];
+
+export const CERTI_LIST = [
+  { title: "정보처리기사", idx: 0 },
+  { title: "SQLD", idx: 1 },
+  { title: "토익 935", idx: 2 },
+  { title: "토스 IH", idx: 3 },
+];
