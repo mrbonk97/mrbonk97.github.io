@@ -28,12 +28,6 @@ body,
   transform-origin: center;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .spin {
   animation: spin 10s linear infinite;
 }
@@ -63,6 +57,20 @@ body,
   animation-timing-function: ease-in;
 }
 
+.leftright {
+  animation-name: leftright;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes pageChange {
   from {
     width: 100%;
@@ -70,5 +78,14 @@ body,
   to {
     width: 0;
     display: none;
+  }
+}
+
+@keyframes leftright {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
   }
 }

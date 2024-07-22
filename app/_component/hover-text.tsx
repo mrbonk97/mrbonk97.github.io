@@ -24,9 +24,9 @@ export const HoverText = ({ title, delay = 0.7 }: HoverTextProps) => {
       y: 0,
       ease: "easeOut",
       transition: {
-        duration: 0.2,
+        duration: 0.4,
         delay: d,
-        ease: "linear",
+        ease: "easeInOut",
       },
     },
     hover: {
