@@ -7,6 +7,22 @@
   margin: 0;
 }
 
+@layer base {
+  :root {
+    --foreground: #404040;
+    --primary: 222.2 47.4% 11.2%;
+    --secondary: 14 100% 60%;
+    --tertiary: #fff;
+  }
+
+  .dark {
+    --foreground: #f5f5f5;
+    --primary: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --tertiary: #fff;
+  }
+}
+
 html,
 body,
 :root {
@@ -32,24 +48,10 @@ body,
   animation: spin 10s linear infinite;
 }
 
-.nt {
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
-.nt2 {
-  flex-grow: 0;
-  flex-shrink: 0;
-}
-
-.toggle:focus + nav {
-  width: 450px;
-}
-
 .loading-page {
   position: fixed;
-  height: 100vh;
-  width: 100vh;
+  height: 100%;
+  width: 100%;
   z-index: 99;
   animation-duration: 700ms;
   animation-name: pageChange;

@@ -31,7 +31,7 @@ export const TopNav = () => {
         ref={navRef}
         aria-pressed={isOpen}
         onClick={() => setIsOpen((cur) => !cur)}
-        className="h-14 w-0 aria-pressed:w-64 duration-500 overflow-hidden bg-primary-400 text-secondary-400"
+        className="h-14 w-0 aria-pressed:w-64 duration-500 overflow-hidden bg-secondary text-tertiary"
       >
         <ul
           className={`h-full px-5 flex items-center font-semibold gap-10 w-80`}
@@ -58,26 +58,26 @@ export const TopNav = () => {
       </nav>
       <button
         ref={buttonRef}
-        className="relative p-3 h-14 w-14 flex flex-col justify-between overflow-hidden cursor-pointer bg-primary-400"
+        className="relative p-3 h-14 w-14 flex flex-col justify-between overflow-hidden cursor-pointer bg-secondary"
         onClick={() => setIsOpen((cur) => !cur)}
       >
         <div
           aria-pressed={isOpen}
-          className="w-full h-1 rounded-full bg-secondary-400 duration-500 aria-pressed:ml-12 aria-pressed:opacity-0"
+          className="w-full h-1 rounded-full bg-white duration-500 aria-pressed:ml-12 aria-pressed:opacity-0"
         />
         <div className="relative w-full h-1">
           <div
             aria-pressed={isOpen}
-            className="absolute w-full h-1 duration-500 bg-secondary-400 rounded-full aria-pressed:rotate-45"
+            className="absolute w-full h-1 duration-500 bg-white rounded-full aria-pressed:rotate-45"
           />
           <div
             aria-pressed={isOpen}
-            className="absolute w-full h-1 duration-500 bg-secondary-400 rounded-full aria-pressed:-rotate-45"
+            className="absolute w-full h-1 duration-500 bg-white rounded-full aria-pressed:-rotate-45"
           />
         </div>
         <div
           aria-pressed={isOpen}
-          className="ml-2 w-6 h-1 rounded-full bg-secondary-400 duration-500 aria-pressed:-ml-12 aria-pressed:opacity-0"
+          className="ml-2 w-6 h-1 rounded-full bg-white duration-500 aria-pressed:-ml-12 aria-pressed:opacity-0"
         />
       </button>
     </header>

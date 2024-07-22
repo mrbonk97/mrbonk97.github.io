@@ -16,7 +16,7 @@ export const AboutMeSection = ({ title, children }: SectionProps) => {
             transition: { duration: 0.3, delay: 0.3, ease: "easeInOut" },
           }}
           viewport={{ once: true }}
-          className="sm:pl-5 mb-16 text-center sm:text-left text-3xl sm:text-4xl font-semibold text-primary-400"
+          className="sm:pl-5 mb-16 text-center sm:text-left text-3xl sm:text-4xl font-semibold text-secondary"
         >
           {title}
         </motion.h2>

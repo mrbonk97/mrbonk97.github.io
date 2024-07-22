@@ -22,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className + " bg-secondary-400 text-neutral-800"}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

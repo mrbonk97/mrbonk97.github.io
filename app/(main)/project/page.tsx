@@ -10,7 +10,7 @@ const ProjectsPage = () => {
   return (
     <>
       <PageTransition />
-      <main className="min-h-full h-full w-full flex justify-end">
+      <main className="min-h-full h-full w-full flex justify-end text-foreground">
         <section
           className="hidden md:block fixed left-0 top-0 h-full w-1/2 duration-500"
           style={{ transform: `translateY(${curIdx * -100}%)` }}

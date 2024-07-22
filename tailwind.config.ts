@@ -14,12 +14,17 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
+        foreground: {
+          DEFAULT: "var(--foreground)",
+        },
         primary: {
-          400: "#FF3B00",
+          DEFAULT: "hsl(var(--primary))",
         },
         secondary: {
-          // 400: '#F3EFE7',
-          400: "#FFFFFF",
+          DEFAULT: "hsl(var(--secondary))",
+        },
+        tertiary: {
+          DEFAULT: "var(--tertiary)",
         },
       },
     },
@@ -27,3 +32,9 @@ const config: Config = {
   plugins: [],
 };
 export default config;
+
+// 400: "#FF3B00",
+//         },
+//         secondary: {
+//           // 400: '#F3EFE7',
+//           400: "#FFFFFF",
