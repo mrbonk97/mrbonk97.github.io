@@ -1,4 +1,4 @@
-export const projects = [
+export const PROJECTS = [
   {
     title: "한수원 ERP 고도화",
     duration: "2023.02 ~ 2024.02",
@@ -6,46 +6,36 @@ export const projects = [
     work: "단위업무시스템 개발, 프로젝트 사업 관리",
     desc: "경영관리분야 BSC 성과지표 시스템 개발",
     stack: ["넥사크로", "iBatis", "P6"],
-    bg: "rgb(226 232 240)",
-    bg2: "rgb(209, 250, 229)",
+    cicd: null,
+    bg: "#e9fff9", //bg-slate-100
+    bg2: "#fff",
     tc: "inherit",
-    link: {
+    links: {
       github: null,
       web: null,
+      notion:
+        "https://rainbow-acoustic-3d7.notion.site/ERP-2afe0e8b1098426397f8a68fb2767493?pvs=74",
     },
-    image: "/khnp.svg",
+    image: "/images/khnp.svg",
   },
   {
-    title: "우만시",
-    duration: "2023.07 ~ 2023.08",
-    size: "4명",
-    work: "백엔드, 프론트(회원가입 이메일 인증)",
-    desc: "추억 공유 서비스 개발",
-    stack: ["Spring", "Redis", "Nginx", "React"],
-    bg: "rgb(148, 163, 184)",
-    bg2: "#f4eeff",
-    tc: "inherit",
-    link: {
-      github: "https://github.com/mrbonk97/jyck",
-      web: null,
-    },
-    image: "/our-memory.svg",
-  },
-  {
-    title: "공유",
+    title: "파일 공유",
     duration: "2024.03 ~ 2024.04",
     size: "1명",
-    work: "백엔드, 프론트",
+    work: "풀스택",
     desc: "파일 공유 서비스",
     stack: ["Spring Boot", "Nextjs"],
-    bg: "rgb(51, 65, 85)",
-    bg2: "rgb(255, 255, 255)",
+    cicd: ["Github action", "Heroku"],
+    bg: "#dbeafe", // bg-blue-100
+    bg2: "#476282",
     tc: "white",
-    link: {
+    links: {
       github: "https://github.com/mrbonk97/file-share-client",
       web: "https://github.com/mrbonk97/file-share-client",
+      notion:
+        "https://rainbow-acoustic-3d7.notion.site/ae97d81da3184725a8b861cacd6d1435?pvs=25",
     },
-    image: "/0u.png",
+    image: "/images/file-share.svg",
   },
   {
     title: "Year Month 달력",
@@ -54,15 +44,73 @@ export const projects = [
     work: "프론트",
     desc: "년월 달력 UI 라이브러리",
     stack: ["ParcelJs"],
-    bg: "rgb(51, 65, 85)",
-    bg2: "rgb(255, 255, 255)",
+    cicd: ["Github action"],
+    bg: "#fae8ff", // rose-200
+    bg2: "#3a506b",
     tc: "white",
-    link: {
+    links: {
       github: "https://github.com/mrbonk97/react-year-date-picker",
       web: "https://www.npmjs.com/package/react-year-date-picker",
+      notion: null,
     },
     image: "/images/calendar.png",
   },
+  {
+    title: "이력서 박스",
+    duration: "2024.07 ~ 2024.07",
+    size: "1명",
+    work: "프론트",
+    desc: "년월 달력 UI 라이브러리",
+    stack: ["ParcelJs"],
+    cicd: ["Github action", "Heroku"],
+    bg: "#e0e7ff", // fucisa-100
+    bg2: "#334155",
+    tc: "white",
+    links: {
+      github: "https://github.com/mrbonk97/react-year-date-picker",
+      web: "https://www.npmjs.com/package/react-year-date-picker",
+      notion:
+        "https://rainbow-acoustic-3d7.notion.site/343a5051b5fb49e1a9960540421049a5?pvs=25",
+    },
+    image: "/images/resume-box.png",
+  },
+  {
+    title: "예방",
+    duration: "2023.07 ~ 2023.07(2주)",
+    size: "5명",
+    work: "데이터 크롤링, 프론트",
+    desc: "전세사기 예방 서비스",
+    stack: ["React", "Node", "Lambda"],
+    cicd: ["Github action"],
+    bg: "#e9d5ff", //bg-purple-300
+    bg2: "#222B38",
+    tc: "white",
+    links: {
+      github: "https://github.com/hanaTI-team-1",
+      web: "https://rainbow-acoustic-3d7.notion.site/329a312ed1ac46f3aef6e54171105d5f?pvs=25",
+      notion:
+        "https://rainbow-acoustic-3d7.notion.site/a38ecdf163e24dacb08663a24f4ed289?pvs=25",
+    },
+    image: "/images/house.png",
+  },
+  // {
+  //   title: "우만시",
+  //   duration: "2023.07 ~ 2023.08",
+  //   size: "4명",
+  //   work: "백엔드, 프론트(회원가입 이메일 인증)",
+  //   desc: "추억 공유 서비스 개발",
+  //   stack: ["Spring", "Redis", "Nginx", "React"],
+  //   bg: "#e9d5ff", //bg-purple-300
+  //   bg2: "#94a3b8",
+  //   tc: "inherit",
+  //   links: {
+  //     github: "https://github.com/mrbonk97/jyck",
+  //     web: null,
+  //     notion:
+  //       "https://rainbow-acoustic-3d7.notion.site/a38ecdf163e24dacb08663a24f4ed289?pvs=25",
+  //   },
+  //   image: "/images/our-memory.svg",
+  // },
 ];
 
 export const WORK_LIST = [
