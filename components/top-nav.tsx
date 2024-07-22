@@ -1,62 +1,83 @@
-'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export const TopNav = () => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (!buttonRef.current) return;
+      if (!navRef.current) return;
+      if (navRef.current.contains(event.target)) return;
+      if (buttonRef.current.contains(event.target)) return;
+      setIsOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [buttonRef, navRef]);
+
   return (
-    <header>
+    <header className="fixed z-40 top-0 pt-5 pr-5 md:pt-10 md:pr-20 w-full flex justify-end">
       <nav
-        className={`bg-primary-400 fixed right-24 top-10 h-16 z-40 duration-500 overflow-hidden
-        ${isOpen ? 'w-60 sm:w-96' : ' w-0'}`}
+        ref={navRef}
+        aria-pressed={isOpen}
+        onClick={() => setIsOpen((cur) => !cur)}
+        className="h-14 w-0 aria-pressed:w-64 duration-500 overflow-hidden bg-primary-400 text-secondary-400"
       >
-        <ul className='text-secondary-400 w-60 sm:w-96 justify-evenly flex h-full items-center text-lg sm:text-xl font-semibold'>
+        <ul
+          className={`h-full px-5 flex items-center font-semibold gap-10 w-80`}
+        >
           <li
-            className={`nt text-center hover:underline underline-offset-8 duration-150
-            ${pathname === '/project' && 'underline'}`}
-            onClick={() => setIsOpen(false)}
+            className={`cursor-pointer shrink-0 hover:underline underline-offset-4
+            ${pathname === "/project" && "underline"}`}
           >
-            <Link href='/project'>프로젝트</Link>
+            <Link href={"/project"}>프로젝트</Link>
           </li>
           <li
-            className={`nt text-center hover:underline underline-offset-8 duration-150
-          ${pathname === '/about-me' && 'underline'}`}
-            onClick={() => setIsOpen(false)}
+            className={`cursor-pointer shrink-0 hover:underline underline-offset-4
+            ${pathname === "/about-me" && "underline"}`}
           >
-            <Link href='/about-me'>소개</Link>
+            <Link href={"/about-me"}>소개</Link>
           </li>
           <li
-            className={`nt text-center hover:underline underline-offset-8 duration-150
-           ${pathname === '/contact' && 'underline'}`}
-            onClick={() => setIsOpen(false)}
+            className={`cursor-pointer shrink-0 hover:underline underline-offset-4
+            ${pathname === "/contact" && "underline"}`}
           >
-            <Link href='/contact'>연락</Link>
+            <Link href={"/contact"}> 연락</Link>
           </li>
         </ul>
       </nav>
-
       <button
-        className='bg-primary-400 fixed right-10 top-10 h-16 w-16 p-4 overflow-hidden z-50'
+        ref={buttonRef}
+        className="relative p-3 h-14 w-14 flex flex-col justify-between overflow-hidden cursor-pointer bg-primary-400"
         onClick={() => setIsOpen((cur) => !cur)}
       >
         <div
-          className={`bg-secondary-400 absolute top-4 h-1 w-8 rounded-full duration-500
-            ${isOpen && 'ml-10 opacity-0'}`}
+          aria-pressed={isOpen}
+          className="w-full h-1 rounded-full bg-secondary-400 duration-500 aria-pressed:ml-12 aria-pressed:opacity-0"
         />
+        <div className="relative w-full h-1">
+          <div
+            aria-pressed={isOpen}
+            className="absolute w-full h-1 duration-500 bg-secondary-400 rounded-full aria-pressed:rotate-45"
+          />
+          <div
+            aria-pressed={isOpen}
+            className="absolute w-full h-1 duration-500 bg-secondary-400 rounded-full aria-pressed:-rotate-45"
+          />
+        </div>
         <div
-          className={`bg-secondary-400 absolute top-[30px] h-1 w-7 ml-1 rounded-full duration-500 
-            ${isOpen && '-rotate-45'}`}
-        />
-        <div
-          className={`bg-secondary-400 absolute top-[30px] h-1 w-7 ml-1 rounded-full duration-500 
-            ${isOpen && 'rotate-45'}`}
-        />
-        <div
-          className={`bg-secondary-400 absolute h-1 w-6 bottom-4 rounded-full duration-500
-            ${isOpen ? '-ml-10 opacity-0' : 'ml-2'}`}
+          aria-pressed={isOpen}
+          className="ml-2 w-6 h-1 rounded-full bg-secondary-400 duration-500 aria-pressed:-ml-12 aria-pressed:opacity-0"
         />
       </button>
     </header>
