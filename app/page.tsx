@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <PageTransition />
-      <main className="w-full h-full lg:min-h-[750px] text-secondary text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-widest flex flex-col gap-20 items-center justify-center bg-neutral-700 dark:bg-neutral-700">
+      <main className="w-full h-full lg:min-h-[750px] text-secondary text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-widest flex flex-col gap-20 items-center justify-center bg-neutral-800 dark:bg-neutral-800">
         <HoverText title="안녕하세요" delay={0.7} />
         <CircleHello />
         <HoverText title="저의 포트폴리오" delay={0.75} />
