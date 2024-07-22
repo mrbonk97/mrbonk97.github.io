@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 interface SeparatorProps {
   mt?: number;
