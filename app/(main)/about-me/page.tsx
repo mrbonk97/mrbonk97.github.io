@@ -12,7 +12,7 @@ const ProfilePage = () => {
   return (
     <>
       <PageTransition />
-      <main className="min-h-full h-full text-foreground">
+      <main className="min-h-full text-foreground bg-background">
         <section className="mb-10 relative min-h-[800px] h-full w-full flex flex-col items-center pt-16 xl:pt-40">
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center md:text-left"

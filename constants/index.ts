@@ -2,7 +2,7 @@ export const PROJECTS = [
   {
     title: "한수원 ERP 고도화",
     duration: "2023.02 ~ 2024.02",
-    size: "130명 이상",
+    size: "120명 이상",
     work: "단위업무시스템 개발, 프로젝트 사업 관리",
     desc: "경영관리분야 BSC 성과지표 시스템 개발",
     stack: ["넥사크로", "iBatis", "P6"],
@@ -14,7 +14,7 @@ export const PROJECTS = [
       github: null,
       web: null,
       notion:
-        "https://rainbow-acoustic-3d7.notion.site/ERP-2afe0e8b1098426397f8a68fb2767493?pvs=74",
+        "https://rainbow-acoustic-3d7.notion.site/ERP-2afe0e8b1098426397f8a68fb2767493",
     },
     image: "/images/khnp.svg",
   },
@@ -25,15 +25,14 @@ export const PROJECTS = [
     work: "풀스택",
     desc: "파일 공유 서비스",
     stack: ["Spring Boot", "Nextjs"],
-    cicd: ["Github action", "Heroku"],
     bg: "#dbeafe", // bg-blue-100
     bg2: "#476282",
     tc: "white",
     links: {
-      github: "https://github.com/mrbonk97/file-share-client",
-      web: "https://github.com/mrbonk97/file-share-client",
+      github: "https://github.com/mrbonk97/file-share-fe",
+      web: "https://www.file-share.site",
       notion:
-        "https://rainbow-acoustic-3d7.notion.site/ae97d81da3184725a8b861cacd6d1435?pvs=25",
+        "https://rainbow-acoustic-3d7.notion.site/ae97d81da3184725a8b861cacd6d1435",
     },
     image: "/images/file-share.svg",
   },
@@ -51,26 +50,26 @@ export const PROJECTS = [
     links: {
       github: "https://github.com/mrbonk97/react-year-date-picker",
       web: "https://www.npmjs.com/package/react-year-date-picker",
-      notion: null,
+      notion:
+        "https://rainbow-acoustic-3d7.notion.site/React-year-date-picker-9b73657ba0ed487eacf4a5d0ce33b61d",
     },
     image: "/images/calendar.png",
   },
   {
     title: "이력서 박스",
-    duration: "2024.07 ~ 2024.07",
+    duration: "2024.07 ~ 진행중",
     size: "1명",
-    work: "프론트",
-    desc: "년월 달력 UI 라이브러리",
-    stack: ["ParcelJs"],
-    cicd: ["Github action", "Heroku"],
+    work: "풀스택",
+    desc: "이력서 기록 서비스",
+    stack: ["Spring boot", "Nextjs"],
     bg: "#e0e7ff", // fucisa-100
     bg2: "#334155",
     tc: "white",
     links: {
-      github: "https://github.com/mrbonk97/react-year-date-picker",
-      web: "https://www.npmjs.com/package/react-year-date-picker",
+      github: "https://github.com/mrbonk97/resume-box-fe",
+      web: "https://resume-box.vercel.app",
       notion:
-        "https://rainbow-acoustic-3d7.notion.site/343a5051b5fb49e1a9960540421049a5?pvs=25",
+        "https://rainbow-acoustic-3d7.notion.site/343a5051b5fb49e1a9960540421049a5",
     },
     image: "/images/resume-box.png",
   },
@@ -87,9 +86,9 @@ export const PROJECTS = [
     tc: "white",
     links: {
       github: "https://github.com/hanaTI-team-1",
-      web: "https://rainbow-acoustic-3d7.notion.site/329a312ed1ac46f3aef6e54171105d5f?pvs=25",
+      web: "http://yebang-bucket.s3-website.ap-northeast-2.amazonaws.com/",
       notion:
-        "https://rainbow-acoustic-3d7.notion.site/a38ecdf163e24dacb08663a24f4ed289?pvs=25",
+        "https://rainbow-acoustic-3d7.notion.site/329a312ed1ac46f3aef6e54171105d5f",
     },
     image: "/images/house.png",
   },

@@ -26,6 +26,9 @@ const config: Config = {
         tertiary: {
           DEFAULT: "var(--tertiary)",
         },
+        background: {
+          DEFAULT: "hsl(var(--background))",
+        },
       },
     },
   },

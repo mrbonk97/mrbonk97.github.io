@@ -6,14 +6,14 @@ const ContactPage = () => {
   return (
     <>
       <PageTransition />
-      <main className="h-full w-full flex justify-center bg-slate-50">
+      <main className="min-h-full w-full flex justify-center bg-slate-50 text-foreground">
         <div className="p-10 pt-24 max-w-[800px] flex flex-col items-center border-l border-r bg-white">
           <Image
             src={"/me4.jpg"}
             width={720}
             height={720}
             alt="me"
-            className="max-w-80 max-h-80 sm:max-w-96 sm:max-h-96 rounded-full border"
+            className="max-w-80 max-h-80 rounded-full border"
           />
           <h1 className="mt-5 sm:mt-10 opacity-90 text-center text-md sm:text-3xl font-semibold break-keep">
             연락 주시면 빠른 시일 내에 회신드리겠습니다.
