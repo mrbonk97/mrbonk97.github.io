@@ -25,6 +25,7 @@ export const PROJECTS = [
     work: "풀스택",
     desc: "파일 공유 서비스",
     stack: ["Spring Boot", "Nextjs"],
+    cicd: null,
     bg: "#dbeafe", // bg-blue-100
     bg2: "#476282",
     tc: "white",
@@ -62,6 +63,7 @@ export const PROJECTS = [
     work: "풀스택",
     desc: "이력서 기록 서비스",
     stack: ["Spring boot", "Nextjs"],
+    cicd: null,
     bg: "#e0e7ff", // fucisa-100
     bg2: "#334155",
     tc: "white",
