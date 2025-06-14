@@ -22,7 +22,7 @@ export const CAREER = [
     company: "하나금융TI",
     duration: "2024.11 ~ 재직 중",
     department: "정보보호센터/사원",
-    imgUrl: "/hana.png",
+    imgUrl: "/hana.svg",
     workDesc: "하나금융그룹 관계사 보안 취약점 점검",
   },
   {
@@ -120,7 +120,7 @@ export const AWARD = [
     title: "AI+X 코딩기초역량강화 경진대회",
     asd2: "광주전남지역혁신플랫폼폼",
     asd: "은상",
-    description: "웹 포트롤리오 제작 부문 수상",
+    description: "웹 포트폴리오 제작 부문 수상",
     data: "2022.01",
   },
 ];
