@@ -25,19 +25,13 @@ export const Footer = () => {
             <Link
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline underline-offset-2"
               href={"https://www.instagram.com/mrbonk97"}
             >
               인스타그램
             </Link>
           </li>
           <li>
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline underline-offset-2"
-              href={"https://github.com/mrbonk97"}
-            >
+            <Link target="_blank" rel="noopener noreferrer" href={"https://github.com/mrbonk97"}>
               깃허브
             </Link>
           </li>

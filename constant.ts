@@ -16,6 +16,74 @@ export const BLOG_TAGS = [
   },
 ];
 
+export const PROJECTS = [
+  {
+    id: "project-1",
+    title: "Upshare",
+    description: "취약한 파일공유 서비스",
+    images: [
+      "/projects/upshare/upshare-1.png",
+      "/projects/upshare/upshare-2.png",
+      "/projects/upshare/upshare-3.png",
+      "/projects/upshare/upshare-4.png",
+    ],
+    links: [
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/upshare",
+      },
+      {
+        name: "웹사이트",
+        url: "https://upshare-phi.vercel.app",
+      },
+    ],
+  },
+
+  {
+    id: "project-2",
+    title: "이인거(Twicycle)",
+    description: "이인승 자전거 위치 찾기",
+    images: [
+      "/projects/twicycle/twicycle-1.png",
+      "/projects/twicycle/twicycle-2.png",
+      "/projects/twicycle/twicycle-3.png",
+      "/projects/twicycle/twicycle-4.png",
+      "/projects/twicycle/twicycle-5.png",
+    ],
+
+    links: [
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/twicycle",
+      },
+      {
+        name: "테스트",
+        url: "https://www.twicycle.site",
+      },
+    ],
+  },
+  {
+    id: "project-3",
+    title: "React YearMonth Picker",
+    description: "리액트 날짜선택 UI 라이브러리",
+    images: ["/projects/ym-picker/ym-picker-1", "/projects/ym-picker/ym-picker-1"],
+    links: [
+      {
+        name: "npm",
+        url: "https://www.npmjs.com/package/react-year-date-picker",
+      },
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/react-year-date-picker",
+      },
+      {
+        name: "테스트",
+        url: "https://mrbonk97.github.io/react-year-date-picker",
+      },
+    ],
+  },
+];
+
 export const CAREER = [
   {
     id: "career-1",
