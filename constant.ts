@@ -66,7 +66,7 @@ export const PROJECTS = [
     id: "project-3",
     title: "React YearMonth Picker",
     description: "리액트 날짜선택 UI 라이브러리",
-    images: ["/projects/ym-picker/ym-picker-1", "/projects/ym-picker/ym-picker-1"],
+    images: ["/projects/ym-picker/ym-picker-1.png", "/projects/ym-picker/ym-picker-1.png"],
     links: [
       {
         name: "npm",
