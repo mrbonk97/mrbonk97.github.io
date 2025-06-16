@@ -1,19 +1,19 @@
-import { BLOG_TAGS } from "@/constant";
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { BLOG_TAGS } from "@/constant";
 
-interface Props {
-  className?: string;
-  curTag: string | undefined;
-}
+export const BlogNavSection = () => {
+  const searchParams = useSearchParams();
+  const tag = searchParams.get("tag");
 
-export const BlogNavSection = ({ className, curTag }: Props) => (
-  <section className={className}>
-    <h2 className="pb-2 text-left text-2xl font-semibold opacity-80 border-b">블로그 게시글</h2>
+  return (
     <nav className="mt-2 flex items-center gap-5 text-sm font-medium">
       {BLOG_TAGS.map((item) => (
         <Link
           key={item.id}
-          aria-selected={item.tag == curTag}
+          aria-selected={item.tag == tag}
           href={item.tag ? `/blog?tag=${item.tag}` : "/blog"}
           className="py-2 px-4 rounded-xl bg-secondary aria-selected:bg-custom-1 aria-selected:text-primary-foreground hover:bg-custom-1 hover:text-primary-foreground duration-150"
         >
@@ -21,5 +21,5 @@ export const BlogNavSection = ({ className, curTag }: Props) => (
         </Link>
       ))}
     </nav>
-  </section>
-);
+  );
+};
