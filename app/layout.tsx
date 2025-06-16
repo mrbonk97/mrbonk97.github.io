@@ -5,8 +5,41 @@ import { Topnav } from "@/components/nav/top-nav";
 import { ThemeProvider } from "@/components/dark-mode/theme-provider";
 
 export const metadata: Metadata = {
-  title: "行法",
-  description: "저의 웹사이트입니다.",
+  title: "行法 | 보안 블로그",
+  description: "웹 보안과 개발을 함께 탐구하는 기술 블로그입니다.",
+  keywords: [
+    "mrbonk97",
+    "개발자",
+    "보안",
+    "취약점",
+    "프론트엔드",
+    "Next.js",
+    "行法",
+    "블로그",
+    "포트폴리오",
+  ],
+  openGraph: {
+    title: "行法 | 보안 블로그",
+    description: "웹 보안과 개발을 함께 탐구하는 기술 블로그입니다.",
+    url: "https://mrbonk97.github.io",
+    siteName: "行法",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "行法 블로그",
+      },
+    ],
+    locale: "ko_KR",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "行法 | 보안 블로그",
+    description: "웹 보안과 개발을 함께 탐구하는 기술 블로그입니다.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({

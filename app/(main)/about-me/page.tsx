@@ -1,5 +1,45 @@
 import { AWARD, CAREER, CERT, EDUCATION } from "@/constant";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "行法 | About Me",
+  description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
+  keywords: [
+    "mrbonk97",
+    "개발자",
+    "보안",
+    "취약점",
+    "프론트엔드",
+    "Next.js",
+    "行法",
+    "About Me",
+    "블로그",
+    "포트폴리오",
+  ],
+  openGraph: {
+    title: "김현석 - 프론트엔드 & 보안 개발자",
+    description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
+    url: "https://mrbonk97.github.io/about-me",
+    siteName: "行法",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "개발자 김현석 프로필",
+      },
+    ],
+    locale: "ko_KR",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "行法 | About Me",
+    description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
+    images: ["/opengraph-image"],
+  },
+};
 
 const AboutmePage = () => {
   return (

@@ -9,6 +9,7 @@ export const Logo = () => {
         <TooltipTrigger>
           <Link
             href={"/"}
+            style={{ textDecoration: "none" }}
             className={`block text-2xl sm:text-4xl tracking-tighter ${kleeOne.className}`}
           >
             行法
