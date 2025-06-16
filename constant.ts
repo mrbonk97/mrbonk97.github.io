@@ -113,33 +113,6 @@ export const EDUCATION = [
   },
 ];
 
-export const ARTICLES = [
-  {
-    id: "article-1",
-    title: "무료 MYSQL에 감사로그 설치기",
-  },
-  {
-    id: "article-2",
-    title: "SKT BPFDoor 코드 분석",
-  },
-  {
-    id: "article-3",
-    title: "웹점검 개꿀팁 방출",
-  },
-  {
-    id: "article-1",
-    title: "DHCP 프로토콜 점검하기",
-  },
-  {
-    id: "article-2",
-    title: "SKT BPFDoor 코드 분석",
-  },
-  {
-    id: "article-3",
-    title: "웹점검 개꿀팁 방출",
-  },
-];
-
 export const CERT = [
   {
     id: "cert-1",

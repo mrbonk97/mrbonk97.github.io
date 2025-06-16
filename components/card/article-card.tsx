@@ -4,11 +4,11 @@ import Link from "next/link";
 interface Props {
   id: number;
   title: string;
-  description: string;
+  tagName: string;
   imgUrl: string;
 }
 
-export const ArticleCard = ({ id, title, description, imgUrl }: Props) => {
+export const ArticleCard = ({ id, title, tagName, imgUrl }: Props) => {
   return (
     <article>
       <Link
@@ -22,10 +22,8 @@ export const ArticleCard = ({ id, title, description, imgUrl }: Props) => {
           width={512}
           className="w-full object-cover group-hover:rounded-xl duration-150"
         />
-        <header className="mt-2">
-          <h2 className="font-medium text-2xl">{title}</h2>
-          <p className="font-medium opacity-80">{description}</p>
-        </header>
+        <h2 className="mt-2 font-medium text-lg sm:text-2xl md:text-lg lg:text-xl">{title}</h2>
+        <div className="mt-0.5 font-medium text-sm md:text-base opacity-70">#{tagName}</div>
       </Link>
     </article>
   );
