@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "行法",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "行法 블로그",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "行法 | 보안 블로그",
     description: "웹 보안과 개발을 함께 탐구하는 기술 블로그입니다.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image.png"],
   },
 };
 

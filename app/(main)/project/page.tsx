@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "行法",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "사이드 프로젝트",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "行法 | 프로젝트",
     description: "사이드 프로젝트들을 소개합니다.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image.png"],
   },
 };
 

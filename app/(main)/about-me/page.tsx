@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "行法",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "개발자 김현석 프로필",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "行法 | About Me",
     description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image.png"],
   },
 };
 
