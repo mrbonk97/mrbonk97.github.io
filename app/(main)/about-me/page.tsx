@@ -4,30 +4,30 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "行法 | About Me",
-  description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
+  description: "보안 전문가이자 개발자로서의 소개",
   keywords: [
     "mrbonk97",
+    "김현석",
     "개발자",
     "보안",
     "취약점",
     "프론트엔드",
-    "Next.js",
+    "프로젝트",
     "行法",
-    "About Me",
     "블로그",
     "포트폴리오",
   ],
   openGraph: {
-    title: "김현석 - 프론트엔드 & 보안 개발자",
-    description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
+    title: "行法 | About Me",
+    description: "보안 전문가이자 개발자로서의 소개",
     url: "https://mrbonk97.github.io/about-me",
     siteName: "行法",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "https://mrbonk97.github.io/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "개발자 김현석 프로필",
+        alt: "mrbonk97 프로필",
       },
     ],
     locale: "ko_KR",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "行法 | About Me",
-    description: "웹 보안과 프론트엔드 개발을 중심으로 성장해온 개발자입니다.",
-    images: ["/opengraph-image.png"],
+    description: "보안 전문가이자 개발자로서의 소개",
+    images: ["https://mrbonk97.github.io/opengraph-image.png"],
   },
 };
 
