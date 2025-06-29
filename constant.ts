@@ -64,21 +64,25 @@ export const PROJECTS = [
   },
   {
     id: "project-3",
-    title: "React YearMonth Picker",
+    title: "Year Month Picker",
     description: "리액트 날짜선택 UI 라이브러리",
-    images: ["/projects/ym-picker/ym-picker-1.png", "/projects/ym-picker/ym-picker-1.png"],
+    images: [
+      "/projects/ym-picker/ym-picker-1.png",
+      "/projects/ym-picker/ym-picker-2.png",
+      "/projects/ym-picker/ym-picker-3.png",
+    ],
     links: [
       {
         name: "npm",
-        url: "https://www.npmjs.com/package/react-year-date-picker",
+        url: "https://www.npmjs.com/package/year-month-picker",
       },
       {
         name: "깃허브",
-        url: "https://github.com/mrbonk97/react-year-date-picker",
+        url: "https://github.com/mrbonk97/year-month-picker",
       },
       {
         name: "테스트",
-        url: "https://mrbonk97.github.io/react-year-date-picker",
+        url: "https://mrbonk97.github.io/year-month-picker",
       },
     ],
   },
