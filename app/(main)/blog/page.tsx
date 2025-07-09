@@ -70,10 +70,16 @@ const BlogPage = () => {
         </Suspense>
       </section>
       <section className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="mt-40 text-custom-1 md:col-span-2">
-          <Bird size={64} className="mt-10 mx-auto" />
-          <p className="mt-5 text-xl font-medium text-center">등록된 게시글이 없습니다...</p>
-        </div>
+        <Suspense
+          fallback={
+            <div className="mt-40 text-custom-1 md:col-span-2">
+              <Bird size={64} className="mt-10 mx-auto" />
+              <p className="mt-5 text-xl font-medium text-center">등록된 게시글이 없습니다...</p>
+            </div>
+          }
+        >
+          <BlogListSection />
+        </Suspense>
       </section>
     </main>
   );
