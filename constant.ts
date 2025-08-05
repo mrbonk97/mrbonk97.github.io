@@ -19,6 +19,27 @@ export const BLOG_TAGS = [
 export const PROJECTS = [
   {
     id: "project-1",
+    title: "단거주의보",
+    description: "이 음식에 설탕이 얼마나? 우리가 알려드릴게요.",
+    images: [
+      "/projects/sweet-alert/sweet-alert-1.png",
+      "/projects/sweet-alert/sweet-alert-2.png",
+      "/projects/sweet-alert/sweet-alert-3.png",
+    ],
+    links: [
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/sweet-alert",
+      },
+      {
+        name: "웹사이트",
+        url: "https://sweet-alert-ten.vercel.app",
+      },
+    ],
+  },
+
+  {
+    id: "project-2",
     title: "Upshare",
     description: "취약한 파일공유 서비스",
     images: [
@@ -40,7 +61,7 @@ export const PROJECTS = [
   },
 
   {
-    id: "project-2",
+    id: "project-3",
     title: "이인거(Twicycle)",
     description: "이인승 자전거 위치 찾기",
     images: [
@@ -63,7 +84,7 @@ export const PROJECTS = [
     ],
   },
   {
-    id: "project-3",
+    id: "project-4",
     title: "Year Month Picker",
     description: "리액트 날짜선택 UI 라이브러리",
     images: [
