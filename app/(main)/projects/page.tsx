@@ -13,6 +13,7 @@ interface Props {
   searchParams: Promise<{ filter: string }>;
 }
 
+export const dynamic = "force-dynamic";
 async function ProjectsPage({ searchParams }: Props) {
   const { filter } = await searchParams;
 
