@@ -1,12 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { pretendard } from "@/lib/font";
-import { Topnav } from "@/components/nav/top-nav";
-import { ThemeProvider } from "@/components/dark-mode/theme-provider";
+import { astaSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "行法 | 보안 블로그",
-  description: "보안과 웹 개발 중심의 블로그입니다.",
+  title: "mrbonk97",
+  description: "mrbonk97 개발자 포트폴리오",
   keywords: [
     "mrbonk97",
     "김현석",
@@ -17,20 +15,19 @@ export const metadata: Metadata = {
     "프로젝트",
     "行法",
     "About Me",
-    "블로그",
     "포트폴리오",
   ],
   openGraph: {
-    title: "行法 | 보안 블로그",
-    description: "보안과 웹 개발 중심의 블로그입니다.",
+    title: "mrbonk97",
+    description: "mrbonk97 개발자 포트폴리오.",
     url: "https://mrbonk97.github.io",
-    siteName: "行法",
+    siteName: "mrbonk97",
     images: [
       {
         url: "https://mrbonk97.github.io/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "行法 블로그",
+        alt: "mrbonk97 포트폴리오",
       },
     ],
     locale: "ko_KR",
@@ -38,30 +35,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "行法 | 보안 블로그",
-    description: "보안과 웹 개발 중심의 블로그입니다.",
+    title: "mrbonk97",
+    description: "mrbonk97 개발자 포트폴리오",
     images: ["https://mrbonk97.github.io/opengraph-image.png"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface Props {
   children: React.ReactNode;
-}>) {
+}
+
+function RootLayout({ children }: Props) {
   return (
-    <html lang="ko" suppressHydrationWarning>
-      <body className={`${pretendard.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Topnav />
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="ko">
+      <body className={`${astaSans.className} antialiased`}>{children}</body>
     </html>
   );
 }
+
+export default RootLayout;

@@ -1,25 +1,38 @@
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
-import { Logo } from "@/components/logo";
-import { DarkModeButton } from "@/components/dark-mode/dark-mode-button";
+import { RefObject } from "react";
 
-export const Topnav = () => {
+interface Props {
+  ref?: RefObject<HTMLDivElement | null>;
+  className?: string;
+}
+
+export function Topnav({ ref, className }: Props) {
   return (
-    <nav className="z-10 fixed top-0 p-5 px-[5%] h-20 w-full flex items-center justify-between border-b bg-background text-custom-1 border-custom-1">
-      <Logo />
-
-      <ul className="flex items-center gap-5 **:[a]:hover:underline underline-offset-2">
+    <nav
+      ref={ref}
+      className={cn(
+        `fixed z-10 top-0 left-0 right-0 p-4 h-16 flex items-center justify-between gap-4 bg-background`,
+        className
+      )}
+    >
+      <Link href={"/"} className="opacity-80 hover:opacity-50 duration-150">
+        <Image src={"/images/logo.svg"} alt="logo" height={128} width={128} className="w-14" />
+      </Link>
+      <ul className="flex gap-4 font-semibold">
         <li>
-          <Link href={"/blog"}>블로그</Link>
+          <Link href={"/projects"} className="opacity-80 hover:opacity-50 duration-150">
+            프로젝트
+          </Link>
         </li>
         <li>
-          <Link href={"/project"}>작품</Link>
-        </li>
-        <li>
-          <Link href={"/about-me"}>소개</Link>
+          <Link href={"/about-me"} className="opacity-80 hover:opacity-50 duration-150">
+            소개
+          </Link>
         </li>
       </ul>
-
-      <DarkModeButton />
+      <div className="w-14 h-1" />
     </nav>
   );
-};
+}

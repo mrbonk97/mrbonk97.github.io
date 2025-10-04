@@ -1,42 +1,60 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export const Footer = () => {
+export function Footer() {
   return (
-    <footer className="mt-40 py-10 px-5 text-center md:text-left flex md:items-center justify-center flex-col md:flex-row gap-10 md:gap-20 bg-secondary">
-      <Image
-        src={"/man.png"}
-        alt="man"
-        height={128}
-        width={128}
-        className="mx-auto md:mx-0 object-contain"
-      />
-      <div>
-        <h6 className="text-lg font-semibold">연락처</h6>
-        <ul className="mt-2 text-sm">
-          <li>이메일: hyunsuk1997@naver.com</li>
-          <li>휴대폰: 010-8433-3792</li>
-        </ul>
-      </div>
-      <div>
-        <h6 className="text-lg font-semibold">다른 주소</h6>
-        <ul className="mt-2 text-sm">
-          <li>
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              href={"https://www.instagram.com/mrbonk97"}
-            >
-              인스타그램
-            </Link>
-          </li>
-          <li>
-            <Link target="_blank" rel="noopener noreferrer" href={"https://github.com/mrbonk97"}>
-              깃허브
-            </Link>
-          </li>
-        </ul>
+    <footer className="mt-20 bg-secondary text-center md:text-left">
+      <div className="py-12 p-4 mx-auto max-w-7xl flex flex-col md:flex-row gap-8 md:gap-16">
+        <Image
+          src={"/images/icons/man.png"}
+          alt="man"
+          height={512}
+          width={512}
+          quality={100}
+          className="mx-auto w-32 object-contain"
+        />
+        <section>
+          <h5 className="text-lg font-semibold opacity-80">사이트맵</h5>
+          <ul className="text-sm">
+            <li>
+              <Link href={"/"} className="hover:underline underline-offset-2">
+                홈
+              </Link>
+            </li>
+            <li>
+              <Link href={"/projects"} className="hover:underline underline-offset-2">
+                프로젝트
+              </Link>
+            </li>
+            <li>
+              <Link href={"/about-me"} className="hover:underline underline-offset-2">
+                소개
+              </Link>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h5 className="text-lg font-semibold opacity-80">외부링크</h5>
+          <ul className="text-sm">
+            <li>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/mrbonk97"
+                className="hover:underline underline-offset-2"
+              >
+                깃허브
+              </Link>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h5 className="text-lg font-semibold opacity-80">문의</h5>
+          <ul className="text-sm">
+            <li>hyunsuk1997@naver.com</li>
+          </ul>
+        </section>
       </div>
     </footer>
   );
-};
+}

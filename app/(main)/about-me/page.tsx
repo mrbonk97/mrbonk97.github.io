@@ -1,137 +1,104 @@
-import { AWARD, CAREER, CERT, EDUCATION } from "@/constant";
+import { Github, Instagram } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "行法 | About Me",
-  description: "보안 전문가이자 개발자로서의 소개",
-  keywords: [
-    "mrbonk97",
-    "김현석",
-    "개발자",
-    "보안",
-    "취약점",
-    "프론트엔드",
-    "프로젝트",
-    "行法",
-    "블로그",
-    "포트폴리오",
-  ],
-  openGraph: {
-    title: "行法 | About Me",
-    description: "보안 전문가이자 개발자로서의 소개",
-    url: "https://mrbonk97.github.io/about-me",
-    siteName: "行法",
-    images: [
-      {
-        url: "https://mrbonk97.github.io/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "mrbonk97 프로필",
-      },
-    ],
-    locale: "ko_KR",
-    type: "profile",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "行法 | About Me",
-    description: "보안 전문가이자 개발자로서의 소개",
-    images: ["https://mrbonk97.github.io/opengraph-image.png"],
-  },
+  title: "mrbonk97 | 소개",
 };
 
-const AboutmePage = () => {
+async function AboutMePage() {
   return (
-    <main className="pt-20 p-5 mx-auto max-w-6xl">
-      <header className="mt-20">
-        <h1 className="text-7xl sm:text-8xl lg:text-9xl font-bold text-center text-custom-1">
-          行法
-        </h1>
-        <p className="mt-10 text-base sm:text-lg font-medium text-center text-custom-1">
-          보안 분야에서 일하며, <br className="sm:hidden" />
-          취미로 웹 개발을 하고 있습니다.
-        </p>
-      </header>
-
-      <section className="mt-40">
-        <h2 className="mx-auto max-w-4xl text-2xl font-semibold opacity-80">경력</h2>
-        <ul className="mt-5 md:mt-10 space-y-10">
-          {CAREER.map((item) => (
-            <li key={item.id} className="mx-auto p-5 md:p-10 max-w-xl rounded-xl bg-secondary">
-              <h3 className="text-2xl md:text-3xl font-semibold">{item.company}</h3>
-              <p className="mt-2 md:text-lg font-semibold">기간: {item.duration}</p>
-              <p className="mt-0 md:text-lg font-semibold">부서: {item.department}</p>
-              <Image
-                src={item.imgUrl}
-                alt={item.company}
-                height={512}
-                width={512}
-                className="my-20 mx-auto max-h-32 max-w-80 object-contain"
-              />
-              <div className="mt-5 md:text-2xl font-semibold text-right">업무 내용</div>
-              <p className="md:mt-2 text-sm md:text-base font-medium text-right break-keep">
-                {item.workDesc}
-              </p>
+    <>
+      <main className="p-4 pt-20 mx-auto max-w-7xl">
+        <header>
+          <h1 className="font-black text-5xl">안녕하세요,</h1>
+          <h2 className="mt-2 font-bold text-2xl break-keep">
+            프로그래밍과 보안 분야에 일을 하고 있는 mrbonk97입니다.
+          </h2>
+        </header>
+        <section className="mt-8">
+          <h4 className="text-lg font-semibold opacity-80">경력</h4>
+          <ol className="mt-2 space-y-2">
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2024.11 - 재직중</div>
+              <div className="text-xl font-bold">하나금융TI - 정보호호센터</div>
+              <div>취약점 점검 및 보안프로그램 개발</div>
             </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-40">
-        <h2 className="mx-auto max-w-4xl text-2xl font-semibold opacity-80">학력</h2>
-        <ul className="mt-5 md:mt-10 space-y-10">
-          {EDUCATION.map((item) => (
-            <li key={item.id} className="mx-auto p-5 md:p-10 max-w-xl rounded-xl bg-secondary">
-              <h3 className="text-2xl md:text-3xl font-semibold">{item.school}</h3>
-              <p className="mt-2 md:text-lg font-semibold">기간: {item.duration}</p>
-              <Image
-                src={item.imgUrl}
-                alt={item.school}
-                height={512}
-                width={512}
-                className="my-20 mx-auto max-h-32 max-w-80 object-contain"
-              />
-              <div className="mt-5 md:text-2xl font-semibold text-right">학과</div>
-              <p className="md:mt-2 text-sm md:text-base font-medium text-right break-keep">
-                {item.major}
-              </p>
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2022.12 - 2024.02</div>
+              <div className="text-xl font-bold">한전KDN - 원전ERP고도화TF</div>
+              <div>한국수력원자력 ERP 고도화 프로젝트 참여, 시스템 개발</div>
             </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-40">
-        <h2 className="mx-auto max-w-4xl text-2xl font-semibold opacity-80">자격증</h2>
-        <ul className="mt-5 md:mt-10 space-y-10">
-          {CERT.map((item) => (
-            <li key={item.id} className="mx-auto p-5 md:p-10 max-w-xl rounded-xl bg-secondary">
-              <div className="text-2xl md:text-3xl font-semibold">{item.title}</div>
-              <p className="mt-2 md:text-lg font-semibold">{item.date}</p>
+          </ol>
+        </section>
+        <section className="mt-8">
+          <h4 className="text-lg font-semibold opacity-80">학력</h4>
+          <ol className="mt-2 space-y-2">
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2016.03 - 2023.02</div>
+              <div className="text-xl font-bold">전남대학교 - 컴퓨터정보통신공학</div>
             </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-40">
-        <h2 className="mx-auto max-w-4xl text-2xl font-semibold opacity-80">수상내역</h2>
-        <ul className="mt-10 space-y-10">
-          {AWARD.map((item) => (
-            <li key={item.id} className="mx-auto p-5 md:p-10 max-w-xl rounded-xl bg-secondary">
-              <h3 className="text-xl md:text-2xl font-semibold break-keep">{item.title}</h3>
-              <p className="mt-2 text-sm md:text-base font-semibold">날짜: {item.data}</p>
-              <p className="mt-0 text-sm md:text-base font-semibold">주최: {item.asd2}</p>
-              <p className="mt-2 text-sm md:text-base font-semibold">{item.asd}</p>
-
-              <p className="mt-10 text-sm md:text-base font-medium break-keep">
-                {item.description}
-              </p>
+          </ol>
+        </section>
+        <section className="mt-8">
+          <h4 className="text-lg font-semibold opacity-80">자격증</h4>
+          <ol className="mt-2 space-y-2">
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2022.06</div>
+              <div className="text-xl font-bold">정보처리기사</div>
+              <div>한국산업인력공단</div>
             </li>
-          ))}
-        </ul>
-      </section>
-    </main>
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2024.04</div>
+              <div className="text-xl font-bold">SQLD</div>
+              <div>큐넷</div>
+            </li>
+            <li className="p-4 rounded-lg bg-secondary">
+              <div>2024.03</div>
+              <div className="text-xl font-bold">TOEIC - 935</div>
+              <div>한국YBM</div>
+            </li>
+          </ol>
+        </section>
+        <section className="mt-8">
+          <h4 className="text-lg font-semibold opacity-80">기술 스킬</h4>
+          <ol className="mt-2 flex gap-2">
+            <li className="p-4 rounded-lg bg-secondary">React</li>
+            <li className="p-4 rounded-lg bg-secondary">React Native</li>
+            <li className="p-4 rounded-lg bg-secondary">Next.js</li>
+            <li className="p-4 rounded-lg bg-secondary">Spring</li>
+          </ol>
+        </section>
+        <section className="mt-8">
+          <h4 className="text-lg font-semibold opacity-80">링크</h4>
+          <ul className="mt-2 grid grid-cols-2 gap-2">
+            <li>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/mrbonk97"
+                className="block p-4 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground duration-150"
+              >
+                <div className="font-semibold">Github</div>
+                <Github className="my-4 mx-auto" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.instagram.com/mrbonk97"
+                className="block p-4 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground duration-150"
+              >
+                <div className="font-semibold">Github</div>
+                <Instagram className="my-4 mx-auto" />
+              </Link>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </>
   );
-};
+}
 
-export default AboutmePage;
+export default AboutMePage;
