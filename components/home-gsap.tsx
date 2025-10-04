@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Topnav2 } from "./nav/top-nav-2";
+import { Topnav2 } from "@/components/nav/top-nav-2";
 
 export function HomeGsap() {
   const boxRef = useRef<HTMLDivElement>(null);

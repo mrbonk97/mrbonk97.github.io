@@ -1,19 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import gsap from "gsap";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PROJECT_CATEGORY } from "@/asset/constants/project-category";
 
-interface Props {
-  filter: string | undefined;
-}
-
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export function ProjectCategoryNav({ filter }: Props) {
+export function ProjectCategoryNav() {
   const countRefs = useRef<HTMLElement[]>([]);
 
   const setCountRef = (el: HTMLElement | null, index: number) => {
@@ -37,17 +32,11 @@ export function ProjectCategoryNav({ filter }: Props) {
   }, []);
 
   return (
-    <nav className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4">
+    <section className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4">
       {PROJECT_CATEGORY.map((menu, i) => (
-        <Link
-          href={menu.url}
+        <div
           key={`menu-${menu.title}`}
-          aria-current={
-            (!filter && menu.url == "/projects") || (filter && menu.url.includes(filter))
-              ? "page"
-              : "false"
-          }
-          className="p-4 block text-sm lg:text-2xl font-bold rounded-lg bg-secondary aria-[current='page']:bg-primary aria-[current='page']:text-primary-foreground hover:bg-primary hover:text-primary-foreground duration-150"
+          className="p-4 text-sm lg:text-2xl font-bold rounded-lg bg-secondary"
         >
           <div>{menu.title}</div>
           <div
@@ -57,8 +46,8 @@ export function ProjectCategoryNav({ filter }: Props) {
           >
             0
           </div>
-        </Link>
+        </div>
       ))}
-    </nav>
+    </section>
   );
 }
