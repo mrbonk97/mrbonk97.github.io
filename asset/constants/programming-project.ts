@@ -10,28 +10,31 @@ export const PROGRAMMING_PROJECT = [
     links: [],
   },
   {
-    title: "Lite Box",
-    description: "셀프 호스팅 가능한 파일 공유 솔루션",
-    date: "2024.05 - ",
+    title: "LiteDrive",
+    description: "최소한의 보안으로 최대한의 속도. 파일만을 위한 가장 단순한 공유 플랫폼.",
+    date: "2025.07 - 2025.10",
     duration: null,
     detail: {
       images: [
-        "/images/projects/lite-box/lite-box-1.png",
-        "/images/projects/lite-box/lite-box-2.png",
-        "/images/projects/lite-box/lite-box-3.png",
-        "/images/projects/lite-box/lite-box-4.png",
+        "/images/projects/litedrive/litedrive-1.png",
+        "/images/projects/litedrive/litedrive-2.png",
+        "/images/projects/litedrive/litedrive-3.png",
+        "/images/projects/litedrive/litedrive-4.png",
+        "/images/projects/litedrive/litedrive-5.png",
+        "/images/projects/litedrive/litedrive-6.png",
+        "/images/projects/litedrive/litedrive-7.png",
+      ],
+      links: [
+        {
+          name: "깃허브",
+          url: "https://github.com/mrbonk97/litedrive",
+        },
+        {
+          name: "웹사이트",
+          url: "https://litedrive.app",
+        },
       ],
     },
-    links: [
-      {
-        name: "깃허브",
-        url: "https://github.com/mrbonk97/lite-box",
-      },
-      {
-        name: "웹사이트",
-        url: "https://l-box.vercel.app",
-      },
-    ],
   },
 
   {
