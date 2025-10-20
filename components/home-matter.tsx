@@ -36,41 +36,42 @@ export function HomeMatter() {
     });
     renderRef.current = render;
 
-    // ✅ 벽 4개 생성
+    // 벽 4개 생성
     const ground = Matter.Bodies.rectangle(width / 2, height + 128, width, 256, {
-      isStatic: true,
-      restitution: 0.8,
-      render: { visible: false },
-    });
-    const ceiling = Matter.Bodies.rectangle(width / 2, -height * 2, width, 256, {
       isStatic: true,
       restitution: 0.8,
       render: { visible: true },
     });
-    const leftWall = Matter.Bodies.rectangle(-128, height / 2, 256, height * 2, {
+    const ceiling = Matter.Bodies.rectangle(width / 2, -height * 4, width, 48, {
       isStatic: true,
       restitution: 0.8,
-      render: { visible: false },
+      render: { visible: true },
     });
-    const rightWall = Matter.Bodies.rectangle(width + 128, height / 2, 256, height * 2, {
+    const leftWall = Matter.Bodies.rectangle(-128, height, 256, height * 5, {
       isStatic: true,
       restitution: 0.8,
-      render: { visible: false },
+      render: { visible: true },
     });
 
-    const project = Matter.Bodies.rectangle(width / 5, -height - 400, base * 3, base, {
+    const rightWall = Matter.Bodies.rectangle(width + 128, height, 256, height * 5, {
+      isStatic: true,
+      restitution: 0.8,
+      render: { visible: true },
+    });
+
+    const project = Matter.Bodies.rectangle(width / 2.2, -height - 400, base * 3, base, {
       chamfer: { radius: base / 2 },
       render: { fillStyle: "#FF9494" },
       restitution: 0.8,
     });
 
-    const blog = Matter.Bodies.rectangle(width / 2, -height - 200, base * 2.5, base, {
+    const roundBox = Matter.Bodies.rectangle(width / 4, -height - 200, base * 2.5, base, {
       chamfer: { radius: base / 2 },
       render: { fillStyle: "#DCD6F7" },
       restitution: 0.8,
     });
 
-    const aboutMe = Matter.Bodies.rectangle(width / 1.5, -height - 800, base * 2, base, {
+    const aboutMe = Matter.Bodies.rectangle(width / 2.2, -height - 800, base * 2, base, {
       chamfer: { radius: base / 2 },
       render: { fillStyle: "#3F72AF" },
       restitution: 0.8,
@@ -83,13 +84,13 @@ export function HomeMatter() {
 
     const pentagon = Matter.Bodies.polygon(width / 1.2, -height - 300, 5, base * 0.7, {
       chamfer: { radius: 5 },
-      render: { fillStyle: "#F38181" },
+      render: { fillStyle: "#FA812F" },
       restitution: 0.8,
     });
 
-    const triangle = Matter.Bodies.polygon(width / 5, -height - 100, 5, base * 0.6, {
+    const triangle = Matter.Bodies.polygon(width / 5, -height - 100, 3, base * 0.6, {
       chamfer: { radius: 5 },
-      render: { fillStyle: "#3b82f6" },
+      render: { fillStyle: "#B4DEBD" },
       restitution: 0.8,
     });
 
@@ -101,7 +102,7 @@ export function HomeMatter() {
 
     Matter.Composite.add(engine.world, [
       project,
-      blog,
+      roundBox,
       aboutMe,
       circle,
       pentagon,
@@ -188,10 +189,7 @@ export function HomeMatter() {
     // ✅ 마우스 이동 시 cursor 변경
     Matter.Events.on(mouseConstraint, "mousemove", (event) => {
       const mousePosition = event.mouse.position;
-      const bodies = Matter.Query.point(
-        [project, blog, aboutMe, circle, pentagon, triangle, box],
-        mousePosition
-      );
+      const bodies = Matter.Query.point([project, roundBox, aboutMe, circle, pentagon, triangle, box], mousePosition);
 
       if (bodies.length > 0) {
         render.canvas.style.cursor = "pointer";
