@@ -1,5 +1,10 @@
-import localFont from "next/font/local";
+import { Noto_Sans_KR, Orbit } from "next/font/google";
 
-export const astaSans = localFont({
-  src: "../asset/AstaSans-VariableFont_wght.ttf",
+export const notoSans = Noto_Sans_KR({
+  subsets: ["latin"],
+});
+
+export const orbit = Orbit({
+  subsets: ["latin"],
+  weight: ["400"],
 });

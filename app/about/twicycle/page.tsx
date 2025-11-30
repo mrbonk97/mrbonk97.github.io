@@ -1,0 +1,15 @@
+import { Metadata } from "next";
+import { PROGRAMMING_PROJECT } from "@/constants";
+import { DetailPage } from "@/components/detail-page";
+
+export const metadata: Metadata = {
+  title: "이인거 | 김현석",
+};
+
+function ProjectPage() {
+  const project = PROGRAMMING_PROJECT.find((p) => p.id === "twicycle")!;
+
+  return <DetailPage project={project} />;
+}
+
+export default ProjectPage;

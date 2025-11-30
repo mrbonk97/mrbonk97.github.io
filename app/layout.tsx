@@ -1,44 +1,54 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { astaSans } from "@/lib/fonts";
+import { notoSans } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "mrbonk97",
-  description: "mrbonk97 개발자 포트폴리오",
+  title: "김현석 포트폴리오",
+  description:
+    "정보보안과 프론트엔드 개발을 기반으로 사용자 중심의 웹 서비스를 만드는 김현석입니다.",
+
   keywords: [
-    "mrbonk97",
     "김현석",
-    "개발자",
-    "보안",
-    "취약점",
-    "프론트엔드",
-    "프로젝트",
-    "行法",
-    "About Me",
+    "Hyunsuk Kim",
     "포트폴리오",
+    "정보보안",
+    "보안 엔지니어",
+    "프론트엔드 개발자",
+    "Next.js",
+    "React",
+    "Typescript",
+    "웹 개발",
   ],
+
+  authors: [{ name: "김현석" }],
+
   openGraph: {
-    title: "mrbonk97",
-    description: "mrbonk97 개발자 포트폴리오.",
+    title: "김현석 포트폴리오",
+    description:
+      "정보보안과 프론트엔드 개발을 기반으로 사용자 중심의 웹 서비스를 만드는 김현석입니다.",
     url: "https://mrbonk97.github.io",
-    siteName: "mrbonk97",
+    siteName: "Hyunsuk Portfolio",
     images: [
       {
-        url: "https://mrbonk97.github.io/opengraph-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "mrbonk97 포트폴리오",
+        alt: "김현석 포트폴리오",
       },
     ],
     locale: "ko_KR",
-    type: "profile",
+    type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "mrbonk97",
-    description: "mrbonk97 개발자 포트폴리오",
-    images: ["https://mrbonk97.github.io/opengraph-image.png"],
+    title: "김현석 포트폴리오",
+    description:
+      "정보보안과 프론트엔드 개발을 기반으로 사용자 중심의 웹 서비스를 만드는 김현석입니다.",
+    images: ["/og-image.png"],
   },
+
+  metadataBase: new URL("https://mrbonk97.github.io"),
 };
 
 interface Props {
@@ -48,7 +58,7 @@ interface Props {
 function RootLayout({ children }: Props) {
   return (
     <html lang="ko">
-      <body className={`${astaSans.className} antialiased`}>{children}</body>
+      <body className={`${notoSans.className} antialiased`}>{children}</body>
     </html>
   );
 }
