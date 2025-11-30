@@ -1,6 +1,5 @@
-import { Footer } from "@/components/nav/footer";
 import { Topnav } from "@/components/nav/top-nav";
-import SmoothScroll from "@/components/smooth-scroll";
+import { Footer } from "@/components/nav/footer";
 
 interface Props {
   children: React.ReactNode;
@@ -9,11 +8,9 @@ interface Props {
 function AboutLayout({ children }: Props) {
   return (
     <>
-      <SmoothScroll>
-        <Topnav page="/about" />
-        {children}
-        <Footer />
-      </SmoothScroll>
+      <Topnav page="/about" />
+      {children}
+      <Footer />
     </>
   );
 }
