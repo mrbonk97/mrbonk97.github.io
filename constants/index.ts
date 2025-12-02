@@ -57,38 +57,11 @@ export const PROGRAMMING_PROJECT = [
       },
     ],
   },
-  {
-    id: "twicycle",
-    title: "이인거(Twicycle)",
-    description:
-      "이인승 자전거(커플 자전거) 대여 지점을 지도 기반으로 확인하고 실시간 위치와 대여 가능 여부를 조회할 수 있는 위치 안내 서비스",
-    duration: "2024.08 - 유지보수",
-    role: "풀스택 개발",
-    stack: "Next.js",
-    images: [
-      "/images/projects/twicycle/twicycle-1.png",
-      "/images/projects/twicycle/twicycle-2.png",
-      "/images/projects/twicycle/twicycle-3.png",
-      "/images/projects/twicycle/twicycle-4.png",
-      "/images/projects/twicycle/twicycle-5.png",
-      "/images/projects/twicycle/twicycle-6.png",
-    ],
-    links: [
-      {
-        name: "깃허브",
-        url: "https://github.com/mrbonk97/twicycle",
-      },
-      {
-        name: "웹사이트",
-        url: "https://twicycle.vercel.app",
-      },
-    ],
-  },
+
   {
     id: "daldal",
     title: "단거주의보",
-    description:
-      "카페 음료의 당 함량을 브랜드별로 비교하고, 사용자에게 음료 선택의 기준을 제공하는 설탕량 안내 플랫폼",
+    description: "카페 음료의 당 함량을 브랜드별로 비교하고, 사용자에게 음료 선택의 기준을 제공하는 설탕량 안내 플랫폼",
     duration: "2025.07 - 유지보수",
     role: "풀스택 개발",
     stack: "Next.js, cheerio",
@@ -143,6 +116,33 @@ export const PROGRAMMING_PROJECT = [
       {
         name: "깃허브",
         url: "https://github.com/mrbonk97/pmd-github-analyzer",
+      },
+    ],
+  },
+  {
+    id: "twicycle",
+    title: "이인거(Twicycle)",
+    description:
+      "이인승 자전거(커플 자전거) 대여 지점을 지도 기반으로 확인하고 실시간 위치와 대여 가능 여부를 조회할 수 있는 위치 안내 서비스",
+    duration: "2024.08 - 유지보수",
+    role: "풀스택 개발",
+    stack: "Next.js",
+    images: [
+      "/images/projects/twicycle/twicycle-1.png",
+      "/images/projects/twicycle/twicycle-2.png",
+      "/images/projects/twicycle/twicycle-3.png",
+      "/images/projects/twicycle/twicycle-4.png",
+      "/images/projects/twicycle/twicycle-5.png",
+      "/images/projects/twicycle/twicycle-6.png",
+    ],
+    links: [
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/twicycle",
+      },
+      {
+        name: "웹사이트",
+        url: "https://twicycle.vercel.app",
       },
     ],
   },
