@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   delay?: number;
 }
+
 export function MotionLi({ children, className, delay }: Props) {
   const ff = {
     hidden: { opacity: 0, y: 16 },
