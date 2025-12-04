@@ -27,7 +27,7 @@ export function HomeMatter({ mainRef }: Props) {
 
     setTimeout(() => {
       engine.gravity.y = 1;
-    }, 1500);
+    }, 1000);
 
     // create a renderer
     const render = Matter.Render.create({
@@ -153,14 +153,15 @@ export function HomeMatter({ mainRef }: Props) {
       const dy = mouseUpPosition.y - mouseDownPosition.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // 👉 이동 거리가 작으면 "클릭"으로 간주
+      // 이동 거리가 작으면 클릭으로 간주
       if (distance < 5) {
         const bodies = Matter.Query.point([project, pill], mouseUpPosition);
 
         if (bodies.includes(project)) {
           gsap.to(mainRef.current, {
             scale: 0.9,
-            borderRadius: 64,
+            overflow: "hidden",
+            borderRadius: "16px",
             duration: 0.6,
             ease: "power2.out",
           });

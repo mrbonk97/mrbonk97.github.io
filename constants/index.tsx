@@ -98,6 +98,23 @@ export const PROGRAMMING_PROJECT = [
     ],
   },
   {
+    id: "repo-pmd",
+    icon: <Brackets size={96} />,
+    title: "Repository 정적 분석 툴",
+    description:
+      "PMD 엔진을 기반으로 레포지토리 내 코드를 자동 분석하여 잠재적인 버그, 규칙 위반을 탐지하고 품질 개선을 지원하는 정적 분석 도구",
+    duration: "2025.08 - 2205.08",
+    role: "솔루션 개발",
+    stack: "Java, PMD",
+    images: ["/images/projects/pmd/pmd-1.png"],
+    links: [
+      {
+        name: "깃허브",
+        url: "https://github.com/mrbonk97/pmd-github-analyzer",
+      },
+    ],
+  },
+  {
     id: "erp",
     icon: <Laptop size={96} />,
     title: "한국수력원자력 ERP 고도화 프로젝트",
@@ -120,51 +137,6 @@ export const PROGRAMMING_PROJECT = [
     stack: "Next.js",
     images: [],
     links: [],
-  },
-  {
-    id: "repo-pmd",
-    icon: <Brackets size={96} />,
-    title: "Repository 정적 분석 툴",
-    description:
-      "PMD 엔진을 기반으로 레포지토리 내 코드를 자동 분석하여 잠재적인 버그, 규칙 위반을 탐지하고 품질 개선을 지원하는 정적 분석 도구",
-    duration: "2025.08 - 2205.08",
-    role: "솔루션 개발",
-    stack: "Java, PMD",
-    images: ["/images/projects/pmd/pmd-1.png"],
-    links: [
-      {
-        name: "깃허브",
-        url: "https://github.com/mrbonk97/pmd-github-analyzer",
-      },
-    ],
-  },
-  {
-    id: "twicycle",
-    icon: <Bike size={96} />,
-    title: "이인거(Twicycle)",
-    description:
-      "이인승 자전거(커플 자전거) 대여 지점을 지도 기반으로 확인하고 실시간 위치와 대여 가능 여부를 조회할 수 있는 위치 안내 서비스",
-    duration: "2024.08 - 유지보수",
-    role: "풀스택 개발",
-    stack: "Next.js",
-    images: [
-      "/images/projects/twicycle/twicycle-1.png",
-      "/images/projects/twicycle/twicycle-2.png",
-      "/images/projects/twicycle/twicycle-3.png",
-      "/images/projects/twicycle/twicycle-4.png",
-      "/images/projects/twicycle/twicycle-5.png",
-      "/images/projects/twicycle/twicycle-6.png",
-    ],
-    links: [
-      {
-        name: "깃허브",
-        url: "https://github.com/mrbonk97/twicycle",
-      },
-      {
-        name: "웹사이트",
-        url: "https://twicycle.vercel.app",
-      },
-    ],
   },
 ];
 
