@@ -1,3 +1,5 @@
+import { SmoothScroll } from "@/components/gsap/smooth-scroll";
+import { SmootherProvider } from "@/context/smooth-context";
 import { Topnav } from "@/components/nav/top-nav";
 import { Footer } from "@/components/nav/footer";
 
@@ -8,9 +10,13 @@ interface Props {
 function AboutLayout({ children }: Props) {
   return (
     <>
-      <Topnav page="/about" />
-      {children}
-      <Footer />
+      <Topnav />
+      <SmootherProvider>
+        <SmoothScroll>
+          {children}
+          <Footer />
+        </SmoothScroll>
+      </SmootherProvider>
     </>
   );
 }

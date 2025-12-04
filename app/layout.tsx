@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { notoSans } from "@/lib/fonts";
+import { pretendard } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "김현석 포트폴리오",
@@ -58,7 +58,9 @@ interface Props {
 function RootLayout({ children }: Props) {
   return (
     <html lang="ko">
-      <body className={`${notoSans.className} antialiased`}>{children}</body>
+      <body className={`${pretendard.className} antialiased text-custom-1`}>
+        {children}
+      </body>
     </html>
   );
 }

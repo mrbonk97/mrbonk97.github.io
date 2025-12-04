@@ -41,6 +41,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-custom-1: var(--custom-1);
+  --color-custom-2: var(--custom-2);
+  --color-custom-3: var(--custom-3);
+  --color-custom-4: var(--custom-4);
 }
 
 :root {
@@ -76,6 +81,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --custom-1: #112d4e;
+  --custom-2: #3f72af;
+  --custom-3: #dbe2ef;
+  --custom-4: #f9f7f7;
 }
 
 .dark {
@@ -110,6 +120,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  --custom-1: #112d4e;
+  --custom-2: #3f72af;
+  --custom-3: #dbe2ef;
+  --custom-4: #f9f7f7;
 }
 
 @layer base {
@@ -124,36 +139,4 @@
 html,
 body {
   height: 100%;
-}
-
-@keyframes revealUp {
-  0% {
-    transform: translateY(100%);
-    mask-position: 0 100%;
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(0%);
-    mask-position: 0 0%;
-    opacity: 1;
-  }
-}
-
-.animate-reveal {
-  animation: revealUp 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0.5s both;
-  /* 아래에서 위로만 보이게 하는 텍스트 마스크 */
-  mask-size: 100% 200%;
-  mask-position: 0 100%;
-}
-
-.animate-reveal2 {
-  animation: revealUp 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0.6s both;
-  /* 아래에서 위로만 보이게 하는 텍스트 마스크 */
-  mask-size: 100% 200%;
-  mask-position: 0 100%;
 }

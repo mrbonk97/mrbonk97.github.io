@@ -21,7 +21,7 @@ export function Obeject3d() {
   return (
     <mesh ref={ref} scale={2}>
       <icosahedronGeometry args={[1, 1]} />
-      <meshLambertMaterial wireframe />
+      <meshLambertMaterial wireframe color={"#3f72af"} />
     </mesh>
   );
 }

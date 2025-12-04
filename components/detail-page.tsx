@@ -1,14 +1,44 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useSmoother } from "@/context/smooth-context";
 import { PROGRAMMING_PROJECT } from "@/constants";
 import { ImageOff } from "lucide-react";
-import { MotionLi } from "./motion/motion-li";
 
 interface Props {
   project: (typeof PROGRAMMING_PROJECT)[0];
 }
 
 export function DetailPage({ project }: Props) {
+  const { smoother } = useSmoother();
+  const liRefs = useRef<HTMLLIElement[]>([]);
+
+  const setRef = (el: HTMLLIElement | null, idx: number) => {
+    if (!el) return;
+    liRefs.current[idx] = el;
+  };
+
+  useGSAP(() => {
+    liRefs.current.forEach((li) => {
+      gsap.to(li, {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: li,
+          start: "top 85%",
+          end: "bottom 15%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  }, []);
+
   return (
     <main className="p-4 py-20 mx-auto max-w-4xl space-y-16">
       <header className="mt-2">
@@ -55,15 +85,22 @@ export function DetailPage({ project }: Props) {
         </h4>
         <ul className="mt-4 space-y-8 md:space-y-16">
           {project.images.length === 0 && (
-            <MotionLi className="p-4 w-full aspect-video flex flex-col items-center justify-center bg-secondary">
+            <li
+              ref={(el) => setRef(el, 0)}
+              className="p-4 w-full translate-y-8 opacity-0 aspect-video flex flex-col items-center justify-center bg-secondary"
+            >
               <ImageOff size={64} className="opacity-80" />
               <p className="mt-2 mb-8 font-medium text-center opacity-80">
                 이미지가 없습니다.
               </p>
-            </MotionLi>
+            </li>
           )}
           {project.images.map((item, idx) => (
-            <MotionLi key={item}>
+            <li
+              key={item}
+              ref={(el) => setRef(el, idx + 1)}
+              className="translate-y-8 opacity-0"
+            >
               <Image
                 src={item}
                 height={940}
@@ -71,7 +108,7 @@ export function DetailPage({ project }: Props) {
                 alt={`${project.title}-${idx}`}
                 className="border"
               />
-            </MotionLi>
+            </li>
           ))}
         </ul>
       </section>

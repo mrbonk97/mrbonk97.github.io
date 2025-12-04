@@ -1,10 +1,15 @@
 "use client";
 
+import gsap from "gsap";
 import Matter from "matter-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
-export function HomeMatter() {
+interface Props {
+  mainRef: RefObject<HTMLDivElement | null>;
+}
+
+export function HomeMatter({ mainRef }: Props) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
@@ -22,7 +27,7 @@ export function HomeMatter() {
 
     setTimeout(() => {
       engine.gravity.y = 1;
-    }, 500);
+    }, 1500);
 
     // create a renderer
     const render = Matter.Render.create({
@@ -81,7 +86,7 @@ export function HomeMatter() {
 
     const pill = Matter.Bodies.rectangle(width / 2, -1536, base * 2, base, {
       chamfer: { radius: base / 2 },
-      render: { fillStyle: "#3F72AF" },
+      render: { fillStyle: "#dbe2ef" },
       restitution: 0.8,
     });
 
@@ -118,7 +123,7 @@ export function HomeMatter() {
       ctx.restore();
     });
 
-    // ✅ Mouse control 추가
+    // Mouse control 추가
     const mouse = Matter.Mouse.create(render.canvas);
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse,
@@ -126,7 +131,7 @@ export function HomeMatter() {
     });
     Matter.World.add(engine.world, mouseConstraint);
 
-    // ✅ 클릭 감지용 변수
+    // 클릭 감지용 변수
     let mouseDownPosition: { x: number; y: number } | null = null;
 
     Matter.Events.on(mouseConstraint, "mousedown", (event) => {
@@ -153,14 +158,27 @@ export function HomeMatter() {
         const bodies = Matter.Query.point([project, pill], mouseUpPosition);
 
         if (bodies.includes(project)) {
-          router.push("/about");
+          gsap.to(mainRef.current, {
+            scale: 0.9,
+            borderRadius: 64,
+            duration: 0.6,
+            ease: "power2.out",
+          });
+
+          gsap.to(mainRef.current, {
+            delay: 1,
+            y: "-100%",
+            ease: "power2.out",
+          });
+
+          setTimeout(() => router.push("/about"), 1500);
         }
       }
 
       mouseDownPosition = null; // 초기화
     });
 
-    // ✅ 마우스 이동 시 cursor 변경
+    // 마우스 이동 시 cursor 변경
     Matter.Events.on(mouseConstraint, "mousemove", (event) => {
       const mousePosition = event.mouse.position;
       const bodies = Matter.Query.point(

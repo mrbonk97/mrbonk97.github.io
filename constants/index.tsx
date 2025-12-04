@@ -1,6 +1,17 @@
+import {
+  Bike,
+  Binary,
+  Brackets,
+  Cake,
+  CalendarDays,
+  HardDrive,
+  Laptop,
+} from "lucide-react";
+
 export const PROGRAMMING_PROJECT = [
   {
     id: "litedrive",
+    icon: <HardDrive size={96} />,
     title: "LiteDrive",
     description:
       "불필요한 기능을 모두 덜어내고, 파일 공유에 필요한 핵심만 담아 빠르고 간단하게 사용할 수 있도록 설계한 미니멀 파일 공유 플랫폼",
@@ -29,6 +40,7 @@ export const PROGRAMMING_PROJECT = [
   },
   {
     id: "ym-picker",
+    icon: <CalendarDays size={96} />,
     title: "Year Month Picker",
     description:
       "연·월 단위 날짜 선택에 최적화된 React UI 컴포넌트 라이브러리로, 간단한 API와 일관된 인터랙션을 제공하도록 설계된 날짜 선택 도구",
@@ -60,8 +72,10 @@ export const PROGRAMMING_PROJECT = [
 
   {
     id: "daldal",
+    icon: <Cake size={96} />,
     title: "단거주의보",
-    description: "카페 음료의 당 함량을 브랜드별로 비교하고, 사용자에게 음료 선택의 기준을 제공하는 설탕량 안내 플랫폼",
+    description:
+      "카페 음료의 당 함량을 브랜드별로 비교하고, 사용자에게 음료 선택의 기준을 제공하는 설탕량 안내 플랫폼",
     duration: "2025.07 - 유지보수",
     role: "풀스택 개발",
     stack: "Next.js, cheerio",
@@ -69,6 +83,8 @@ export const PROGRAMMING_PROJECT = [
       "/images/projects/daldal/daldal-1.png",
       "/images/projects/daldal/daldal-2.png",
       "/images/projects/daldal/daldal-3.png",
+      "/images/projects/daldal/daldal-4.png",
+      "/images/projects/daldal/daldal-5.png",
     ],
     links: [
       {
@@ -83,6 +99,7 @@ export const PROGRAMMING_PROJECT = [
   },
   {
     id: "erp",
+    icon: <Laptop size={96} />,
     title: "한국수력원자력 ERP 고도화 프로젝트",
     description:
       "한국수력원자력의 기존 ERP 시스템을 Nexacro 및 xUP 기반으로 재구축하는 고도화 프로젝트로, 노후화된 레거시 환경 개선과 업무 효율성 향상을 목표로 진행된 시스템 현대화 작업",
@@ -94,6 +111,7 @@ export const PROGRAMMING_PROJECT = [
   },
   {
     id: "hana-apt",
+    icon: <Binary size={96} />,
     title: "악성메일 모의훈련 솔루션",
     description:
       "피싱 메일 공격 시나리오를 기반으로 사용자 반응을 모의 훈련하고, 보안 인식 수준을 측정·관리하는 악성메일 모의훈련 플랫폼",
@@ -105,6 +123,7 @@ export const PROGRAMMING_PROJECT = [
   },
   {
     id: "repo-pmd",
+    icon: <Brackets size={96} />,
     title: "Repository 정적 분석 툴",
     description:
       "PMD 엔진을 기반으로 레포지토리 내 코드를 자동 분석하여 잠재적인 버그, 규칙 위반을 탐지하고 품질 개선을 지원하는 정적 분석 도구",
@@ -121,6 +140,7 @@ export const PROGRAMMING_PROJECT = [
   },
   {
     id: "twicycle",
+    icon: <Bike size={96} />,
     title: "이인거(Twicycle)",
     description:
       "이인승 자전거(커플 자전거) 대여 지점을 지도 기반으로 확인하고 실시간 위치와 대여 가능 여부를 조회할 수 있는 위치 안내 서비스",
@@ -292,7 +312,7 @@ export const JOB_EXPERIENCE = [
     duration: "2024.11 - 재직중",
     department: "정보보호센터 / 사원",
     role: "보안 솔루션 개발 & 보안 취약점 점검",
-    logo: "/icons/hana.svg",
+    logo: "/icons/hana.svsize={96}g",
   },
   {
     company: "",
@@ -306,6 +326,6 @@ export const JOB_EXPERIENCE = [
     duration: "2022.12 - 2024.02",
     department: "원전ERP고도화TF / 사원",
     role: "한수원 ERP 시스템 고도화 프로젝트",
-    logo: "/icons/kdn.svg",
+    logo: "/icons/kdn.svsize={96}g",
   },
 ];

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-secondary">
+    <footer className="min-h-96 bg-secondary">
       <p className="pt-8 pb-16 text-center text-sm opacity-80">
         Portfolio of{" "}
         <Link

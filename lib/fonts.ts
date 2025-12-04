@@ -1,10 +1,13 @@
-import { Noto_Sans_KR, Orbit } from "next/font/google";
+import localFont from "next/font/local";
 
-export const notoSans = Noto_Sans_KR({
-  subsets: ["latin"],
+export const playWrite = localFont({
+  src: "../assets/fonts/PlaywriteNO-VariableFont_wght.woff2",
 });
 
-export const orbit = Orbit({
-  subsets: ["latin"],
-  weight: ["400"],
+export const hachiMaru = localFont({
+  src: "../assets/fonts/HachiMaruPop-Regular.woff2",
+});
+
+export const pretendard = localFont({
+  src: "../assets/fonts/PretendardVariable.woff2",
 });
