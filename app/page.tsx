@@ -1,24 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { HeaderGsap } from "@/components/gsap/header-gsap";
-import { OverlayGsap } from "@/components/gsap/overlay-gsap";
-import { HomeMatter } from "@/components/matter/home-matter";
+import { HomeMatter } from "@/components/home/matter";
+import { Overlay } from "@/components/home/overlay";
+import { Title } from "@/components/home/title";
 import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 export default function Home() {
   const router = useRouter();
   const mainRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    router.prefetch("/about");
-  }, []);
+  const handleRoute = (url: string) => {
+    if (!mainRef.current) return;
+    mainRef.current.classList.add("page-leave");
+    setTimeout(() => router.push(url), 1000);
+  };
 
   return (
-    <main ref={mainRef} className="h-screen">
-      <OverlayGsap />
-      <HomeMatter mainRef={mainRef} />
-      <HeaderGsap />
+    <main ref={mainRef} className="min-h-svh">
+      <Overlay />
+      <Title />
+      <HomeMatter handleRoute={(url: string) => handleRoute(url)} />
     </main>
   );
 }
