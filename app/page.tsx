@@ -1,8 +1,8 @@
 "use client";
 
-import { HomeMatter } from "@/components/home/matter";
-import { Overlay } from "@/components/home/overlay";
-import { Title } from "@/components/home/title";
+import { HomeHeader } from "@/components/home-header";
+import { HomeMatter } from "@/components/home-matter";
+import { Overlay } from "@/components/overlay";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -17,10 +17,12 @@ export default function Home() {
   };
 
   return (
-    <main ref={mainRef} className="min-h-svh">
-      <Overlay />
-      <Title />
-      <HomeMatter handleRoute={(url: string) => handleRoute(url)} />
-    </main>
+    <>
+      <main ref={mainRef} className="min-h-svh">
+        <Overlay />
+        <HomeHeader />
+        <HomeMatter handleRoute={(url: string) => handleRoute(url)} />
+      </main>
+    </>
   );
 }

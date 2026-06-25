@@ -137,13 +137,42 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-custom-1;
-    /* @apply bg-background text-custom-1text-foreground; */
+    @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
   }
 }
+
+
+.overlay {
+  transform: translateY(-100%);
+  animation: overlayEnter 1s cubic-bezier(0.86, 0, 0.07, 1) forwards;
+}
+
+@keyframes overlayEnter {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.overlayReverse {
+  transform: translateY(100%);
+  animation: overlayReverseEnter 1s cubic-bezier(0.86, 0, 0.07, 1) forwards;
+}
+
+@keyframes overlayReverseEnter {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
 
 .page-leave {
   overflow: hidden;

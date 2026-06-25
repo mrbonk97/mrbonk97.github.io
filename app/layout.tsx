@@ -53,7 +53,7 @@ interface Props {
 
 function RootLayout({ children }: Props) {
   return (
-    <html lang="ko" className={`h-full antialiased ${pretendard.className}`}>
+    <html lang="ko" className={`antialiased ${pretendard.className}`}>
       <body>{children}</body>
     </html>
   );

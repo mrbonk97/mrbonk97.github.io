@@ -1,13 +1,13 @@
-import { Footer } from "@/components/footer";
-import { Topnav } from "@/components/topnav";
+import { Footer } from "@/components/nav/footer";
+import { Topnav } from "@/components/nav/top-nav";
 import { Annoyed } from "lucide-react";
 
 function NotFound() {
   return (
     <>
       <Topnav />
-      <main className="p-4 mx-auto max-w-5xl">
-        <header className="mt-14 md:mt-24">
+      <main className="p-4 md:p-8 mx-auto max-w-7xl">
+        <header className="md:min-h-[calc(100vh-500px)] mt-12 md:mt-8">
           <h1 className="text-center text-6xl font-bold leading-normal">
             404
             <br /> Not Found
