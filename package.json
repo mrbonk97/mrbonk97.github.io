@@ -13,6 +13,8 @@
     "@react-three/fiber": "^9.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "highlight.js": "^11.11.1",
     "lucide-react": "^1.21.0",
     "matter-js": "^0.20.0",

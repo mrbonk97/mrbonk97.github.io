@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { BLOG_CATEGORY } from "@/constants";
 import { ModelViewer } from "@/components/model-viewer";
 import { Metadata } from "next";
 

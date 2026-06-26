@@ -2,7 +2,6 @@ import Image from "next/image";
 import { StackList } from "./list/stack-list";
 import { FeatureList } from "./list/feature-list";
 import Link from "next/link";
-import { ChevronRight, LinkIcon } from "lucide-react";
 import { Project } from "@/types";
 
 interface Props {
@@ -99,20 +98,16 @@ export function ProjectTemplate({ data }: Props) {
       {data.links.length > 0 && (
         <section className="mx-auto max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-bold">프로젝트 링크</h2>
-          <ul className="mt-4 md:mt-8 space-y-8">
+          <ul className="mt-4 md:mt-8 space-y-4">
             {data.links.map((item) => (
               <li key={`link-${item.name}`}>
                 <Link
                   href={item.url}
                   target={item.isInside ? undefined : "_blank"}
                   rel={item.isInside ? undefined : "noreferrer"}
-                  className="p-8 text-lg md:text-2xl font-semibold group flex items-center justify-between rounded-lg bg-primary text-primary-foreground"
+                  className="p-4 md:text-2xl font-semibold group flex items-center justify-between rounded-lg bg-primary text-primary-foreground"
                 >
-                  <div className="flex items-center gap-4">
-                    <LinkIcon />
-                    <span>{item.name}</span>
-                  </div>
-                  <ChevronRight className="group-hover:translate-x-1 duration-300" />
+                  <span>{item.name}</span>
                 </Link>
               </li>
             ))}

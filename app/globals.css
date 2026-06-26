@@ -144,7 +144,6 @@
   }
 }
 
-
 .overlay {
   transform: translateY(-100%);
   animation: overlayEnter 1s cubic-bezier(0.86, 0, 0.07, 1) forwards;
@@ -172,7 +171,6 @@
     transform: translateY(0%);
   }
 }
-
 
 .page-leave {
   overflow: hidden;
@@ -218,20 +216,16 @@
   }
 }
 
-.flower {
-  transform-origin: bottom center;
-  animation: flower-sway 2.8s ease-in-out infinite alternate;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
 }
 
-/* 살랑살랑 */
-@keyframes flower-sway {
-  0% {
-    transform: rotate(-4deg) translateY(0px);
-  }
-  50% {
-    transform: rotate(3deg) translateY(-4px);
-  }
-  100% {
-    transform: rotate(-2deg) translateY(0px);
-  }
+.animate-marquee {
+  animation: marquee 32s linear infinite;
 }

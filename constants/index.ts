@@ -17,40 +17,65 @@ export const ROUTES = [
 
 export const BLOG_CATEGORY = [
   {
-    tag: "dev",
+    tags: "dev",
     name: "개발",
   },
   {
-    tag: "sec",
+    tags: "sec",
     name: "보안",
   },
 ];
 
-export const DEV_PROJECTS: ProjectPreview[] = [
+export const PROJECT_PREVIEWS: ProjectPreview[] = [
+  {
+    id: "daldal",
+    title: "단거주의보",
+    summary:
+      "카페별 음료 영양성분을 수집해 보여주고, 웹과 모바일 앱에서 음료 정보와 섭취 기록을 확인할 수 있는 서비스입니다.",
+    tags: ["fullstack"],
+    stacks: ["Next.js", "Jetpack Compose", "Supabase", "Cheerio"],
+    banner: "/images/projects/daldal/banner.svg",
+    backgroundImg: "/images/pattern/pattern-01.svg",
+  },
   {
     id: "1qoncatch",
-    title: "악성메일 모의훈련 플랫폼",
+    title: "악성메일 모의훈련 솔루션",
+    summary:
+      "피싱 메일 훈련 운영부터 대상자 관리, 현황 대시보드, 결과 보고서 생성까지 지원하는 보안 인식 훈련 플랫폼입니다.",
+    tags: ["frontend"],
+    stacks: ["Next.js", "TanStack Query", "TinyMCE", "xlwings"],
     banner: "/images/projects/1qcatch/banner.png",
+    backgroundImg: "/images/pattern/pattern-02.png",
   },
   {
     id: "litedrive",
     title: "Litedrive",
+    summary:
+      "최소 인증으로 파일을 업로드·공유하고, Edge 단계에서 업로드 검증과 용량 제한을 처리하는 파일 공유 서비스입니다.",
+    tags: ["fullstack"],
+    stacks: ["Next.js", "TanStack Query", "Cloudflare Worker", "Cloudflare R2"],
     banner: "/images/projects/litedrive/banner.png",
+    backgroundImg: "/images/pattern/pattern-03.svg",
   },
   {
     id: "erp",
-    title: "ERP 고도화 프로젝트",
+    title: "한수원 ERP 고도화",
+    summary:
+      "레거시 ERP 환경에서 BSC 성과지표의 설문조사·전자공청회 기능을 개발하고, 기존 업무 흐름과 데이터 구조를 분석한 프로젝트입니다.",
+    tags: ["fullstack"],
+    stacks: ["Nexacro", "XUp", "Oracle"],
     banner: "/images/projects/erp/banner.png",
+    backgroundImg: "/images/pattern/pattern-01.svg",
   },
   {
     id: "gitpmd",
     title: "PMD GitHub Analyzer",
+    summary:
+      "PMD로 Java 저장소의 커밋별 코드 품질 변화를 분석하고, bare clone과 git worktree로 반복 분석 비용을 줄인 CLI 도구입니다.",
+    tags: ["backend"],
+    stacks: ["PMD", "Docker", "Java"],
     banner: "/images/projects/gitpmd/banner.svg",
-  },
-  {
-    id: "daldal",
-    title: "단거주의보",
-    banner: "/images/projects/daldal/banner.svg",
+    backgroundImg: "/images/pattern/pattern-02.png",
   },
 ];
 

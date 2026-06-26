@@ -11,6 +11,10 @@ export type Project = {
 
 export type ProjectPreview = Pick<Project, "title" | "banner"> & {
   id: string;
+  summary: string;
+  tags: string[];
+  stacks: string[];
+  backgroundImg: string;
 };
 
 export type SecurityProject = {
