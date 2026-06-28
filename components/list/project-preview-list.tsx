@@ -16,14 +16,14 @@ export function ProjectPreviewList({ project }: Props) {
     <AccordionItem
       key={`dev-${project.id}`}
       value={project.id}
-      className="py-4 md:p-8 hover:bg-secondary group"
+      className="p-4 py-0 md:py-8 md:p-8 md:hover:bg-secondary group"
     >
       <AccordionTrigger className="hover:no-underline duration-300">
         <span className="text-lg md:text-4xl font-bold">{project.title}</span>
       </AccordionTrigger>
 
-      <AccordionContent className="mt-4 p-0 grid md:grid-cols-2 gap-8">
-        <div className="p-4 md:p-8 min-h-48 md:min-h-96 flex items-center justify-center rounded-lg bg-secondary group-hover:bg-background duration-300">
+      <AccordionContent className="md:mt-4 grid md:grid-cols-2 gap-4 md:gap-8">
+        <div className="p-4 md:p-8 min-h-48 md:min-h-96 flex items-center justify-center rounded-lg bg-secondary md:bg-secondary md:group-hover:bg-background duration-300">
           <Image
             src={project.banner}
             alt={project.title}
