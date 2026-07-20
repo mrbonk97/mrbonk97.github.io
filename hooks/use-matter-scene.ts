@@ -332,7 +332,7 @@ export function useMatterScene({
 
       if (distance < 5 && clickedBody) {
         if (clickedBody === shapes[0]) {
-          handleRoute("/about");
+          handleRoute("/about-me");
         }
 
         if (clickedBody === shapes[5]) {

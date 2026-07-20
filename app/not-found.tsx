@@ -7,7 +7,7 @@ function NotFound() {
     <>
       <Topnav />
       <main className="p-4 md:p-8 mx-auto max-w-7xl">
-        <header className="md:min-h-[calc(100vh-500px)] mt-12 md:mt-8">
+        <header className="md:min-h-[calc(100vh-500px)] mt-12 md:mt-16 text-custom-2">
           <h1 className="text-center text-6xl font-bold leading-normal">
             404
             <br /> Not Found

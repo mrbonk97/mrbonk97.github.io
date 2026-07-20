@@ -1,6 +1,7 @@
 export type Project = {
+  id: string;
   title: string;
-  subtitle: string;
+  summary: string;
   banner: string;
   metadata: { name: string; content: string | React.ReactNode }[];
   stacks: { name: string; iconUrl: string }[];
@@ -9,16 +10,28 @@ export type Project = {
   links: { isInside: boolean; name: string; url: string }[];
 };
 
-export type ProjectPreview = Pick<Project, "title" | "banner"> & {
-  id: string;
-  summary: string;
-  tags: string[];
-  stacks: string[];
-  backgroundImg: string;
-};
+export type ProjectPreview = Pick<
+  Project,
+  "id" | "title" | "summary" | "banner" | "stacks"
+>;
 
 export type SecurityProject = {
   title: string;
   company: string;
   duration: string;
 };
+
+export type Article = {
+  id: string;
+  title: string;
+  summary: string;
+  date: string;
+  banner: string;
+  content: React.ReactNode[];
+  tags: string[];
+};
+
+export type ArticlePreview = Pick<
+  Article,
+  "id" | "title" | "summary" | "tags" | "banner" | "date"
+>;

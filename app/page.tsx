@@ -1,8 +1,8 @@
 "use client";
 
-import { HomeHeader } from "@/components/home-header";
-import { HomeMatter } from "@/components/home-matter";
-import { Overlay } from "@/components/overlay";
+import { HomeHeader } from "@/components/landing/home-header";
+import { HomeMatter } from "@/components/landing/home-matter";
+import { Overlay } from "@/components/landing/overlay";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 

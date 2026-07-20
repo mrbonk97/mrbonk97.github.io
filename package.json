@@ -9,15 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "embla-carousel-autoplay": "^8.6.0",
-    "embla-carousel-react": "^8.6.0",
+    "gsap": "^3.15.0",
     "highlight.js": "^11.11.1",
     "lucide-react": "^1.21.0",
     "matter-js": "^0.20.0",
+    "motion": "^12.42.2",
     "next": "16.2.9",
     "radix-ui": "^1.6.0",
     "react": "19.2.4",
@@ -33,9 +34,14 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.185.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true
   }
 }

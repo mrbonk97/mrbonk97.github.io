@@ -1,11 +1,14 @@
 import { DatabaseZap, FolderGit2, GitBranch, SearchCode } from "lucide-react";
 import { Project } from "@/types";
-import { CodeBlock } from "@/components/code-block";
+import { CodeBlock } from "@/components/util-component/code-block";
+import { HighLight } from "@/components/util-component/high-light";
 
 export const DATA: Project = {
+  id: "gitpmd",
   title: "PMD GitHub Analyzer",
-  subtitle: "GitHub 커밋 기반 Java 정적 분석기",
-  banner: "/images/projects/gitpmd/banner.svg",
+  summary:
+    "PMD로 Java 저장소의 커밋별 코드 품질 변화를 분석하고, bare clone과 git worktree로 반복 분석 비용을 줄인 CLI 도구입니다.",
+  banner: "/images/projects/gitpmd/banner.png",
   metadata: [
     {
       name: "요약",
@@ -62,149 +65,419 @@ export const DATA: Project = {
   ],
 
   content: [
-    <>
+    <section
+      key={`content-1`}
+      className={`
+        space-y-32
+        text-balance
+        break-keep
+        leading-relaxed
+
+        [&_header]:space-y-2
+
+        [&_h2]:text-2xl
+        [&_h2]:md:text-4xl
+        [&_h2]:font-semibold
+        [&_h2]:text-balance
+
+        [&_h4]:text-lg
+        [&_h4]:font-semibold
+        [&_h4]:text-muted-foreground
+        
+        [&_h5]:text-2xl
+        [&_h5]:font-semibold
+        [&_div]:space-y-4
+        [&_div]:md:space-y-8
+
+        [&_ul]:p-4
+        [&_ul]:text-custom-1
+        [&_ul]:bg-custom-3
+        [&_ul]:rounded
+        [&_ul]:space-y-4
+        [&_ul]:list-disc
+        [&_ul]:pl-12
+
+        [&_li]:text-balance
+        [&_li]:break-keep
+    `}
+    >
       <header>
-        <h2>[성능 최적화]</h2>
-        <h4>반복 커밋 분석을 위한 Git 처리 구조 개선</h4>
+        <h4>성능 최적화</h4>
+        <h2>Bare Clone과 Git Worktree를 활용한 반복 커밋 분석 구조</h2>
+
+        <p className="mt-4 p-4 md:p-8 text-lg rounded bg-custom-2 text-custom-4">
+          저장소는 한 번만 복제하고 Git object를 재사용해, 커밋마다 발생하던
+          네트워크 요청과 저장소 중복 복제 비용을 제거했습니다.
+        </p>
       </header>
 
       <div>
-        <h5>문제 상황</h5>
+        <h5>1. 문제 상황</h5>
 
         <p>
-          PMD GitHub Analyzer는 하나의 저장소를 현재 시점만 분석하는 도구가
-          아니라, 여러 커밋을 순회하며 코드 품질 변화를 추적하는 CLI 도구입니다.
-          따라서 분석 대상 커밋이 많아질수록 Git 저장소를 가져오고, 특정
-          커밋으로 이동하고, 분석이 끝난 작업 디렉터리를 정리하는 과정이
-          반복적으로 발생했습니다.
+          PMD GitHub Analyzer는 저장소의 현재 코드만 검사하는 도구가 아니라,
+          여러 커밋을 순회하며 코드 품질 지표의 변화를 추적하는 CLI 도구입니다.
         </p>
 
         <p>
-          단순하게 구현하면 커밋마다 repository를 새로 clone한 뒤 분석하고
-          삭제하는 방식이 됩니다. 하지만 이 방식은 매 커밋마다 네트워크 요청,
-          Git object 다운로드, 디스크 쓰기, checkout 비용이 반복되어 분석 시간이
-          불필요하게 증가하는 문제가 있었습니다.
+          따라서 커밋마다 해당 시점의 소스 파일을 준비하고, PMD 분석을 실행한
+          뒤, 사용이 끝난 작업 디렉터리를 정리해야 했습니다.
+        </p>
+
+        <CodeBlock
+          code={`분석 대상 커밋 조회
+  ↓
+Commit A 소스 준비 → PMD 분석
+  ↓
+Commit B 소스 준비 → PMD 분석
+  ↓
+Commit C 소스 준비 → PMD 분석
+  ↓
+커밋별 분석 결과 비교`}
+        />
+
+        <p>
+          가장 단순한 방법은 분석할 커밋마다 저장소를 새로 복제하는
+          것이었습니다.
+        </p>
+
+        <CodeBlock
+          code={`for each commit:
+
+  git clone <repository-url>
+  git checkout <commit-hash>
+  PMD 분석
+  저장소 삭제`}
+        />
+
+        <p>
+          하지만 이 구조에서는 분석할 커밋이 늘어날 때마다 동일한 Git object를
+          반복해서 내려받고 저장해야 했습니다.
+        </p>
+
+        <CodeBlock
+          code={`Commit A
+├── 저장소 clone
+├── Git object 다운로드
+├── 소스 파일 checkout
+├── PMD 분석
+└── 저장소 삭제
+
+Commit B
+├── 저장소 clone
+├── 동일한 Git object 다시 다운로드
+├── 소스 파일 checkout
+├── PMD 분석
+└── 저장소 삭제
+
+Commit C
+├── 저장소 clone
+├── 동일한 Git object 다시 다운로드
+├── 소스 파일 checkout
+├── PMD 분석
+└── 저장소 삭제`}
+        />
+
+        <p>
+          분석 자체보다 저장소를 준비하는 과정에서 네트워크 요청, Git object
+          다운로드와 디스크 쓰기가 반복되는 구조였습니다.
         </p>
       </div>
 
       <div>
-        <h5>고민한 지점</h5>
+        <h5>2. 분석 단위와 저장소 데이터 분리</h5>
 
         <p>
-          핵심은 각 커밋의 파일 상태는 독립적으로 분석해야 하지만, Git
-          object까지 매번 새로 받을 필요는 없다는 점이었습니다. 즉, 분석 단위는
-          커밋별로 분리하되 저장소 데이터는 재사용하는 구조가 필요했습니다.
+          각 커밋은 서로 다른 파일 상태를 가지므로 독립된 작업 디렉터리에서
+          분석해야 합니다. 하지만 커밋을 구성하는 Git object까지 매번 새로
+          내려받을 필요는 없었습니다.
         </p>
 
-        <p>
-          일반적인 clone 기반 구조는 구현은 단순하지만 커밋 수가 늘어날수록
-          비용이 선형적으로 증가합니다. 반대로 하나의 작업 디렉터리에서
-          checkout만 반복하면 디스크 사용량은 줄일 수 있지만, 분석 도중 상태가
-          섞이거나 checkout 충돌이 발생할 가능성이 있었습니다.
-        </p>
+        <CodeBlock
+          code={`커밋별로 분리해야 하는 데이터
+├── 체크아웃된 소스 파일
+├── HEAD
+├── index
+└── 분석 실행 환경
+
+커밋 간 공유할 수 있는 데이터
+├── commit object
+├── tree object
+├── blob object
+└── 저장소 refs`}
+        />
 
         <p>
-          그래서 Git object database는 하나로 공유하고, 커밋별 작업 디렉터리는
-          독립적으로 분리하는 방향으로 구조를 잡았습니다.
+          이를 기준으로 저장소 데이터와 분석 작업 디렉터리의 생명주기를
+          분리했습니다.
+        </p>
+
+        <CodeBlock
+          code={`Repository Cache
+└── 전체 분석 작업 동안 유지
+    └── Git object database 공유
+
+Commit Worktree
+└── 커밋 분석을 수행하는 동안만 유지
+    ├── 특정 커밋의 소스 파일
+    ├── PMD 분석
+    └── 분석 완료 후 제거`}
+        />
+      </div>
+
+      <div>
+        <h5>3. Bare Clone으로 저장소 캐시 생성</h5>
+
+        <p>
+          분석을 시작할 때 최초 한 번만 <HighLight>Bare Clone</HighLight>을
+          수행했습니다.
+        </p>
+
+        <CodeBlock
+          code={`git clone --bare \\
+  <repository-url> \\
+  <repository-cache-path>`}
+        />
+
+        <p>
+          Bare repository에는 일반 저장소처럼 체크아웃된 소스 디렉터리가
+          존재하지 않습니다. 대신 커밋, 트리, 파일 내용을 구성하는 Git object와
+          refs를 저장합니다.
+        </p>
+
+        <CodeBlock
+          code={`repository.git/
+├── HEAD
+├── config
+├── objects/
+│   ├── commit objects
+│   ├── tree objects
+│   └── blob objects
+├── refs/
+└── worktrees/`}
+        />
+
+        <p>
+          이후 모든 커밋 분석은 이 저장소 캐시를 기준으로 수행했습니다. 분석할
+          커밋마다 원격 저장소를 다시 복제하지 않기 때문에 동일한 Git object의
+          반복 다운로드와 중복 저장을 제거할 수 있었습니다.
         </p>
       </div>
 
       <div>
-        <h5>해결 1. Bare Clone으로 Git Object 재사용</h5>
+        <h5>4. Worktree로 커밋별 작업 공간 생성</h5>
 
         <p>
-          먼저 최초 1회만 git clone --bare를 수행해 작업 디렉터리 없이 Git
-          metadata와 object database만 보관했습니다.
+          실제 PMD 분석에 필요한 소스 파일은
+          <HighLight>Git Worktree</HighLight>로 생성했습니다.
         </p>
 
-        <CodeBlock code="git clone --bare <repository-url>" />
+        <CodeBlock
+          code={`git --git-dir=<repository-cache-path> \\
+  worktree add \\
+  --detach \\
+  <worktree-path> \\
+  <commit-hash>`}
+        />
 
         <p>
-          bare clone은 실제 소스 파일을 체크아웃하지 않고 Git object만 저장하기
-          때문에, 이후 여러 커밋을 분석할 때 같은 object database를 재사용할 수
-          있습니다. 이를 통해 커밋마다 저장소를 새로 clone하면서 발생하는
-          네트워크 비용과 중복 저장 비용을 제거했습니다.
+          분석 대상은 브랜치를 수정하기 위한 작업 공간이 아니므로
+          <code>--detach</code>를 사용해 특정 커밋을 detached HEAD 상태로
+          체크아웃했습니다.
+        </p>
+
+        <CodeBlock
+          code={`repository.git
+├── objects/              # 모든 worktree가 공유
+├── refs/
+└── worktrees/
+    ├── commit-a          # HEAD와 index 분리
+    ├── commit-b
+    └── commit-c
+
+analysis-worktrees/
+├── commit-a/             # Commit A의 실제 소스 파일
+├── commit-b/             # Commit B의 실제 소스 파일
+└── commit-c/             # Commit C의 실제 소스 파일`}
+        />
+
+        <p>
+          각 worktree는 공통 object database를 사용하지만, 체크아웃된 파일과
+          <code>HEAD</code>, index는 독립적으로 관리됩니다. 따라서 커밋별 소스
+          상태가 섞이지 않으면서도 저장소 데이터는 재사용할 수 있습니다.
         </p>
       </div>
 
       <div>
-        <h5>해결 2. Git Worktree로 커밋별 분석 환경 분리</h5>
+        <h5>5. 커밋 분석 실행과 정리</h5>
 
         <p>
-          각 커밋의 실제 파일 상태는 git worktree를 이용해 별도 작업 디렉터리로
+          생성한 worktree 경로를 PMD의 분석 대상으로 전달하고, 분석이 끝나면
+          해당 작업 디렉터리를 제거했습니다.
+        </p>
+
+        <CodeBlock
+          code={`Repository Cache 준비
+  ↓
+Commit Worktree 생성
+  ↓
+PMD 분석 실행
+  ↓
+분석 결과 저장
+  ↓
+Worktree 제거
+  ↓
+다음 커밋 분석`}
+        />
+
+        <CodeBlock
+          code={`git --git-dir=<repository-cache-path> \\
+  worktree remove \\
+  <worktree-path>`}
+        />
+
+        <p>
+          분석 도중 오류가 발생해도 임시 작업 공간이 남지 않도록, worktree
+          제거는 분석 결과와 관계없이 실행되는 정리 단계에서 처리했습니다.
+        </p>
+
+        <CodeBlock
+          code={`async function analyzeCommit(commitHash: string) {
+  const worktreePath = createWorktreePath(commitHash)
+
+  try {
+    await addWorktree({
+      repositoryPath,
+      worktreePath,
+      commitHash,
+      detached: true,
+    })
+
+    return await runPmdAnalysis({
+      sourcePath: worktreePath,
+      commitHash,
+    })
+  } finally {
+    await removeWorktree({
+      repositoryPath,
+      worktreePath,
+    })
+  }
+}`}
+        />
+
+        <p>
+          분석 결과는 worktree 외부에 저장해 작업 디렉터리를 제거한 뒤에도
+          커밋별 품질 지표를 비교할 수 있도록 구성했습니다.
+        </p>
+      </div>
+
+      <div>
+        <h5>6. 처리 구조 비교</h5>
+
+        <p>기존 구조에서는 커밋마다 전체 저장소 복제가 반복됐습니다.</p>
+
+        <CodeBlock
+          code={`기존 구조
+
+Commit A
+→ clone
+→ checkout
+→ analyze
+→ repository 삭제
+
+Commit B
+→ clone
+→ checkout
+→ analyze
+→ repository 삭제
+
+Commit C
+→ clone
+→ checkout
+→ analyze
+→ repository 삭제
+
+
+원격 저장소 접근 횟수: 커밋 수만큼 반복
+Git object 다운로드: 커밋 수만큼 중복 발생
+작업 공간 격리: 저장소 단위`}
+        />
+
+        <p>
+          개선 후에는 저장소를 한 번만 복제하고, 커밋별로 필요한 작업 디렉터리만
           생성했습니다.
         </p>
 
-        <CodeBlock code="git worktree add <worktree-path> <commit-hash>" />
+        <CodeBlock
+          code={`개선 구조
 
-        <p>
-          PMD 분석이 끝난 뒤에는 해당 worktree를 제거해 다음 분석에 영향을 주지
-          않도록 정리했습니다.
-        </p>
+최초 1회
+→ bare clone
+→ Git object database 캐시
 
-        <CodeBlock code="git worktree remove <worktree-path>" />
+Commit A
+→ detached worktree 생성
+→ analyze
+→ worktree 제거
 
-        <p>
-          이 구조에서는 하나의 Git object database를 공유하면서도, 각 커밋은
-          독립된 작업 디렉터리에서 분석됩니다. 덕분에 커밋 간 checkout 충돌을
-          피하고, 분석 중 파일 상태가 섞이는 문제를 방지할 수 있었습니다.
-        </p>
+Commit B
+→ detached worktree 생성
+→ analyze
+→ worktree 제거
+
+Commit C
+→ detached worktree 생성
+→ analyze
+→ worktree 제거
+
+
+원격 저장소 접근 횟수: 최초 1회
+Git object 다운로드: 최초 1회
+작업 공간 격리: worktree 단위`}
+        />
       </div>
 
       <div>
-        <h5>구조 비교</h5>
-
-        <p>기존 방식은 커밋마다 저장소를 새로 복제하는 구조입니다.</p>
-
-        <section className="mt-4 p-8 rounded bg-secondary">
-          <p className="mt-0! text-base! font-medium">
-            Commit A → clone → analyze → delete
-          </p>
-          <p className="text-base! font-medium">
-            Commit B → clone → analyze → delete
-          </p>
-          <p className="text-base! font-medium">
-            Commit C → clone → analyze → delete
-          </p>
-        </section>
+        <h5>7. 결과</h5>
 
         <p>
-          개선 후에는 최초 1회 bare clone 이후, 커밋별 worktree만 생성하고
-          제거하는 방식으로 변경했습니다.
+          반복 커밋 분석에서 저장소 clone 횟수를 커밋 수만큼 수행하던 구조에서
+          최초 한 번만 수행하는 구조로 변경했습니다.
         </p>
 
-        <section className="mt-4 p-8 rounded bg-secondary">
-          <p className="mt-0! text-base! font-medium">Initial bare clone</p>
-          <p className="text-base! font-medium">↓</p>
-          <p className="text-base! font-medium">
-            Commit A → worktree 생성 → PMD 분석 → worktree 제거
-          </p>
-          <p className="text-base! font-medium">
-            Commit B → worktree 생성 → PMD 분석 → worktree 제거
-          </p>
-          <p className="text-base! font-medium">
-            Commit C → worktree 생성 → PMD 분석 → worktree 제거
-          </p>
-        </section>
-      </div>
+        <CodeBlock
+          code={`분석 커밋이 N개인 경우
 
-      <div>
-        <h5>결과</h5>
+기존
+├── clone: N회
+├── object database: N개
+└── worktree checkout: N회
+
+개선
+├── bare clone: 1회
+├── object database: 1개 공유
+└── worktree checkout: N회`}
+        />
 
         <p>
-          반복 커밋 분석 과정에서 가장 큰 비용이었던 clone, checkout, 디스크 I/O
-          흐름을 줄일 수 있었습니다. 분석 대상 커밋이 늘어나도 저장소를 매번
-          새로 복제하지 않고, Git object를 재사용하면서 필요한 커밋 상태만
-          worktree로 분리해 분석하는 구조를 확보했습니다.
+          커밋별 소스 파일을 준비하는 checkout 과정은 여전히 필요하지만, 동일한
+          Git object를 반복해서 내려받고 저장하는 비용은 제거했습니다.
         </p>
 
         <p>
-          이 경험을 통해 정적 분석 도구를 만들 때 분석 로직 자체만큼이나, 분석
-          대상 소스코드를 어떻게 준비하고 격리할 것인지가 전체 성능과 안정성에
-          큰 영향을 준다는 점을 체감했습니다.
+          또한 각 커밋을 독립된 worktree에서 분석해 하나의 작업 디렉터리에서
+          checkout을 반복할 때 발생할 수 있는 파일 상태 혼합과 작업 간 충돌을
+          방지했습니다.
+        </p>
+
+        <p>
+          결과적으로 저장소 데이터의 생명주기와 커밋별 분석 환경의 생명주기를
+          분리해, 반복 분석의 준비 비용을 줄이면서도 커밋 간 격리를 유지하는 Git
+          처리 구조를 구성했습니다.
         </p>
       </div>
-    </>,
+    </section>,
   ],
 
   links: [

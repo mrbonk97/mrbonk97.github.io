@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { DATA } from "./data";
-import { ProjectTemplate } from "@/components/project-template";
+import { ProjectTemplate } from "@/components/project-detail/project-template";
 
 export const metadata: Metadata = {
   title: "단거주의보 | 포트폴리오",

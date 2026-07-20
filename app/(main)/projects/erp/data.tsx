@@ -6,10 +6,13 @@ import {
 } from "lucide-react";
 import { Project } from "@/types";
 import Image from "next/image";
+import { CodeBlock } from "@/components/util-component/code-block";
 
 export const DATA: Project = {
+  id: "erp",
   title: "한수원 ERP 고도화 프로젝트",
-  subtitle: "BSC 성과지표 개발",
+  summary:
+    "레거시 ERP 환경에서 BSC 성과지표의 설문조사·전자공청회 기능을 개발하고, 기존 업무 흐름과 데이터 구조를 분석한 프로젝트입니다.",
   banner: "/images/projects/erp/banner.png",
   metadata: [
     {
@@ -79,78 +82,342 @@ export const DATA: Project = {
   ],
 
   content: [
-    <>
+    <section
+      key={`content-1`}
+      className={`
+        space-y-32
+        text-balance
+        break-keep
+        leading-relaxed
+
+        [&_header]:space-y-2
+
+        [&_h2]:text-2xl
+        [&_h2]:md:text-4xl
+        [&_h2]:font-semibold
+        [&_h2]:text-balance
+
+        [&_h4]:text-lg
+        [&_h4]:font-semibold
+        [&_h4]:text-muted-foreground
+        
+        [&_h5]:text-2xl
+        [&_h5]:font-semibold
+        [&_div]:space-y-4
+        [&_div]:md:space-y-8
+
+        [&_ul]:p-4
+        [&_ul]:text-custom-1
+        [&_ul]:bg-custom-3
+        [&_ul]:rounded
+        [&_ul]:space-y-4
+        [&_ul]:list-disc
+        [&_ul]:pl-12
+
+        [&_li]:text-balance
+        [&_li]:break-keep
+    `}
+    >
       <header>
-        <h4>설문 라이프사이클과 응답 상태 분리를 통한 복잡도 제어</h4>
+        <h4>복잡도 제어</h4>
+        <h2>설문 라이프사이클과 응답 상태를 분리한 접근 제어 설계</h2>
+
+        <p className="mt-4 p-4 md:p-8 text-lg rounded bg-custom-2 text-custom-4">
+          설문 운영 상태와 사용자별 응답 상태를 독립적으로 모델링하고, 상태
+          조합에 따른 접근·수정·제출 정책을 하나의 기준으로 통합했습니다.
+        </p>
       </header>
+
       <div>
         <h5>문제 상황</h5>
+
         <p>
-          설문조사 기능은 처음에는 단순한 CRUD 기능처럼 보였지만, 실제로는
-          관리자 관점의 설문 상태와 사용자 관점의 응답 상태가 함께 맞물리는
-          구조였습니다. 관리자는 설문을 생성, 예약, 진행중, 일시정지, 종료
-          상태로 관리했고, 사용자는 대상자 여부와 응답 상태에 따라 접근 가능
-          여부가 달라졌습니다.
+          설문조사 기능은 설문을 생성하고 응답을 저장하는 단순한 CRUD가
+          아니었습니다. 설문 자체의 운영 상태와 사용자별 응답 상태가 동시에
+          화면과 동작을 결정하는 구조였습니다.
         </p>
+
+        <CodeBlock
+          code={`설문 운영 상태
+├── 생성
+├── 예약
+├── 진행
+├── 일시정지
+└── 종료
+
+사용자 상태
+├── 설문 대상 여부
+├── 응답 시작 여부
+├── 임시저장 여부
+└── 제출 완료 여부`}
+        />
+
         <p>
-          특히 진행중인 설문이지만 대상자가 아닌 경우, 임시저장 후 설문이
-          일시정지된 경우, 이미 제출한 사용자가 다시 접근하는 경우처럼 상태
-          조합에 따라 예외 케이스가 계속 늘어났습니다. 설문 상태 하나만으로
-          화면과 권한을 제어하면 조건문이 복잡해지고, 변경 사항이 생길 때마다
-          로직을 추적하기 어려운 문제가 있었습니다.
+          예를 들어 설문이 진행 중이더라도 대상자가 아닌 사용자는 응답할 수
+          없고, 임시저장 이후 설문이 일시정지되면 기존 답변은 유지하되 수정과
+          제출은 제한해야 했습니다.
+        </p>
+
+        <p>
+          또한 제출을 완료한 사용자가 다시 접근하면 신규 응답 화면이 아니라 제출
+          결과를 확인하는 읽기 전용 화면을 제공해야 했습니다.
+        </p>
+
+        <CodeBlock
+          code={`같은 설문이라도 사용자 상태에 따라 결과가 달라짐
+
+진행 중 + 대상자 + 미응답
+→ 신규 응답 가능
+
+진행 중 + 대상자 + 임시저장
+→ 기존 답변 이어서 작성
+
+일시정지 + 대상자 + 임시저장
+→ 답변 유지, 수정 및 제출 차단
+
+진행 중 + 제출 완료
+→ 읽기 전용 결과 화면
+
+진행 중 + 대상자 아님
+→ 접근 제한`}
+        />
+
+        <p>
+          이러한 조건을 각 화면에서 개별적으로 처리하면 동일한 조건문이
+          반복되고, 정책이 변경될 때 여러 화면의 분기 로직을 함께 수정해야 하는
+          문제가 발생했습니다.
         </p>
       </div>
       <div>
-        <h5>고민한 지점</h5>
-        <p>
-          핵심은 설문 자체의 라이프사이클과 사용자별 응답 흐름을 같은 상태로
-          다룰 것인지, 별도의 상태로 분리할 것인지였습니다. 두 흐름을 하나로
-          합치면 초기 구현은 단순해 보이지만, 상태 조합이 늘어날수록 조건 분기가
-          많아지고 예외 처리가 파편화될 가능성이 컸습니다.
+        <h5>상태 모델 분리</h5>
+
+        <p className="p-4 rounded bg-custom-3 text-custom-1 font-bold text-balance break-keep">
+          설문의 운영 상태와 사용자 개인의 응답 진행 상태를 서로 독립된 모델로
+          분리했습니다.
         </p>
+
         <p>
-          그래서 설문 상태는 서비스 노출과 응답 가능 여부를 판단하는 기준으로,
-          사용자 응답 상태는 임시저장, 제출완료, 재진입 시 기존 답변 조회 같은
-          사용자 흐름을 제어하는 기준으로 분리했습니다.
+          설문 상태는 설문 공개 여부와 응답 허용 여부를 결정하도록 구성했습니다.
+        </p>
+
+        <CodeBlock
+          code={`SurveyStatus
+
+CREATED
+   │
+   ├── 예약 설정
+   ▼
+SCHEDULED
+   │
+   ├── 시작 시간 도달
+   ▼
+IN_PROGRESS ◀────▶ PAUSED
+   │                 설문 일시정지
+   │
+   ├── 종료 시간 도달 또는 관리자 종료
+   ▼
+CLOSED`}
+        />
+
+        <p>
+          사용자 응답 상태는 개인별 작성 진행 상황과 재접근 시 보여줄 화면을
+          결정하도록 구성했습니다.
+        </p>
+
+        <CodeBlock
+          code={`ResponseStatus
+
+NOT_STARTED
+    │
+    ├── 응답 시작 또는 임시저장
+    ▼
+IN_PROGRESS
+    │
+    ├── 최종 제출
+    ▼
+SUBMITTED`}
+        />
+
+        <p>
+          두 상태를 분리하면서 설문이 일시정지되거나 종료되더라도 사용자가
+          작성한 응답 상태는 유지했습니다. 반대로 특정 사용자가 응답을 제출해도
+          설문 전체의 운영 상태에는 영향을 주지 않도록 했습니다.
         </p>
       </div>
       <div>
-        <h5>해결</h5>
+        <h5>상태 조합 기반 접근 정책</h5>
+
         <p>
-          설문 라이프사이클 상태와 사용자 응답 상태를 분리한 뒤, 두 상태의
-          조합에 따라 화면 노출, 버튼 활성화, 응답 가능 여부를 일관되게
-          판단하도록 구조화했습니다.
+          화면마다 조건문을 작성하는 대신 설문 상태, 응답 상태, 대상자 여부를
+          입력받아 사용자가 수행할 수 있는 동작을 반환하는 공통 정책으로
+          정리했습니다.
         </p>
+
+        <CodeBlock
+          code={`SurveyStatus
++ ResponseStatus
++ isTarget
+─────────────────────────
+canAccess      접근 가능 여부
+canEdit        답변 수정 가능 여부
+canSubmit      최종 제출 가능 여부
+viewMode       표시할 화면 유형`}
+        />
+
+        <p>주요 상태 조합은 다음과 같은 기준으로 처리했습니다.</p>
+
+        <CodeBlock
+          code={`┌─────────────┬─────────────┬────────┬────────┬────────┬─────────────┐
+│ 설문 상태   │ 응답 상태    │ 대상자 │ 접근   │ 수정   │ 화면          │
+├─────────────┼─────────────┼────────┼────────┼────────┼─────────────┤
+│ IN_PROGRESS │ NOT_STARTED │ O      │ 허용   │ 허용   │ 신규 응답     │
+│ IN_PROGRESS │ IN_PROGRESS │ O      │ 허용   │ 허용   │ 이어서 작성   │
+│ IN_PROGRESS │ SUBMITTED   │ O      │ 허용   │ 차단   │ 제출 결과     │
+│ PAUSED      │ IN_PROGRESS │ O      │ 허용   │ 차단   │ 일시정지 안내 │
+│ CLOSED      │ SUBMITTED   │ O      │ 허용   │ 차단   │ 제출 결과     │
+│ IN_PROGRESS │ 모든 상태    │ X      │ 차단   │ 차단   │ 접근 제한     │
+└─────────────┴─────────────┴────────┴────────┴────────┴─────────────┘`}
+        />
+
+        <p>
+          이 기준을 공통 함수로 구현해 관리자 화면과 사용자 화면이 동일한 정책을
+          사용하도록 구성했습니다.
+        </p>
+
+        <CodeBlock
+          code={`function getSurveyAccessPolicy({
+  surveyStatus,
+  responseStatus,
+  isTarget,
+}: SurveyAccessInput): SurveyAccessPolicy {
+  if (!isTarget) {
+    return {
+      canAccess: false,
+      canEdit: false,
+      canSubmit: false,
+      viewMode: "ACCESS_DENIED",
+    }
+  }
+
+  if (responseStatus === "SUBMITTED") {
+    return {
+      canAccess: true,
+      canEdit: false,
+      canSubmit: false,
+      viewMode: "READ_ONLY",
+    }
+  }
+
+  if (surveyStatus === "PAUSED") {
+    return {
+      canAccess: true,
+      canEdit: false,
+      canSubmit: false,
+      viewMode: "PAUSED",
+    }
+  }
+
+  if (surveyStatus !== "IN_PROGRESS") {
+    return {
+      canAccess: false,
+      canEdit: false,
+      canSubmit: false,
+      viewMode: "UNAVAILABLE",
+    }
+  }
+
+  return {
+    canAccess: true,
+    canEdit: true,
+    canSubmit: true,
+    viewMode:
+      responseStatus === "IN_PROGRESS"
+        ? "CONTINUE"
+        : "NEW_RESPONSE",
+  }
+}`}
+        />
+
+        <p>
+          컴포넌트에서는 복잡한 상태 조합을 직접 해석하지 않고, 정책 함수가
+          반환한 결과에 따라 화면과 버튼만 렌더링하도록 역할을 분리했습니다.
+        </p>
+
+        <CodeBlock
+          code={`const policy = getSurveyAccessPolicy({
+  surveyStatus,
+  responseStatus,
+  isTarget,
+})
+
+if (!policy.canAccess) {
+  return <SurveyAccessDenied />
+}
+
+if (policy.viewMode === "PAUSED") {
+  return <SurveyPausedNotice />
+}
+
+if (policy.viewMode === "READ_ONLY") {
+  return <SubmittedResponse />
+}
+
+return (
+  <SurveyForm
+    readOnly={!policy.canEdit}
+    canSubmit={policy.canSubmit}
+  />
+)`}
+        />
+
         <Image
           src={"/images/projects/erp/img-1.png"}
-          alt="설문조사 상태 전이 다이어그램"
+          alt="설문 라이프사이클과 사용자 응답 상태 전이 다이어그램"
           height={1080}
           width={1080}
-          className="mt-4 p-4 rounded border mx-auto w-4/5 md:w-4/5 max-w-lg"
+          className="mt-4 p-4 rounded border mx-auto w-4/5 max-w-lg"
         />
+
         <p className="mt-2 text-sm! text-muted-foreground text-center">
-          설문조사 상태 전이 다이어그램
-        </p>
-        <p>
-          이를 통해 진행중이지만 대상자가 아닌 경우, 일시정지 상태인 경우,
-          임시저장 후 다시 진입한 경우, 이미 제출한 경우처럼 복잡한 상태 조합을
-          동일한 기준으로 처리할 수 있었습니다.
+          설문 라이프사이클과 사용자 응답 상태 전이
         </p>
       </div>
       <div>
         <h5>결과</h5>
+
         <p>
-          상태를 분리하면서 관리자 화면과 사용자 화면의 제어 기준이 명확해졌고,
-          새로운 예외 케이스가 추가되더라도 어떤 상태를 기준으로 판단해야 하는지
-          추적하기 쉬워졌습니다.
+          설문 운영 상태와 사용자 응답 상태를 독립적으로 관리하면서도, 두 상태의
+          조합에 따른 접근 규칙은 하나의 정책 함수에서 일관되게 처리할 수
+          있었습니다.
         </p>
+
+        <CodeBlock
+          code={`개선 전
+각 화면에서 상태 조건을 개별 처리
+→ 조건문 중복
+→ 화면별 정책 불일치
+→ 상태 추가 시 영향 범위 추적 어려움
+
+개선 후
+상태 모델 분리
+→ 상태 조합을 정책 함수에서 판단
+→ 컴포넌트는 반환된 결과만 렌더링
+→ 정책 변경 지점을 한 곳으로 제한`}
+        />
+
         <p>
-          이 경험을 통해 업무 시스템에서는 단순한 입력 기능이라도 상태 전이와
-          예외 흐름을 먼저 정리해야 유지보수 가능한 구조를 만들 수 있다는 점을
-          체감했습니다.
+          진행 중, 일시정지, 임시저장, 제출 완료처럼 여러 화면에 흩어져 있던
+          예외 처리를 공통 기준으로 통합해 화면마다 다른 판단이 내려지는 문제를
+          줄였습니다.
+        </p>
+
+        <p>
+          새로운 설문 상태나 응답 정책이 추가되더라도 상태 전이 규칙과 접근
+          정책을 중심으로 영향 범위를 확인할 수 있어 유지보수 복잡도와 변경
+          비용을 낮췄습니다.
         </p>
       </div>
-    </>,
+    </section>,
   ],
 
   links: [],
