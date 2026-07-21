@@ -16,8 +16,8 @@ export function BlogCard({ articlePreview }: Props) {
         <Image
           src={articlePreview.banner}
           alt={articlePreview.title}
-          height={1024}
-          width={1024}
+          height={1086}
+          width={1448}
           priority
           className="max-h-64 rounded object-cover"
         />

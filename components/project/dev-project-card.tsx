@@ -63,8 +63,8 @@ export function DevProjectCard({ idx, project }: Props) {
           <Image
             src={project.banner}
             alt={project.title}
-            height={1080}
-            width={1080}
+            height={1086}
+            width={1448}
             className="aspect-video rounded object-cover duration-500 group-hover:opacity-80"
           />
         </div>

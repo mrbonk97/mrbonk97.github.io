@@ -483,7 +483,7 @@ Git object 다운로드: 최초 1회
   links: [
     {
       isInside: false,
-      name: "GitHub Repository",
+      name: "https://github.com/mrbonk97/pmd-github-analyzer",
       url: "https://github.com/mrbonk97/pmd-github-analyzer",
     },
   ],

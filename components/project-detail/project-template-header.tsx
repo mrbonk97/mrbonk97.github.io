@@ -28,8 +28,8 @@ export function ProjectTemplateHeader({ title, banner, metadata }: Props) {
         <Image
           src={banner}
           alt="banner"
-          height={1536}
-          width={2752}
+          height={1086}
+          width={1448}
           className="mx-auto my-8 w-4/5 md:w-1/2 object-contain rounded shadow-2xl"
         />
       </div>

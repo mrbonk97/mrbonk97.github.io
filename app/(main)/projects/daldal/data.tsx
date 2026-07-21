@@ -243,17 +243,8 @@ export const DATA: Project = {
   links: [
     {
       isInside: false,
-      name: "https://github.com/mrbonk97/litedrive",
-      url: "https://github.com/mrbonk97/litedrive",
-    },
-    {
-      isInside: false,
-      name: "https://www.litedrive.app",
-      url: "https://www.litedrive.app",
+      name: "https://daldal.app",
+      url: "https://daldal.app",
     },
   ],
 };
-
-{
-  /*  */
-}

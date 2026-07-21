@@ -20,8 +20,8 @@ export function BlogTemplateHeader({ title, summary, banner, date }: Props) {
         <Image
           src={banner}
           alt={title}
-          height={1024}
-          width={1024}
+          height={1086}
+          width={1448}
           className="rounded aspect-video object-contain"
         />
       </div>
