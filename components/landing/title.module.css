@@ -1,0 +1,19 @@
+.reveal {
+  animation: title-rise 1s cubic-bezier(0.86, 0, 0.07, 1) both;
+}
+
+@keyframes title-rise {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
