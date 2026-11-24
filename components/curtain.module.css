@@ -1,12 +1,40 @@
 .curtain {
+  --column-stagger: 80ms;
+
   position: fixed;
   inset: 0;
   z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
   pointer-events: none;
-  animation: curtain-drop 1s cubic-bezier(0.86, 0, 0.07, 1) both;
 }
 
-@keyframes curtain-drop {
+.column {
+  /* Slight overlap prevents seams at fractional viewport widths. */
+  margin-right: -1px;
+  animation: column-drop 680ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: calc(var(--column-index) * var(--column-stagger));
+}
+
+.column:last-child {
+  margin-right: 0;
+}
+
+.overlay {
+  z-index: 100;
+}
+
+.overlay .column {
+  animation: none;
+  transform: translateY(-100%);
+}
+
+.covered .column {
+  transform: translateY(0);
+}
+
+@keyframes column-drop {
   from {
     transform: translateY(-100%);
   }
@@ -16,8 +44,28 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px) {
   .curtain {
+    /* Keep the total entrance at 1s with three wider columns. */
+    --column-stagger: 160ms;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .column:nth-child(n + 4) {
+    display: none;
+  }
+
+  .column:nth-child(3) {
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .column {
     animation: none;
+  }
+
+  .covered .column {
+    transform: translateY(-100%);
   }
 }

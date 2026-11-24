@@ -2,19 +2,16 @@
 
 import Matter from "matter-js";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useCurtainNavigation } from "@/components/curtain-navigation";
 import { useEffect, useRef } from "react";
+import { BASIC_SHAPES, FALLING_SHAPES, SHAPE_COUNT } from "@/constants/falling-shapes";
 import {
   createBounds,
   createShapes,
-  shapeSize,
   resizeShapes,
-  positionHumanShapes,
-  humanFallDistance,
-  SHAPE_LINKS,
+  SHAPE_CORNER_RADIUS,
+  releaseShapes,
 } from "@/lib/falling-shapes";
-import { createShapeClickTracker } from "@/lib/shape-click";
-import { pretendard } from "@/lib/fonts";
 
 // Matter attaches these DOM listeners but its type definitions omit them.
 type BoundMouse = Matter.Mouse & {
@@ -26,7 +23,7 @@ type BoundMouse = Matter.Mouse & {
 
 export function FallingShapes() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
+  const navigate = useCurtainNavigation();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -34,8 +31,8 @@ export function FallingShapes() {
 
     let width = container.clientWidth;
     let height = container.clientHeight;
-    const engine = Matter.Engine.create({ enableSleeping: true });
-    const runner = Matter.Runner.create({ delta: 1000 / 60 });
+    const engine = Matter.Engine.create({ enableSleeping: true, positionIterations: 8, velocityIterations: 8 });
+    const runner = Matter.Runner.create({ delta: 1000 / 120 });
     const render = Matter.Render.create({
       element: container,
       engine,
@@ -53,50 +50,42 @@ export function FallingShapes() {
     render.canvas.style.pointerEvents = "none";
     render.canvas.setAttribute("aria-hidden", "true");
 
-    const shapes = createShapes(width, height);
+    const theme = getComputedStyle(container);
+    const palette = {
+      100: theme.getPropertyValue("--custom-100").trim(),
+      300: theme.getPropertyValue("--custom-300").trim(),
+      400: theme.getPropertyValue("--custom-400").trim(),
+    };
+    const shapes = createShapes(width, height, palette);
+    const shapeLinks = new Map(shapes.flatMap((shape, index) => {
+      const link = FALLING_SHAPES[index].link;
+      return link ? [[shape, link] as const] : [];
+    }));
     let bounds = createBounds(width, height);
     Matter.Composite.add(engine.world, [...bounds, ...shapes]);
-    const linkedShapes = SHAPE_LINKS.map((link) => ({
-      ...link,
-      body: shapes.find((body) => body.label === link.shape)!,
-    }));
-    const clickTracker = createShapeClickTracker();
     let disposed = false;
     let ready = false;
-    let landed = false;
     let introElapsed = 0;
     let introFrame = 0;
     let previousIntroFrame: number | null = null;
-
-    function drawLabels() {
-      if (!ready) return;
-      const context = render.context;
-      context.save();
-      context.font = `700 ${Math.max(18, shapeSize(width, height) * 0.45)}px ${pretendard.style.fontFamily}`;
-      context.fillStyle = "#ffffff";
-      context.textAlign = "center";
-      context.textBaseline = "middle";
-      for (const { body, label } of linkedShapes) {
-        context.save();
-        context.translate(body.position.x, body.position.y);
-        context.rotate(body.angle);
-        context.fillText(label, 0, 0);
-        context.restore();
-      }
-      context.restore();
+    let press: {
+      pointerId: number;
+      body: Matter.Body;
+      x: number;
+      y: number;
+      startedAt: number;
+      dragged: boolean;
+    } | null = null;
+    function releaseNextShapes() {
+      releaseShapes(shapes, engine.timing.timestamp);
     }
-    Matter.Events.on(render, "afterRender", drawLabels);
-    void document.fonts
-      .load(`700 32px ${pretendard.style.fontFamily}`, "프로젝트 블로그 소개")
-      .then(() => {
-        if (!disposed) Matter.Render.world(render);
-      });
+    Matter.Events.on(engine, "beforeUpdate", releaseNextShapes);
 
     const mouse = Matter.Mouse.create(render.canvas) as BoundMouse;
     mouse.pixelRatio = render.options.pixelRatio ?? 1;
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse,
-      // Match the reference's soft pull and Matter's green spring renderer.
+      // Show the spring connecting the pointer to the shape while dragging.
       constraint: {
         stiffness: 0.002,
         render: { visible: true, strokeStyle: "#90ee90", lineWidth: 3 },
@@ -131,7 +120,7 @@ export function FallingShapes() {
       }
       previousIntroFrame = timestamp;
 
-      // Once the curtain has entered, release the whole figure under gravity.
+      // Once the curtain has entered, release the shape under gravity.
       if (introElapsed >= 800) {
         render.canvas.style.opacity = "1";
         render.canvas.style.pointerEvents = "auto";
@@ -149,7 +138,8 @@ export function FallingShapes() {
         stopIntro();
       } else if (!ready) {
         stop();
-        if (!introFrame) introFrame = window.requestAnimationFrame(animateIntro);
+        if (!introFrame)
+          introFrame = window.requestAnimationFrame(animateIntro);
       } else if (
         !running &&
         (mouse.button === 0 || shapes.some((body) => !body.isSleeping))
@@ -166,26 +156,56 @@ export function FallingShapes() {
       if (
         mouse.button !== 0 &&
         !mouseConstraint.body &&
-        shapes.every((body) => body.isSleeping)
+        shapes.every((body) => !body.isStatic && body.isSleeping)
       )
         stop();
     }
     Matter.Events.on(runner, "afterTick", paint);
 
-    function markLanding(event: Matter.IEventCollision<Matter.Engine>) {
-      if (event.pairs.some(({ bodyA, bodyB }) =>
-        (shapes.includes(bodyA) && bounds.includes(bodyB)) ||
-        (shapes.includes(bodyB) && bounds.includes(bodyA))
-      )) landed = true;
+    function paintLabels() {
+      const context = render.context;
+      context.save();
+      const ratio = render.options.pixelRatio ?? 1;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.font = `700 24px ${theme.fontFamily}`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      for (const body of shapes) {
+        if (!body.render.visible) continue;
+        const link = shapeLinks.get(body);
+        if (!link) continue;
+        context.save();
+        context.translate(body.position.x, body.position.y);
+        context.rotate(body.angle);
+        context.fillStyle = palette[400];
+        // Keep labels inside the smaller polygons, including on mobile.
+        context.fillText(link.label, 0, 0, Math.sqrt(body.area) * 0.8);
+        context.restore();
+      }
+      context.restore();
     }
-    Matter.Events.on(engine, "collisionStart", markLanding);
+    Matter.Events.on(render, "afterRender", paintLabels);
 
     function updateCursor() {
+      const body = shapeAt(mouse.position);
       render.canvas.style.cursor = mouseConstraint.body
         ? "grabbing"
-        : Matter.Query.point(shapes, mouse.position).length
-          ? "pointer"
+        : body
+          ? shapeLinks.has(body) ? "pointer" : "grab"
           : "default";
+      render.canvas.title = body ? shapeLinks.get(body)?.label ?? "" : "";
+    }
+
+    function shapeAt(point: Matter.Vector) {
+      return Matter.Query.point(shapes, point).filter((body) => body.render.visible).at(-1);
+    }
+
+    function pointerPosition(event: PointerEvent) {
+      const rect = render.canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * width / rect.width,
+        y: (event.clientY - rect.top) * height / rect.height,
+      };
     }
 
     function wakeForDrag() {
@@ -197,7 +217,7 @@ export function FallingShapes() {
     }
 
     function releaseDrag() {
-      clickTracker.cancel();
+      press = null;
       mouse.button = -1;
       // MouseConstraint detaches on the next physics update, preserving velocity.
       syncPlayback();
@@ -208,46 +228,41 @@ export function FallingShapes() {
       syncPlayback();
     }
 
-    function pointerPosition(event: PointerEvent) {
-      const rect = render.canvas.getBoundingClientRect();
-      return {
-        x: ((event.clientX - rect.left) * width) / rect.width,
-        y: ((event.clientY - rect.top) * height) / rect.height,
-      };
-    }
-
-    function hitTarget(point: Matter.Vector) {
-      // Last body is painted on top when shapes overlap.
-      const hits = Matter.Query.point(shapes, point);
-      return hits.at(-1)?.label ?? null;
-    }
-
     function onPointerDown(event: PointerEvent) {
       if (!event.isPrimary || event.button !== 0) return;
-      const point = pointerPosition(event);
-      clickTracker.start(event.pointerId, hitTarget(point), point);
+      const body = shapeAt(pointerPosition(event));
+      press = body && shapeLinks.has(body) ? {
+        pointerId: event.pointerId,
+        body,
+        x: event.clientX,
+        y: event.clientY,
+        startedAt: event.timeStamp,
+        dragged: false,
+      } : null;
       render.canvas.setPointerCapture(event.pointerId);
     }
 
     function onPointerMove(event: PointerEvent) {
-      clickTracker.move(event.pointerId, pointerPosition(event));
+      if (!press || event.pointerId !== press.pointerId) return;
+      if (Math.hypot(event.clientX - press.x, event.clientY - press.y) > 8) {
+        press.dragged = true;
+      }
     }
 
     function onPointerUp(event: PointerEvent) {
-      const point = pointerPosition(event);
-      const target = clickTracker.finish(
-        event.pointerId,
-        hitTarget(point),
-        point,
-      );
+      if (!event.isPrimary) return;
+      onPointerMove(event);
+      const clicked = press
+        && press.pointerId === event.pointerId
+        && !press.dragged
+        && event.timeStamp - press.startedAt < 500
+        && shapeAt(pointerPosition(event)) === press.body
+        ? press.body : null;
       if (render.canvas.hasPointerCapture(event.pointerId)) {
         render.canvas.releasePointerCapture(event.pointerId);
       }
-      const link = SHAPE_LINKS.find((item) => item.shape === target);
-      if (link) {
-        releaseDrag();
-        router.push(link.href);
-      }
+      releaseDrag();
+      if (clicked) navigate(shapeLinks.get(clicked)!.href);
     }
 
     render.canvas.addEventListener("pointerdown", onPointerDown);
@@ -275,17 +290,22 @@ export function FallingShapes() {
       if (
         !nextWidth ||
         !nextHeight ||
-        (nextWidth === width && nextHeight === height && pixelRatio === render.options.pixelRatio)
+        (nextWidth === width &&
+          nextHeight === height &&
+          pixelRatio === render.options.pixelRatio)
       )
         return;
 
       releaseDrag();
       stop();
-      // Until first contact, preserve the figure and its progress through the fall.
-      const fallDistance = humanFallDistance(shapes, width, height) * nextHeight / height;
-      bounds = resizeShapes(engine, shapes, bounds,
-        { width, height }, { width: nextWidth, height: nextHeight });
-      if (!landed) positionHumanShapes(shapes, nextWidth, nextHeight, ready ? fallDistance : 0);
+      // Resize each body independently; a shared fall distance would stack them together.
+      bounds = resizeShapes(
+        engine,
+        shapes,
+        bounds,
+        { width, height },
+        { width: nextWidth, height: nextHeight },
+      );
       width = nextWidth;
       height = nextHeight;
       Matter.Render.setSize(render, width, height);
@@ -328,14 +348,14 @@ export function FallingShapes() {
       Matter.Mouse.clearSourceEvents(mouse);
       stop();
       Matter.Events.off(runner, "afterTick", paint);
-      Matter.Events.off(render, "afterRender", drawLabels);
-      Matter.Events.off(engine, "collisionStart", markLanding);
+      Matter.Events.off(render, "afterRender", paintLabels);
+      Matter.Events.off(engine, "beforeUpdate", releaseNextShapes);
       Matter.Composite.clear(engine.world, false);
       Matter.Engine.clear(engine);
       render.canvas.remove();
       render.textures = {};
     };
-  }, [router]);
+  }, [navigate]);
 
   return (
     <>
@@ -344,21 +364,65 @@ export function FallingShapes() {
         aria-hidden="true"
         className="fixed inset-0 z-20 touch-none select-none overflow-hidden motion-reduce:invisible"
       />
-      <nav
-        aria-label="주요 페이지"
-        className="fixed inset-x-0 bottom-8 z-30 flex justify-center gap-3"
+      <svg
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-20 hidden h-[32svh] w-full motion-reduce:block"
+        viewBox={`0 0 1024 ${Math.ceil(SHAPE_COUNT / 8) * 128}`}
+        preserveAspectRatio="xMidYMax meet"
       >
-        {SHAPE_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            prefetch={false}
-            className="sr-only rounded-full bg-custom-400 px-5 py-3 font-bold text-custom-100 focus:not-sr-only focus:outline-2 focus:outline-offset-4 focus:outline-custom-400 motion-reduce:not-sr-only"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
+        {FALLING_SHAPES.map((definition, index) => {
+          const form = BASIC_SHAPES.find(({ kind }) => kind === definition.kind)!;
+          const color = `var(--custom-${definition.color})`;
+          const size = definition.size / 2;
+          const shape = (
+            <g
+              key={definition.id}
+              aria-hidden={definition.link ? undefined : true}
+              transform={`translate(${index % 8 * 128 + 64} ${Math.floor(index / 8) * 128 + 64})`}
+              fill={color}
+            >
+              {form.kind === "circle" ? <circle r={size / 2} /> : form.sides ? (
+                <polygon
+                  stroke={color}
+                  strokeWidth={SHAPE_CORNER_RADIUS * 2}
+                  strokeLinejoin="round"
+                  points={Array.from({ length: form.sides }, (_, vertex) => {
+                    const angle = (vertex + 0.5) * Math.PI * 2 / form.sides;
+                    return `${Math.cos(angle) * size / 2},${Math.sin(angle) * size / 2}`;
+                  }).join(" ")}
+                />
+              ) : (
+                <rect
+                  x={-size * form.width / 2}
+                  y={-size * form.height / 2}
+                  width={size * form.width}
+                  height={size * form.height}
+                  rx={form.radius ? size * form.radius : SHAPE_CORNER_RADIUS}
+                />
+              )}
+              {definition.link && (
+                <text textAnchor="middle" dominantBaseline="central" fill="var(--custom-400)" className="font-bold">
+                  {definition.link.label}
+                </text>
+              )}
+            </g>
+          );
+          const link = definition.link;
+          return link ? (
+            <Link
+              key={definition.id}
+              href={link.href}
+              onNavigate={(event) => {
+                event.preventDefault();
+                navigate(link.href);
+              }}
+              prefetch={false}
+              className="pointer-events-auto"
+            >
+              {shape}
+            </Link>
+          ) : shape;
+        })}
+      </svg>
     </>
   );
 }

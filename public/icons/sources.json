@@ -1,0 +1,61 @@
+[
+  {
+    "file": "jetpackcompose.svg",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/jetpackcompose/jetpackcompose-original.svg",
+    "modification": "Tightened the inner viewBox to the original vector artwork bounds; preserve aspect ratio and center the 28px longest edge within a 32px canvas. Original paths and colors retained."
+  },
+  {
+    "file": "kotlin.svg",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/kotlin/kotlin-original.svg",
+    "modification": "Tightened the inner viewBox to the original vector artwork bounds; preserve aspect ratio and center the 28px longest edge within a 32px canvas. Original paths and colors retained."
+  },
+  {
+    "file": "android.svg",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/android.svg",
+    "modification": "Fit original artwork into a 28px area on a 32px canvas; set monochrome brand color where applicable."
+  },
+  {
+    "file": "oracle.svg",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/oracle/oracle-original.svg",
+    "modification": "Extracted the oval O mark paths from the Devicon Oracle wordmark; normalized to 32px."
+  },
+  {
+    "file": "firebase.svg",
+    "source": "User-provided Logomark_Full Color.svg",
+    "modification": "Renamed to firebase.svg. Preserved all four original paths and full colors; uniformly scaled actual artwork to a 28px longest edge and centered it on a 32px canvas."
+  },
+  {
+    "file": "cloudflareworkers.svg",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/cloudflareworkers/cloudflareworkers-original.svg",
+    "modification": "Tightened the inner viewBox to the original vector artwork bounds; preserve aspect ratio and center the 28px longest edge within a 32px canvas. Original paths and colors retained."
+  },
+  {
+    "file": "cloudflarer2.svg",
+    "source": "https://raw.githubusercontent.com/cloudflare/cloudflare-docs/production/src/icons/r2.svg",
+    "modification": "Tightened the inner viewBox to the original vector artwork bounds; preserve aspect ratio and center the 28px longest edge within a 32px canvas. Original paths and colors retained."
+  },
+  {
+    "file": "vercel.svg",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/master/icons/vercel/vercel-original.svg",
+    "modification": "Fit original artwork into a 28px area on a 32px canvas; set monochrome brand color where applicable."
+  },
+  {
+    "file": "nexacro.svg",
+    "source": "https://www.tobesoft.com/download/ai/NEXACRO_NEW_signature.ai",
+    "modification": "Extracted the X symbol paths from the official Nexacro wordmark, retaining geometry and colors; normalized to 32px."
+  },
+  {
+    "file": "tobesoft.svg",
+    "source": "https://www.tobesoft.com/download/ai/TOBESOFT_Logo.ai",
+    "modification": "Extracted the standalone TOBESOFT symbol paths from the official Illustrator artwork, retaining geometry and colors; normalized to 32px."
+  },
+  {
+    "relatedPlatformMarks": {
+      "Coroutines": "kotlin.svg",
+      "Dagger/Hilt": "android.svg",
+      "RoomDB": "android.svg",
+      "xUp": "tobesoft.svg"
+    },
+    "note": "Related language, platform, or vendor marks; these are not dedicated product logos."
+  }
+]

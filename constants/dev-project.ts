@@ -1,0 +1,96 @@
+import { DevProject } from "@/types";
+
+export const DEV_PROJECTS: DevProject[] = [
+  {
+    id: "oss",
+    imgUrl: "/projects/oss/oss-cover.png",
+    title: "오픈소스 취약점 관리 서비스",
+    summary:
+      "오픈소스 패키지별 취약점을 식별하고, 점검 결과와 조치 현황을 체계적으로 관리할 수 있는 보안 관리 서비스입니다.",
+    stack: ["Spring Boot", "Spring Security", "Node.js", "TypeScript", "PostgreSQL"],
+    role: "백엔드 개발",
+    size: "6명",
+    duration: "2026.03 - 2026.10",
+    tag: "backend",
+  },
+  {
+    id: "1qcatch",
+    imgUrl: "/projects/1qcatch/1qcatch-cover.png",
+    title: "악성메일 모의훈련 솔루션",
+    summary:
+      "하나금융그룹 관계사 임직원을 위한 악성메일 모의훈련 솔루션입니다. 훈련 대시보드, 관리자 화면, 메일 에디터, 훈련 대상자 관리 기능의 프론트엔드를 개발했습니다.",
+    stack: ["Next.js", "TanStack Query", "TanStack Virtual", "TinyMCE"],
+    role: "프론트엔드 개발",
+    size: "3명",
+    duration: "2025.08 - 2026.03",
+    tag: "frontend",
+  },
+  {
+    id: "erp",
+    imgUrl: "/projects/erp/erp-cover.webp",
+    title: "한국수력원자력 ERP 고도화 프로젝트",
+    summary:
+      "한국수력원자력 ERP 고도화 프로젝트에서 BSC 성과지표 관리와 전자공청회 시스템을 개발했습니다. 설문조사 운영 기능과 상태별 권한 제어를 구현하고, 프로젝트 공정관리를 담당했습니다.",
+    stack: ["Nexacro", "xUp", "Oracle"],
+    role: "풀스택 개발",
+    size: "150명+",
+    duration: "2022.12 - 2024.02",
+    tag: "fullstack",
+  },
+  {
+    id: "kkirok",
+    imgUrl: "/projects/kkirok/kkirok-logo.png",
+    bgUrl: "/projects/kkirok/kkirok-cover.webp",
+    title: "끼록",
+    summary:
+      "사진으로 끼니와 일상을 기록하고 그룹에 공유하는 안드로이드 앱입니다. 독립 후 가족과 일상을 공유할 기회가 줄어든 경험을 계기로, 디자인부터 앱과 서버 개발까지 직접 진행해 Google Play에 출시했습니다.",
+    stack: [
+      "Jetpack Compose",
+      "Dagger/Hilt",
+      "Coroutines",
+      "RoomDB",
+      "Spring Boot",
+      "Spring Security",
+      "Firebase",
+      "Cloudflare R2",
+    ],
+    role: "안드로이드 개발, 백엔드 개발, 디자인",
+    size: "1명",
+    duration: "2025.06 - 2026.10",
+    tag: "android & backend",
+  },
+  {
+    id: "tuner-440",
+    imgUrl: "/projects/tuner-440/tuner-440-logo.png",
+    bgUrl: "/projects/tuner-440/tuner-440-cover.webp",
+    title: "기타튜너 Tuner440",
+    summary:
+      "레거시 ERP 환경에서 BSC 성과지표의 설문조사와 전자공청회 기능을 개발하고, 기존 업무 흐름과 데이터 구조를 분석한 프로젝트입니다.",
+    stack: ["Jetpack Compose"],
+    role: "안드로이드 개발",
+    size: "1",
+    duration: "2026.08 - 2026.09",
+    tag: "android & backend",
+  },
+  {
+    id: "litedrive",
+    imgUrl: "/projects/litedrive/litedrive-logo.svg",
+    bgUrl: "/projects/litedrive/litedrive-cover.png",
+    title: "LiteDrive",
+    summary:
+      "최소 인증으로 파일을 업로드하고 공유하며, Edge 단계에서 업로드 검증과 용량 제한을 처리하는 파일 공유 서비스입니다.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "TanStack Query",
+      "Cloudflare Worker",
+      "Cloudflare R2",
+      "Railway",
+      "Supabase",
+    ],
+    role: "풀스택 개발",
+    size: "1명",
+    duration: "2025.05 - 2025.10",
+    tag: "fullstack",
+  },
+];

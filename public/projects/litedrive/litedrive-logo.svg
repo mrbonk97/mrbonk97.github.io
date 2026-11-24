@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+	<style>
+		.s0 { fill: #fecdd3 } 
+		.s1 { fill: #fb7185 } 
+	</style>
+	<rect width="1024" height="1024" fill="oklch(96.9% 0.015 12.422)"/>
+	<svg x="192" y="192" width="640" height="640" viewBox="16.04 17.19 480 480">
+	<path id="&lt;Path&gt;" class="s0" d="m256.04 497.19v-240h240c0 132.57-107.47 240-240 240z"/>
+	<path id="&lt;Path&gt;" class="s1" d="m256.04 257.19h-240v240c132.57 0 240-107.47 240-240z"/>
+	<path id="&lt;Path&gt;" class="s0" d="m256.04 17.19v240h-240c0-132.57 107.47-240 240-240z"/>
+	<path id="&lt;Path&gt;" class="s1" d="m256.04 257.19h240v-240c-132.57 0-240 107.47-240 240z"/>
+	</svg>
+</svg>
