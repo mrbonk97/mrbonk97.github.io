@@ -109,7 +109,7 @@ export default function Page() {
                 ].map(([field, description]) => (
                   <tr key={field}>
                     <th scope="row" className="py-4 pr-4 align-top font-medium">
-                      <code className="text-custom-200 dark:text-custom-300">
+                      <code className="text-custom-200">
                         {field}
                       </code>
                     </th>

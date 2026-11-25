@@ -1,83 +1,125 @@
-import { ArrowDown, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import surveyPolicyFlowchart from "@/public/projects/erp/survey-policy-flowchart-v2.png";
+
+const surveyStates = ["생성", "예약", "진행", "일시정지", "종료"] as const;
+const responseStates = ["미응답", "작성 중", "제출 완료"] as const;
+
+function getDisplayPolicy(
+  surveyState: (typeof surveyStates)[number],
+  responseState: (typeof responseStates)[number],
+  isTarget: boolean,
+) {
+  if (!isTarget) return { label: "접근 차단", access: false, edit: false, submit: false };
+  if (responseState === "제출 완료") {
+    return { label: "결과 조회", access: true, edit: false, submit: false };
+  }
+  if (surveyState === "일시정지") {
+    return { label: "일시정지 안내", access: true, edit: false, submit: false };
+  }
+  if (surveyState !== "진행") {
+    return { label: "접근 제한", access: false, edit: false, submit: false };
+  }
+  return {
+    label: responseState === "작성 중" ? "이어서 작성" : "신규 응답",
+    access: true,
+    edit: true,
+    submit: true,
+  };
+}
+
+export function SurveyStateMatrix() {
+  return (
+    <figure className="mt-8">
+      <figcaption>
+        <p className="font-medium text-custom-100">30개 입력 조합의 권한 매트릭스</p>
+        <p className="mt-2 text-muted-foreground">
+          각 칸은 하나의 조합입니다. O는 허용, X는 제한이며 접근, 수정, 제출 순서입니다.
+        </p>
+      </figcaption>
+      <div className="mt-4 divide-y rounded border">
+        {[true, false].map((isTarget) => (
+          <div key={String(isTarget)} className="p-4 overflow-x-auto" tabIndex={0}>
+            <table className="w-full text-center">
+              <caption className="mb-4 text-left font-medium">
+                {isTarget ? "참여 대상" : "참여 비대상"}: 15개 조합
+              </caption>
+              <thead className="border-b">
+                <tr>
+                  <th scope="col" className="p-2 font-medium">운영 상태</th>
+                  {responseStates.map((state) => (
+                    <th key={state} scope="col" className="p-2 border-l font-medium">
+                      {state}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {surveyStates.map((surveyState) => (
+                  <tr key={surveyState}>
+                    <th scope="row" className="p-2 bg-secondary font-medium">
+                      {surveyState}
+                    </th>
+                    {responseStates.map((responseState) => {
+                      const policy = getDisplayPolicy(surveyState, responseState, isTarget);
+                      return (
+                        <td
+                          key={responseState}
+                          className={`p-2 border-l ${policy.edit ? "bg-custom-300" : ""}`}
+                        >
+                          <p className={policy.access ? "font-medium text-custom-100" : "text-muted-foreground"}>
+                            {policy.label}
+                          </p>
+                          <p className="mt-2 whitespace-nowrap font-mono">
+                            {policy.access ? "O" : "X"} / {policy.edit ? "O" : "X"} / {policy.submit ? "O" : "X"}
+                          </p>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-muted-foreground">
+        비대상 15개 조합은 우선 차단합니다. 대상자 중 제출 완료 5개 조합은 결과
+        조회를 허용하고, 나머지 10개 조합은 운영 상태와 작성 여부로 판단합니다.
+      </p>
+    </figure>
+  );
+}
 
 export function SurveyPolicyDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100 dark:text-custom-300">
-        <p className="font-medium">일시정지된 설문의 권한 판단 흐름</p>
+      <figcaption className="text-custom-100">
+        <p className="font-medium">30개 조합을 처리하는 전체 권한 판단 흐름</p>
         <p className="mt-2 text-muted-foreground">
-          참여 대상 → 제출 여부 → 운영 상태 순으로 판단
+          참여 대상과 제출 여부를 확인한 뒤 운영 상태 5개로 분기하고, 저장과 제출
+          시점에 같은 정책을 다시 검증합니다.
         </p>
       </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border">
-        <ol>
-          {[
-            {
-              question: "참여 대상인가?",
-              branch: "아니요",
-              result: "접근 차단",
-              next: "예 (참여 대상)",
-            },
-            {
-              question: "제출을 완료했는가?",
-              branch: "예",
-              result: "기존 결과 조회",
-              next: "아니요 (미제출)",
-            },
-            {
-              question: "설문이 일시정지 상태인가?",
-              branch: "예",
-              result: "수정과 제출 제한",
-              next: null,
-            },
-          ].map((step, index) => (
-            <li key={step.question}>
-              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
-                <div className="p-4 rounded border text-center">
-                  <p className="mb-2 text-custom-200 dark:text-custom-300">
-                    판단 {index + 1}
-                  </p>
-                  <p className="font-medium">{step.question}</p>
-                </div>
-                <div className="text-center">
-                  <p>{step.branch}</p>
-                  <ArrowRight
-                    className="mx-auto mt-2 size-4"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p
-                  className={
-                    index === 1
-                      ? "p-4 rounded border bg-custom-300/60 dark:bg-custom-300/10 text-center font-medium text-custom-100 dark:text-custom-300"
-                      : index === 0
-                        ? "p-4 rounded border bg-custom-400 dark:bg-custom-100/30 text-center font-medium text-destructive"
-                        : "p-4 rounded border bg-custom-400 dark:bg-custom-100/30 text-center font-medium text-custom-200 dark:text-custom-300"
-                  }
-                >
-                  {step.result}
-                </p>
-              </div>
-              {step.next && (
-                <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-4">
-                  <div className="py-4 text-center">
-                    <p className="text-muted-foreground">{step.next}</p>
-                    <ArrowDown
-                      className="mx-auto mt-2 size-4"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <span className="invisible">아니요</span>
-                  <span />
-                </div>
-              )}
-            </li>
-          ))}
-        </ol>
+      <div className="mt-4 overflow-hidden rounded border">
+        <Image
+          src={surveyPolicyFlowchart}
+          alt="SQL JOIN으로 30개 입력 조합의 상태를 조회합니다. 비대상 15개는 접근을 차단하고, 대상자 중 제출 완료 5개는 결과 조회만 허용합니다. 나머지는 생성과 예약, 종료에서 각 2개씩 접근을 제한하고, 일시정지 2개는 안내와 답변 보존만 허용합니다. 진행 상태에서는 미응답 1개는 신규 응답, 작성 중 1개는 이어서 작성을 허용합니다. 저장과 제출 요청 시 최신 상태를 재조회해 허용되면 반영하고 아니면 변경을 거부합니다."
+          sizes="(min-width: 768px) 736px, calc(100vw - 32px)"
+          className="h-auto w-full"
+        />
       </div>
+      <a
+        href="/projects/erp/survey-policy-flowchart-v2.png"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-block text-custom-200 underline-offset-4 hover:underline"
+      >
+        상세 흐름도 크게 보기
+        <span className="sr-only"> (새 탭)</span>
+      </a>
       <p className="mt-4 text-muted-foreground">
-        제출 완료자의 조회는 운영 상태보다 먼저 판단하고, 미제출자의 기존 답변은
-        보존합니다.
+        화면 진입 시 허용된 동작도 실행 전에 다시 검증합니다. 설문이 일시정지되거나
+        참여 자격이 바뀌면 변경을 거부하고 기존 답변을 보존합니다.
       </p>
     </figure>
   );

@@ -1,7 +1,5 @@
 interface StackLogo {
   src: string;
-  darkSrc?: string;
-  invertInDark?: boolean;
 }
 
 // SVGs use a 32 × 32 viewBox with proportional artwork inside a 28 × 28 area.
@@ -14,7 +12,7 @@ const STACK_LOGOS: Record<string, StackLogo> = {
   nodejs: { src: "/icons/nodejs.svg" },
   typescript: { src: "/icons/typescript.svg" },
   postgresql: { src: "/icons/postgresql.svg" },
-  nextjs: { src: "/icons/nextjs.svg", invertInDark: true },
+  nextjs: { src: "/icons/nextjs.svg" },
   tanstackquery: { src: "/icons/tanstack.svg" },
   tanstackvirtual: { src: "/icons/tanstack.svg" },
   tinymce: { src: "/icons/tinymce.svg" },
@@ -32,10 +30,9 @@ const STACK_LOGOS: Record<string, StackLogo> = {
   cloudflarer2: { src: "/icons/cloudflarer2.svg" },
   cloudflareworker: { src: "/icons/cloudflareworkers.svg" },
   cloudflareworkers: { src: "/icons/cloudflareworkers.svg" },
-  vercel: { src: "/icons/vercel.svg", invertInDark: true },
+  vercel: { src: "/icons/vercel.svg" },
   railway: {
     src: "/icons/railway_black.svg",
-    darkSrc: "/icons/railway_white.svg",
   },
 };
 

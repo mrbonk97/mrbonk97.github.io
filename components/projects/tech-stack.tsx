@@ -22,30 +22,7 @@ export function TechStackLabel({
     >
       <span className={compact ? "size-4 shrink-0" : "size-8 shrink-0"}>
         {logo ? (
-          <>
-            <Image
-              src={logo.src}
-              alt=""
-              width={size}
-              height={size}
-              className={
-                logo.darkSrc
-                  ? "dark:hidden"
-                  : logo.invertInDark
-                    ? "dark:invert"
-                    : undefined
-              }
-            />
-            {logo.darkSrc && (
-              <Image
-                src={logo.darkSrc}
-                alt=""
-                width={size}
-                height={size}
-                className="hidden dark:block"
-              />
-            )}
-          </>
+          <Image src={logo.src} alt="" width={size} height={size} />
         ) : (
           <CodeXml size={size} className="text-muted-foreground" />
         )}

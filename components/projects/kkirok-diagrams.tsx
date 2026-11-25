@@ -11,13 +11,13 @@ import { StatusLabel } from "./status-label";
 export function OfflineSyncDiagram() {
   return (
     <figure>
-      <figcaption className="font-medium text-custom-100 dark:text-custom-300">
+      <figcaption className="font-medium text-custom-100">
         RoomDB 중심의 오프라인 동기화 구조
       </figcaption>
       <div className="mt-4 p-4 lg:p-8 rounded border text-center">
         <div className="p-4 rounded border">
           <Smartphone
-            className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+            className="mx-auto mb-2 size-8 text-custom-200"
             aria-hidden="true"
           />
           <p className="font-medium">Jetpack Compose 화면</p>
@@ -40,9 +40,9 @@ export function OfflineSyncDiagram() {
         </div>
         <div className="p-4 rounded border border-dashed">
           <p className="mb-4 text-muted-foreground">백그라운드 동기화</p>
-          <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+          <div className="p-4 rounded border bg-secondary">
             <RefreshCw
-              className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+              className="mx-auto mb-2 size-8 text-custom-200"
               aria-hidden="true"
             />
             <p className="font-medium">
@@ -55,7 +55,7 @@ export function OfflineSyncDiagram() {
           </div>
           <div className="p-4 rounded border">
             <Server
-              className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+              className="mx-auto mb-2 size-8 text-custom-200"
               aria-hidden="true"
             />
             <p className="font-medium">서버의 API와 서비스 DB</p>
@@ -73,19 +73,19 @@ export function OfflineSyncDiagram() {
 export function AccountDeletionDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100 dark:text-custom-300">
+      <figcaption className="font-medium text-custom-100">
         Outbox로 탈퇴 요청과 삭제 작업 분리
       </figcaption>
       <div className="mt-4 p-4 lg:p-8 rounded border text-center">
         <div className="p-4 rounded border">
           <p className="font-medium">탈퇴 요청을 하나의 트랜잭션으로 처리</p>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <p className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <p className="p-4 rounded border bg-secondary">
               회원 상태
               <br />
               <StatusLabel status="IDLE" /> → <StatusLabel status="DELETING" />
             </p>
-            <p className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <p className="p-4 rounded border bg-secondary">
               Outbox
               <br />
               삭제 작업 기록
@@ -98,16 +98,16 @@ export function AccountDeletionDiagram() {
         <div className="p-4 rounded border border-dashed">
           <p className="mb-4 font-medium">Worker에서 외부 시스템 데이터 삭제</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <p className="text-muted-foreground">Job 1</p>
               <p className="mt-2 font-medium">Firebase 인증 계정</p>
             </div>
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <p className="text-muted-foreground">Job 2</p>
               <p className="mt-2 font-medium">R2 이미지</p>
             </div>
           </div>
-          <div className="mt-4 p-4 flex items-start gap-4 rounded border bg-custom-400 dark:bg-custom-100/30 text-left text-custom-200 dark:text-custom-300">
+          <div className="mt-4 p-4 flex items-start gap-4 rounded border bg-secondary text-left text-custom-200">
             <RefreshCw className="mt-2 size-4 shrink-0" aria-hidden="true" />
             <p>실패한 Job 보존 → 지수 백오프 → 해당 작업 재시도</p>
           </div>
@@ -115,7 +115,7 @@ export function AccountDeletionDiagram() {
         <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
         <p>두 외부 삭제 Job이 모두 완료되어 제거된 경우에만</p>
         <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-        <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30 text-destructive">
+        <div className="p-4 rounded border bg-secondary text-destructive">
           <p>Job 3</p>
           <p className="mt-2 font-medium">서비스 DB 회원 데이터 최종 삭제</p>
         </div>
@@ -131,7 +131,7 @@ export function AccountDeletionDiagram() {
 export function SyncConflictDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100 dark:text-custom-300">
+      <figcaption className="text-custom-100">
         <p className="font-medium">
           동기화 중 수정이 발생했을 때 updatedAt 비교 흐름
         </p>
@@ -166,7 +166,7 @@ export function SyncConflictDiagram() {
           ))}
         </ol>
         <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-        <div className="p-4 rounded border bg-custom-400 text-center text-custom-100">
+        <div className="p-4 rounded border bg-secondary text-center text-custom-100">
           <p className="font-medium">Room 트랜잭션에서 원자적 비교</p>
           <p className="mt-2 font-mono">요청 updatedAt = 현재 updatedAt ?</p>
         </div>
@@ -176,7 +176,7 @@ export function SyncConflictDiagram() {
               className="mx-auto my-4 size-4 hidden sm:block"
               aria-hidden="true"
             />
-            <div className="p-4 rounded border bg-custom-300/60 dark:bg-custom-300/10">
+            <div className="p-4 rounded border bg-custom-300">
               <p className="font-medium">같음: 추가 수정 없음</p>
               <p className="mt-2">
                 <StatusLabel status="SYNCED" />
@@ -189,7 +189,7 @@ export function SyncConflictDiagram() {
               className="mx-auto my-4 size-4 hidden sm:block"
               aria-hidden="true"
             />
-            <div className="p-4 rounded border bg-custom-200/10">
+            <div className="p-4 rounded border bg-custom-300">
               <p className="font-medium">다름: 위 사례 t1 ≠ t2</p>
               <p className="mt-2">
                 <StatusLabel status="PENDING_UPSERT" />

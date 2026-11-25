@@ -23,7 +23,7 @@ export function MailPerformance({
     ) * 100;
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100 dark:text-custom-300">
+      <figcaption className="text-custom-100">
         <p className="font-medium">최적화 방식에 따른 체크박스 반응시간</p>
         <p className="mt-2 text-muted-foreground">
           Chrome DevTools로 측정한 INP입니다. 낮을수록 빠릅니다.
@@ -34,7 +34,7 @@ export function MailPerformance({
           <p className="font-medium">
             대상자 {largest.count.toLocaleString("ko-KR")}명 기준
           </p>
-          <p className="text-2xl font-semibold text-custom-200 dark:text-custom-300">
+          <p className="text-2xl font-semibold text-custom-200">
             약 {reduction}% 단축
           </p>
         </div>
@@ -43,7 +43,7 @@ export function MailPerformance({
             {
               name: "최적화 전",
               value: largest.before,
-              color: "bg-custom-300 dark:bg-custom-300/30",
+              color: "bg-custom-300",
             },
             {
               name: "메모이제이션 (최종 적용)",
@@ -53,7 +53,7 @@ export function MailPerformance({
             {
               name: "가상 스크롤 (비교 실험)",
               value: largest.virtualization,
-              color: "bg-custom-100 dark:bg-custom-300",
+              color: "bg-custom-100",
             },
           ].map((bar) => (
             <div key={bar.name}>
@@ -61,7 +61,7 @@ export function MailPerformance({
                 <p>{bar.name}</p>
                 <p className="shrink-0 font-mono">{bar.value}ms</p>
               </div>
-              <div className="h-4 overflow-hidden rounded bg-custom-400 dark:bg-custom-100/30">
+              <div className="h-4 overflow-hidden rounded bg-secondary">
                 <div
                   className={`h-full rounded ${bar.color}`}
                   style={{ width: `${(bar.value / scale) * 100}%` }}
@@ -99,17 +99,17 @@ export function MailPerformance({
                 <tr
                   key={row.count}
                   className={
-                    row.count === largest.count ? "bg-custom-200/10" : undefined
+                    row.count === largest.count ? "bg-custom-300" : undefined
                   }
                 >
                   <th scope="row" className="px-2 py-4 font-medium">
                     {row.count.toLocaleString("ko-KR")}명
                   </th>
                   <td className="px-2 py-4">{row.before}</td>
-                  <td className="px-2 py-4 font-medium text-custom-200 dark:text-custom-300">
+                  <td className="px-2 py-4 font-medium text-custom-200">
                     {row.memoization}
                   </td>
-                  <td className="px-2 py-4 text-custom-100 dark:text-custom-300">
+                  <td className="px-2 py-4 text-custom-100">
                     {row.virtualization}
                   </td>
                 </tr>

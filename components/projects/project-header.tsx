@@ -10,14 +10,14 @@ function ProjectMetadata({
   project: Pick<DevProject, "duration" | "role" | "size">;
 }) {
   return (
-    <dl className="mt-8 p-4 lg:p-8 grid grid-cols-[auto_1fr] gap-x-8 gap-y-4 rounded bg-custom-400 dark:bg-custom-100/30">
+    <dl className="mt-8 p-4 lg:p-8 grid grid-cols-[auto_1fr] gap-x-8 gap-y-4 rounded bg-secondary">
       {[
         ["기간", project.duration],
         ["역할", project.role],
         ["인원", project.size],
       ].map(([label, value]) => (
         <div key={label} className="contents">
-          <dt className="text-custom-200 dark:text-custom-300">{label}</dt>
+          <dt className="text-custom-200">{label}</dt>
           <dd>{value}</dd>
         </div>
       ))}
@@ -64,7 +64,7 @@ export function ProjectHeader({
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-custom-200 dark:text-custom-300 hover:underline underline-offset-4"
+                className="inline-flex items-center gap-2 text-custom-200 hover:underline underline-offset-4"
               >
                 {label}
                 <ArrowUpRight className="size-4" aria-hidden="true" />

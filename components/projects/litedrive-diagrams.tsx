@@ -13,16 +13,16 @@ import { StatusLabel } from "./status-label";
 export function UploadGatewayDiagram() {
   return (
     <figure>
-      <figcaption className="font-medium text-custom-100 dark:text-custom-300">
+      <figcaption className="font-medium text-custom-100">
         업로드 아키텍처의 승인 경로와 파일 전송 경로
       </figcaption>
       <div className="mt-4 p-4 lg:p-8 rounded border">
         <div className="p-4 rounded border border-dashed">
           <p className="mb-4 font-medium">① 업로드 승인</p>
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4 text-center">
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <Monitor
-                className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+                className="mx-auto mb-2 size-8 text-custom-200"
                 aria-hidden="true"
               />
               <p className="font-medium">클라이언트</p>
@@ -34,9 +34,9 @@ export function UploadGatewayDiagram() {
                 aria-hidden="true"
               />
             </div>
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <Server
-                className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+                className="mx-auto mb-2 size-8 text-custom-200"
                 aria-hidden="true"
               />
               <p className="font-medium">앱 서버 (Railway)</p>
@@ -66,7 +66,7 @@ export function UploadGatewayDiagram() {
             </div>
             <div className="p-4 rounded border">
               <HardDrive
-                className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+                className="mx-auto mb-2 size-8 text-custom-200"
                 aria-hidden="true"
               />
               <p className="font-medium">Cloudflare R2</p>
@@ -80,7 +80,7 @@ export function UploadGatewayDiagram() {
             </div>
             <div className="p-4 rounded border">
               <Database
-                className="mx-auto mb-2 size-8 text-custom-200 dark:text-custom-300"
+                className="mx-auto mb-2 size-8 text-custom-200"
                 aria-hidden="true"
               />
               <p className="font-medium">서비스 DB</p>
@@ -100,11 +100,11 @@ export function UploadGatewayDiagram() {
 export function UploadStateDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100 dark:text-custom-300">
+      <figcaption className="font-medium text-custom-100">
         업로드 요청의 상태 전이
       </figcaption>
       <div className="mt-4 p-4 lg:p-8 rounded border text-center">
-        <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+        <div className="p-4 rounded border bg-secondary">
           <p>
             <StatusLabel status="PENDING" />
           </p>
@@ -121,10 +121,10 @@ export function UploadStateDiagram() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-            <p className="mb-4 text-custom-200 dark:text-custom-300">
+            <p className="mb-4 text-custom-200">
               갱신 성공
             </p>
-            <div className="p-4 rounded border bg-custom-200/10">
+            <div className="p-4 rounded border bg-custom-300">
               <p>
                 <StatusLabel status="UPLOADING" />
               </p>
@@ -134,7 +134,7 @@ export function UploadStateDiagram() {
           <div>
             <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
             <p className="mb-4">갱신된 행 없음</p>
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <p className="font-medium text-destructive">추가 요청 거부</p>
               <p className="mt-2">중복과 재사용 차단</p>
             </div>
@@ -147,7 +147,7 @@ export function UploadStateDiagram() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-              <div className="p-4 rounded border bg-custom-300/60 dark:bg-custom-300/10">
+              <div className="p-4 rounded border bg-custom-300">
                 <p>
                   <StatusLabel status="SUCCESS" />
                 </p>
@@ -156,7 +156,7 @@ export function UploadStateDiagram() {
             </div>
             <div>
               <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-              <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+              <div className="p-4 rounded border bg-secondary">
                 <p>
                   <StatusLabel status="FAILED" />
                 </p>
@@ -177,7 +177,7 @@ export function UploadStateDiagram() {
 export function UploadStreamDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100 dark:text-custom-300">
+      <figcaption className="text-custom-100">
         <p className="font-medium">
           청크 단위로 검증해 제한을 넘는 순간 전달 중단
         </p>
@@ -193,8 +193,8 @@ export function UploadStreamDiagram() {
               key={size}
               className={
                 size > 10
-                  ? "p-2 rounded border bg-custom-400 dark:bg-custom-100/30 text-destructive"
-                  : "p-2 rounded border bg-custom-200/10 text-custom-200 dark:text-custom-300"
+                  ? "p-2 rounded border bg-secondary text-destructive"
+                  : "p-2 rounded border bg-custom-300 text-custom-200"
               }
             >
               <p>
@@ -214,8 +214,8 @@ export function UploadStreamDiagram() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-            <div className="p-4 rounded border bg-custom-300/60 dark:bg-custom-300/10">
-              <p className="font-medium text-custom-100 dark:text-custom-300">
+            <div className="p-4 rounded border bg-custom-300">
+              <p className="font-medium text-custom-100">
                 10 MiB 이하
               </p>
               <p className="mt-2">해당 청크를 R2 스트림으로 전달</p>
@@ -224,7 +224,7 @@ export function UploadStreamDiagram() {
           </div>
           <div>
             <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
-            <div className="p-4 rounded border bg-custom-400 dark:bg-custom-100/30">
+            <div className="p-4 rounded border bg-secondary">
               <p className="font-medium text-destructive">10 MiB 초과</p>
               <p className="mt-2">초과 청크를 전달하지 않고 중단</p>
               <p className="mt-4 font-mono">10–12 MiB → 차단</p>

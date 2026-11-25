@@ -1,78 +1,93 @@
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
-const snapshots = [
-  { name: "A 최신", target: true, reason: "패키지 X 포함" },
-  { name: "A 이전", target: false, reason: "이전 버전 제외" },
-  { name: "B 최신", target: false, reason: "관련 패키지 없음" },
-  { name: "C 최신", target: true, reason: "패키지 X 포함" },
+const collectionDecisions = [
+  {
+    title: "기존: 1시간마다 전체 변경 수집",
+    description: "직전 1시간 동안 갱신된 취약점을 모두 다시 저장",
+  },
+  {
+    title: "문제: 한 시간에 약 8만 건 유입",
+    description: "11월 5일, 수집 작업이 장시간 종료되지 않음",
+    failed: true,
+  },
+  {
+    title: "시도: 동시 요청 수 확대",
+    description: "1시간 내 처리를 시도했지만 OSV가 과도한 요청을 거부",
+    failed: true,
+  },
+  {
+    title: "개선: 15분마다 최대 1,000건",
+    description: "저장과 후속 재진단 작업 등록을 마치면 배치 종료",
+    selected: true,
+  },
 ];
 
-export function DiagnosisScopeDiagram() {
+export function CollectionBatchDiagram() {
   return (
-    <figure className="mt-8">
-      <figcaption className="text-custom-100 dark:text-custom-300">
-        <p className="font-medium">
-          전체 탐색에서 관련 최신 SBOM으로 좁힌 재진단 범위
-        </p>
-        <p className="mt-2 text-muted-foreground">
-          패키지 X의 취약점 정보가 변경된 경우를 나타낸 예시
-        </p>
-      </figcaption>
-      <div className="border rounded mt-4 grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {[false, true].map((selective) => (
-          <div key={String(selective)} className="p-4 border-r">
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <p className="font-medium">
-                {selective ? "개선 후: 관련 최신 SBOM" : "기존: 전체 SBOM"}
-              </p>
-              <p
-                className={
-                  selective
-                    ? "text-2xl font-semibold text-custom-200 dark:text-custom-300"
-                    : "text-2xl font-semibold text-muted-foreground"
-                }
-              >
-                {selective ? 2 : 4}개
-              </p>
-            </div>
-            <ul className="grid grid-cols-2 gap-2">
-              {snapshots.map((snapshot) => {
-                const target = !selective || snapshot.target;
-                return (
-                  <li
-                    key={snapshot.name}
-                    className={
-                      target
-                        ? selective
-                          ? "p-4 rounded border bg-custom-200/10 text-custom-200 dark:text-custom-300"
-                          : "p-4 rounded border bg-custom-400 dark:bg-custom-100/30"
-                        : "p-4 rounded border border-dashed text-muted-foreground"
-                    }
+    <>
+      <figure className="mt-8">
+        <figcaption className="font-medium text-custom-100">
+          문제 발생부터 수집 정책 변경까지
+        </figcaption>
+        <div className="mt-4 p-4 lg:p-8 rounded border">
+          <ol className="mx-auto max-w-lg text-center">
+            {collectionDecisions.map((step, index) => (
+              <li key={step.title}>
+                {index > 0 && (
+                  <ArrowDown
+                    className="mx-auto my-2 size-4"
+                    aria-hidden="true"
+                  />
+                )}
+                <div
+                  className={`p-4 rounded border ${step.selected ? "bg-custom-300" : "bg-secondary"}`}
+                >
+                  <p className="font-medium">{step.title}</p>
+                  <p
+                    className={`mt-2 ${step.failed ? "text-destructive" : "text-muted-foreground"}`}
                   >
-                    <FileText className="mb-2 size-8" aria-hidden="true" />
-                    <p className="font-medium">{snapshot.name}</p>
-                    <p className="mt-2">
-                      {target ? "재진단" : snapshot.reason}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
+                    {step.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </figure>
+
+      <figure className="mt-8">
+        <figcaption className="font-medium text-custom-100">
+          15분마다 1,000건을 선택한 근거
+        </figcaption>
+        <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
+          <div className="p-4">
+            <dt className="font-medium">평소 유입량</dt>
+            <dd className="mt-2 text-2xl font-semibold text-custom-200">
+              약 1,000건 / 하루
+            </dd>
+            <dd className="mt-2 text-muted-foreground">
+              실제 하루 평균 등록량을 기준으로 수집 규모 결정
+            </dd>
           </div>
-        ))}
-      </div>
-      <p className="mt-4 text-muted-foreground">
-        변경 패키지 식별 → 관련 SBOM 조회 → 프로젝트별 최신 버전 선별 → 취약점
-        재진단
-      </p>
-    </figure>
+          <div className="p-4">
+            <dt className="font-medium">수집 테스트</dt>
+            <dd className="mt-2 text-2xl font-semibold text-custom-200">
+              1,000건 / 15분
+            </dd>
+            <dd className="mt-2 text-muted-foreground">
+              OSV의 요청 거부 없이 정상 처리되는 것을 확인
+            </dd>
+          </div>
+        </dl>
+      </figure>
+    </>
   );
 }
 
 export function VersionNormalizationDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100 dark:text-custom-300">
+      <figcaption className="font-medium text-custom-100">
         원본을 보존한 버전 분리
       </figcaption>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
@@ -96,15 +111,15 @@ export function VersionNormalizationDiagram() {
             </p>
             <ArrowDown className="mx-auto my-4 size-4" aria-hidden="true" />
             <dl className="space-y-4">
-              <div className="p-4 rounded border bg-custom-200/10">
+              <div className="p-4 rounded border bg-custom-300">
                 <dt className="text-muted-foreground">기본 버전</dt>
-                <dd className="mt-2 font-mono text-custom-200 dark:text-custom-300">
+                <dd className="mt-2 font-mono text-custom-200">
                   {version.base}
                 </dd>
               </div>
-              <div className="p-4 rounded border bg-custom-300/60 dark:bg-custom-300/10">
+              <div className="p-4 rounded border bg-custom-300">
                 <dt className="text-muted-foreground">접미사</dt>
-                <dd className="mt-2 font-mono text-custom-200 dark:text-custom-300">
+                <dd className="mt-2 font-mono text-custom-200">
                   {version.suffix}
                 </dd>
               </div>

@@ -1,6 +1,9 @@
 import { ProjectHeader } from "@/components/projects/project-header";
 import { ArticleSection } from "@/components/article/article-section";
-import { SurveyPolicyDiagram } from "@/components/projects/erp-diagrams";
+import {
+  SurveyPolicyDiagram,
+  SurveyStateMatrix,
+} from "@/components/projects/erp-diagrams";
 import { TechStack } from "@/components/projects/tech-stack";
 import { DEV_PROJECTS } from "@/constants/dev-project";
 import { Skull } from "lucide-react";
@@ -38,7 +41,7 @@ export default function Page() {
         </ArticleSection>
 
         <ArticleSection title="문제 해결">
-          <section className="leading-relaxed">
+          <section>
             <h3 className="text-lg font-semibold">
               설문 상태 30개 조합의 접근 권한을 일관되게 처리
             </h3>
@@ -50,23 +53,14 @@ export default function Page() {
               수 있었습니다.
             </p>
 
-            <dl className="mt-8 p-4 lg:p-8 grid grid-cols-1 sm:grid-cols-3 gap-4 rounded bg-custom-400 dark:bg-custom-100/30">
-              {[
-                ["설문 운영 상태", "5개"],
-                ["사용자 응답 상태", "3개"],
-                ["참여 대상 여부", "2개"],
-              ].map(([label, count]) => (
-                <div key={label}>
-                  <dt className="text-muted-foreground">{label}</dt>
-                  <dd className="mt-2 text-2xl font-semibold text-custom-200 dark:text-custom-300">
-                    {count}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-4 text-muted-foreground">
-              5 × 3 × 2 = 총 30개 상태 조합에 대한 권한 판단이 필요했습니다.
+            <p className="mt-4">
+              운영 상태 5개(생성, 예약, 진행, 일시정지, 종료), 응답 상태
+              3개(미응답, 작성 중, 제출 완료), 참여 대상 여부 2개를 조합하면
+              총 30개 입력 조합이 됩니다. 각 조합의 접근, 수정, 제출 권한과
+              표시할 화면을 하나의 정책으로 결정했습니다.
             </p>
+
+            <SurveyStateMatrix />
 
             <p className="mt-8">
               설문 운영 상태와 사용자 응답 상태를 독립적으로 관리하고, SQL
@@ -80,7 +74,7 @@ export default function Page() {
             </p>
           </section>
 
-          <section className="mt-16 leading-relaxed">
+          <section className="mt-16">
             <h3 className="text-lg font-semibold">
               참여 대상과 제출 여부를 먼저 판단하는 정책 우선순위
             </h3>

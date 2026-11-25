@@ -1,7 +1,8 @@
 import { ProjectHeader } from "@/components/projects/project-header";
 import { ArticleSection } from "@/components/article/article-section";
+import { DiagnosisWorkflowDiagram } from "@/components/projects/oss-diagnosis-diagram";
 import {
-  DiagnosisScopeDiagram,
+  CollectionBatchDiagram,
   VersionNormalizationDiagram,
 } from "@/components/projects/oss-diagrams";
 import { TechStack } from "@/components/projects/tech-stack";
@@ -14,7 +15,7 @@ import { notFound } from "next/navigation";
 export const metadata: Metadata = {
   title: "오픈소스 취약점 관리 서비스 | mrbonk97",
   description:
-    "오픈소스 취약점 관리 서비스의 백엔드 개발 기록. SBOM 재진단 대상 선별과 버전 비교 로직을 개선했습니다.",
+    "오픈소스 취약점 관리 서비스의 백엔드 개발 기록. OSV 수집량을 제한하고, SBOM 재진단 대상 선별과 버전 비교 로직을 개선했습니다.",
 };
 
 export default function Page() {
@@ -38,22 +39,42 @@ export default function Page() {
         </ArticleSection>
 
         <ArticleSection title="문제 해결">
-          <section className="leading-relaxed">
-            <h3 className="text-lg font-semibold">
+          <section>
+            <h3 className="text-2xl font-semibold">
+              대량 유입으로 끝나지 않던 취약점 수집 작업 개선
+            </h3>
+            <p className="mt-4">
+              취약점 유입량이 급증하면서 전체 변경을 한 번에 수집하던 작업이
+              장시간 종료되지 않았습니다. 실제 유입량과 OSV 요청 제약을 고려해
+              한 번에 처리할 분량을 제한했습니다.
+            </p>
+
+            <CollectionBatchDiagram />
+          </section>
+
+          <section className="mt-32">
+            <h3 className="text-2xl font-semibold">
               변경된 취약점과 관련된 SBOM만 재진단
             </h3>
             <p className="mt-4">
               취약점 정보가 갱신될 때마다 모든 SBOM(소프트웨어 구성요소 목록)을
               다시 검사해, 변경과 무관한 패키지까지 반복 진단하고 있었습니다.
-              영향 패키지를 사용하는 프로젝트의 최신 SBOM만 선별하도록
-              바꿨습니다.
+              수집량 제한과 함께, 변경된 취약점의 영향 패키지를 사용하는
+              프로젝트의 최신 SBOM만 재진단하도록 범위도 줄였습니다.
+            </p>
+            <p className="mt-4">
+              Node.js에서 OSV 데이터를 fetch한 뒤 정제와 정규화를 거쳐 DB에
+              저장합니다. 저장을 마치면 관련된 최신 SBOM을 선별해 프로젝트
+              재진단 워커의 작업 큐에 넣습니다. Java Spring Boot 워커는 5초마다
+              수행할 작업이 있는지 확인하고, 작업이 있을 때 해당 프로젝트를
+              재진단합니다.
             </p>
 
-            <DiagnosisScopeDiagram />
+            <DiagnosisWorkflowDiagram />
 
             <table className="mt-8 w-full text-left">
               <caption className="mb-4 text-left font-medium">
-                선별과 재처리 기준
+                후속 재진단과 재처리 기준
               </caption>
               <thead className="border-b">
                 <tr>
@@ -69,7 +90,11 @@ export default function Page() {
                 {[
                   [
                     "대상 선별",
-                    "변경된 영향 패키지의 식별 정보로 관련된 최신 SBOM을 찾습니다. 이 단계에서는 버전을 제외합니다.",
+                    "DB 저장이 끝난 뒤, 변경된 영향 패키지의 식별 정보로 관련된 최신 SBOM을 찾습니다. 이 단계에서는 버전을 제외합니다.",
+                  ],
+                  [
+                    "작업 실행",
+                    "Node.js에서 선별한 SBOM의 재진단 작업을 워커의 작업 큐에 넣습니다. Spring Boot 워커는 5초마다 작업 유무를 확인하며, 작업이 없으면 다음 확인 주기까지 대기합니다.",
                   ],
                   [
                     "최종 판정",
@@ -105,8 +130,8 @@ export default function Page() {
             </p>
           </section>
 
-          <section className="mt-16 leading-relaxed">
-            <h3 className="text-lg font-semibold">
+          <section className="mt-32">
+            <h3 className="text-2xl font-semibold">
               접미사가 포함된 버전의 비교 오류 개선
             </h3>
             <p className="mt-4">
