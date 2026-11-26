@@ -1,0 +1,39 @@
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--custom-300) var(--custom-100);
+}
+
+.scrollbar:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--custom-300);
+  outline-offset: 4px;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  .scrollbar {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: var(--custom-100);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: var(--custom-300);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--custom-400);
+  }
+
+  .scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
+}
