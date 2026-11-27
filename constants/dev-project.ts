@@ -65,10 +65,10 @@ export const DEV_PROJECTS: DevProject[] = [
     bgUrl: "/projects/tuner-440/tuner-440-cover.webp",
     title: "기타튜너 Tuner440",
     summary:
-      "레거시 ERP 환경에서 BSC 성과지표의 설문조사와 전자공청회 기능을 개발하고, 기존 업무 흐름과 데이터 구조를 분석한 프로젝트입니다.",
-    stack: ["Jetpack Compose"],
+      "기타 튜닝과 박자 연습을 위한 안드로이드 앱입니다. 튜너에서 음정 차이와 입력 신호 세기를 확인하고, 메트로놈의 템포와 박자, 소리를 설정할 수 있습니다.",
+    stack: ["Kotlin", "Jetpack Compose", "Dagger/Hilt", "DataStore"],
     role: "안드로이드 개발",
-    size: "1",
+    size: "1명",
     duration: "2026.08 - 2026.09",
     tag: "android & backend",
   },

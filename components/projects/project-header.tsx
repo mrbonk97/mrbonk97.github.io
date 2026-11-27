@@ -33,7 +33,7 @@ export function ProjectHeader({
   links?: readonly ProjectLink[];
 }) {
   return (
-    <section className="pb-8 border-b">
+    <section>
       <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded">
         <Image
           src={project.bgUrl ?? project.imgUrl}
