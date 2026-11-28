@@ -10,11 +10,8 @@ import { StatusLabel } from "./status-label";
 
 export function OfflineSyncDiagram() {
   return (
-    <figure>
-      <figcaption className="font-medium text-custom-100">
-        RoomDB 중심의 오프라인 동기화 구조
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border text-center">
+    <figure className="mt-8">
+      <div className="p-4 rounded border text-center">
         <div className="p-4 rounded border">
           <Smartphone
             className="mx-auto mb-2 size-8 text-custom-200"
@@ -62,10 +59,9 @@ export function OfflineSyncDiagram() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-muted-foreground">
-        네트워크 연결 여부와 관계없이 화면은 RoomDB를 읽고, 아직 전송하지 않은
-        로컬 변경은 서버 데이터로 덮어쓰지 않습니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [RoomDB 중심의 오프라인 동기화 구조]
+      </figcaption>
     </figure>
   );
 }
@@ -73,10 +69,7 @@ export function OfflineSyncDiagram() {
 export function AccountDeletionDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100">
-        Outbox로 탈퇴 요청과 삭제 작업 분리
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border text-center">
+      <div className="p-4 rounded border text-center">
         <div className="p-4 rounded border">
           <p className="font-medium">탈퇴 요청을 하나의 트랜잭션으로 처리</p>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -120,10 +113,9 @@ export function AccountDeletionDiagram() {
           <p className="mt-2 font-medium">서비스 DB 회원 데이터 최종 삭제</p>
         </div>
       </div>
-      <p className="mt-4 text-muted-foreground">
-        성공한 Job은 제거하고, 이미 삭제된 대상도 성공으로 처리합니다. 서버가
-        중단되어도 남아 있는 Job부터 이어서 처리합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [Outbox로 탈퇴 요청과 삭제 작업 분리]
+      </figcaption>
     </figure>
   );
 }
@@ -131,15 +123,7 @@ export function AccountDeletionDiagram() {
 export function SyncConflictDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100">
-        <p className="font-medium">
-          동기화 중 수정이 발생했을 때 updatedAt 비교 흐름
-        </p>
-        <p className="mt-2 text-muted-foreground">
-          t1과 t2는 로컬 수정 시점의 변화를 나타내는 예시
-        </p>
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border">
+      <div className="p-4 rounded border">
         <ol className="space-y-4">
           {[
             ["1", "Push 요청", "Worker가 updatedAt = t1인 기록을 전송"],
@@ -154,11 +138,11 @@ export function SyncConflictDiagram() {
               "응답은 t1 기준이고, 현재 로컬 기록은 t2",
             ],
           ].map(([number, title, description]) => (
-            <li key={number} className="flex gap-4">
+            <li key={number} className="p-4 flex gap-4 rounded border">
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-custom-300 font-medium text-custom-100">
                 {number}
               </span>
-              <div className="pb-4 flex-1">
+              <div className="flex-1">
                 <p className="font-medium">{title}</p>
                 <p className="mt-2 text-muted-foreground">{description}</p>
               </div>
@@ -199,6 +183,9 @@ export function SyncConflictDiagram() {
           </div>
         </div>
       </div>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [동기화 중 수정이 발생했을 때 updatedAt 비교 흐름]
+      </figcaption>
     </figure>
   );
 }

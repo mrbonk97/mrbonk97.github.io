@@ -34,7 +34,7 @@ export default function Page() {
         <ArticleSection title="시스템 아키텍처">
           <div className="p-4 lg:p-8 h-64 flex items-center justify-center flex-col gap-4 bg-secondary text-secondary-foreground rounded">
             <Skull className="stroke-muted-foreground" />
-            <p className="text-sm font-medium text-muted-foreground">비공개</p>
+            <p className="font-medium text-muted-foreground">비공개</p>
           </div>
         </ArticleSection>
 
@@ -52,7 +52,7 @@ export default function Page() {
             <CollectionBatchDiagram />
           </section>
 
-          <section className="mt-32">
+          <section className="mt-16">
             <h3 className="text-2xl font-semibold">
               변경된 취약점과 관련된 SBOM만 재진단
             </h3>
@@ -130,7 +130,7 @@ export default function Page() {
             </p>
           </section>
 
-          <section className="mt-32">
+          <section className="mt-16">
             <h3 className="text-2xl font-semibold">
               접미사가 포함된 버전의 비교 오류 개선
             </h3>
@@ -169,9 +169,6 @@ export default function Page() {
                   </th>
                   <td className="py-4">
                     <code>1.10.0 &gt; 1.9.0</code>
-                    <p className="mt-2 text-muted-foreground">
-                      각 숫자 요소를 문자열이 아닌 정수로 비교합니다.
-                    </p>
                   </td>
                 </tr>
                 <tr>

@@ -43,6 +43,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## 프로젝트 상세 페이지 규칙
 
+- 프로젝트 상세 페이지와 관련 본문, 이미지, 다이어그램, 스크린샷 컴포넌트를 만들거나 수정하기 전에 [프로젝트 상세 페이지 작성 규칙](docs/project-detail-rules.md)을 반드시 읽고 적용한다.
+- 문제 해결 항목의 `space-y-12`, 설명의 `mt-2`, 이미지 영역의 `p-4 rounded border`, 하단 중앙의 `[제목]` 캡션과 `text-muted-foreground`, 스크린샷 캐러셀 규칙은 연결된 문서를 기준으로 한다.
+- 프로젝트 상세 본문에서 제목과 설명을 나열하는 항목 사이의 `space-y-12`는 위의 일반 크기 단위 규칙보다 우선하는 예외다.
 - `/projects/*` 프로젝트 상세 페이지의 `<main>`에는 아래 `className`만 사용한다. `/projects` 목록 페이지는 이 규칙에서 제외한다.
 - 클래스를 추가, 삭제, 변경하지 않고 고정하며, 새 프로젝트 상세 페이지에도 동일하게 적용한다.
 - 문단 줄간격과 `word-break: keep-all`, `text-wrap: balance`는 전역 CSS에서 적용한다.

@@ -9,7 +9,8 @@ function getDisplayPolicy(
   responseState: (typeof responseStates)[number],
   isTarget: boolean,
 ) {
-  if (!isTarget) return { label: "접근 차단", access: false, edit: false, submit: false };
+  if (!isTarget)
+    return { label: "접근 차단", access: false, edit: false, submit: false };
   if (responseState === "제출 완료") {
     return { label: "결과 조회", access: true, edit: false, submit: false };
   }
@@ -30,24 +31,28 @@ function getDisplayPolicy(
 export function SurveyStateMatrix() {
   return (
     <figure className="mt-8">
-      <figcaption>
-        <p className="font-medium text-custom-100">30개 입력 조합의 권한 매트릭스</p>
-        <p className="mt-2 text-muted-foreground">
-          각 칸은 하나의 조합입니다. O는 허용, X는 제한이며 접근, 수정, 제출 순서입니다.
-        </p>
-      </figcaption>
-      <div className="mt-4 divide-y rounded border">
+      <div className="p-4 divide-y rounded border">
         {[true, false].map((isTarget) => (
-          <div key={String(isTarget)} className="p-4 overflow-x-auto" tabIndex={0}>
+          <div
+            key={String(isTarget)}
+            className="p-4 overflow-x-auto"
+            tabIndex={0}
+          >
             <table className="w-full text-center">
               <caption className="mb-4 text-left font-medium">
                 {isTarget ? "참여 대상" : "참여 비대상"}: 15개 조합
               </caption>
               <thead className="border-b">
                 <tr>
-                  <th scope="col" className="p-2 font-medium">운영 상태</th>
+                  <th scope="col" className="p-2 font-medium">
+                    운영 상태
+                  </th>
                   {responseStates.map((state) => (
-                    <th key={state} scope="col" className="p-2 border-l font-medium">
+                    <th
+                      key={state}
+                      scope="col"
+                      className="p-2 border-l font-medium"
+                    >
                       {state}
                     </th>
                   ))}
@@ -60,17 +65,29 @@ export function SurveyStateMatrix() {
                       {surveyState}
                     </th>
                     {responseStates.map((responseState) => {
-                      const policy = getDisplayPolicy(surveyState, responseState, isTarget);
+                      const policy = getDisplayPolicy(
+                        surveyState,
+                        responseState,
+                        isTarget,
+                      );
                       return (
                         <td
                           key={responseState}
                           className={`p-2 border-l ${policy.edit ? "bg-custom-300" : ""}`}
                         >
-                          <p className={policy.access ? "font-medium text-custom-100" : "text-muted-foreground"}>
+                          <p
+                            className={
+                              policy.access
+                                ? "font-medium text-custom-100"
+                                : "text-muted-foreground"
+                            }
+                          >
                             {policy.label}
                           </p>
                           <p className="mt-2 whitespace-nowrap font-mono">
-                            {policy.access ? "O" : "X"} / {policy.edit ? "O" : "X"} / {policy.submit ? "O" : "X"}
+                            {policy.access ? "O" : "X"} /{" "}
+                            {policy.edit ? "O" : "X"} /{" "}
+                            {policy.submit ? "O" : "X"}
                           </p>
                         </td>
                       );
@@ -82,10 +99,9 @@ export function SurveyStateMatrix() {
           </div>
         ))}
       </div>
-      <p className="mt-4 text-muted-foreground">
-        비대상 15개 조합은 우선 차단합니다. 대상자 중 제출 완료 5개 조합은 결과
-        조회를 허용하고, 나머지 10개 조합은 운영 상태와 작성 여부로 판단합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [30개 입력 조합의 권한 매트릭스]
+      </figcaption>
     </figure>
   );
 }
@@ -93,34 +109,17 @@ export function SurveyStateMatrix() {
 export function SurveyPolicyDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100">
-        <p className="font-medium">30개 조합을 처리하는 전체 권한 판단 흐름</p>
-        <p className="mt-2 text-muted-foreground">
-          참여 대상과 제출 여부를 확인한 뒤 운영 상태 5개로 분기하고, 저장과 제출
-          시점에 같은 정책을 다시 검증합니다.
-        </p>
-      </figcaption>
-      <div className="mt-4 overflow-hidden rounded border">
+      <div className="p-4 overflow-hidden rounded border">
         <Image
           src={surveyPolicyFlowchart}
           alt="SQL JOIN으로 30개 입력 조합의 상태를 조회합니다. 비대상 15개는 접근을 차단하고, 대상자 중 제출 완료 5개는 결과 조회만 허용합니다. 나머지는 생성과 예약, 종료에서 각 2개씩 접근을 제한하고, 일시정지 2개는 안내와 답변 보존만 허용합니다. 진행 상태에서는 미응답 1개는 신규 응답, 작성 중 1개는 이어서 작성을 허용합니다. 저장과 제출 요청 시 최신 상태를 재조회해 허용되면 반영하고 아니면 변경을 거부합니다."
-          sizes="(min-width: 768px) 736px, calc(100vw - 32px)"
+          sizes="(min-width: 768px) 702px, calc(100vw - 66px)"
           className="h-auto w-full"
         />
       </div>
-      <a
-        href="/projects/erp/survey-policy-flowchart-v2.png"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-4 inline-block text-custom-200 underline-offset-4 hover:underline"
-      >
-        상세 흐름도 크게 보기
-        <span className="sr-only"> (새 탭)</span>
-      </a>
-      <p className="mt-4 text-muted-foreground">
-        화면 진입 시 허용된 동작도 실행 전에 다시 검증합니다. 설문이 일시정지되거나
-        참여 자격이 바뀌면 변경을 거부하고 기존 답변을 보존합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [30개 조합을 처리하는 전체 권한 판단 흐름]
+      </figcaption>
     </figure>
   );
 }

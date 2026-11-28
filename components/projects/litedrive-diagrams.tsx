@@ -12,11 +12,8 @@ import { StatusLabel } from "./status-label";
 
 export function UploadGatewayDiagram() {
   return (
-    <figure>
-      <figcaption className="font-medium text-custom-100">
-        업로드 아키텍처의 승인 경로와 파일 전송 경로
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border">
+    <figure className="mt-8">
+      <div className="p-4 rounded border">
         <div className="p-4 rounded border border-dashed">
           <p className="mb-4 font-medium">① 업로드 승인</p>
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4 text-center">
@@ -89,10 +86,9 @@ export function UploadGatewayDiagram() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-muted-foreground">
-        앱 서버는 업로드를 승인하고, 실제 파일은 클라이언트 → Worker → R2 경로로
-        전송합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [업로드 아키텍처의 승인 경로와 파일 전송 경로]
+      </figcaption>
     </figure>
   );
 }
@@ -100,10 +96,7 @@ export function UploadGatewayDiagram() {
 export function UploadStateDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100">
-        업로드 요청의 상태 전이
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border text-center">
+      <div className="p-4 rounded border text-center">
         <div className="p-4 rounded border bg-secondary">
           <p>
             <StatusLabel status="PENDING" />
@@ -166,10 +159,9 @@ export function UploadStateDiagram() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-muted-foreground">
-        진행 중이거나 완료된 요청은 <StatusLabel status="PENDING" /> 조건을
-        만족하지 않으므로 같은 uploadId로 다시 선점할 수 없습니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [업로드 요청의 상태 전이]
+      </figcaption>
     </figure>
   );
 }
@@ -177,15 +169,7 @@ export function UploadStateDiagram() {
 export function UploadStreamDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="text-custom-100">
-        <p className="font-medium">
-          청크 단위로 검증해 제한을 넘는 순간 전달 중단
-        </p>
-        <p className="mt-2 text-muted-foreground">
-          12 MiB 파일을 2 MiB 청크로 나눈 설명용 예시 (최대 10 MiB)
-        </p>
-      </figcaption>
-      <div className="mt-4 p-4 lg:p-8 rounded border">
+      <div className="p-4 rounded border">
         <p className="font-medium">Worker가 수신한 청크</p>
         <ol className="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
           {[2, 4, 6, 8, 10, 12].map((size) => (
@@ -232,10 +216,9 @@ export function UploadStreamDiagram() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-muted-foreground">
-        전체 파일을 메모리에 적재하지 않고, TransformStream에서 실제 수신
-        바이트를 누적합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [청크 단위로 검증해 제한을 넘는 순간 전달 중단]
+      </figcaption>
     </figure>
   );
 }

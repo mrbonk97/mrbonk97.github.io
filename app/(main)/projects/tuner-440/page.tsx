@@ -1,9 +1,9 @@
 import { ArticleSection } from "@/components/article/article-section";
 import { ProjectHeader } from "@/components/projects/project-header";
+import { ProjectScreenshots } from "@/components/projects/project-screenshots";
 import { TechStack } from "@/components/projects/tech-stack";
 import { DEV_PROJECTS } from "@/constants/dev-project";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -61,20 +61,12 @@ export default function Page() {
       </ArticleSection>
 
       <ArticleSection title="스크린샷">
-        <div className="grid sm:grid-cols-2 gap-8">
-          {screenshots.map(({ file, alt }) => (
-            <figure key={file} className="p-4 rounded bg-secondary">
-              <Image
-                src={`/projects/tuner-440/screenshot/${file}`}
-                alt={alt}
-                width={1080}
-                height={2130}
-                sizes="(min-width: 768px) 320px, (min-width: 640px) calc((100vw - 128px) / 2), calc(100vw - 64px)"
-                className="h-auto w-full rounded"
-              />
-            </figure>
-          ))}
-        </div>
+        <ProjectScreenshots
+          projectId={project.id}
+          screenshots={screenshots}
+          width={1080}
+          height={2130}
+        />
       </ArticleSection>
 
       <ArticleSection title="기술스택">

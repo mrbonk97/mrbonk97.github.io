@@ -118,9 +118,7 @@ export function ProjectHighlight() {
             className="col-span-2 p-4 lg:p-8 flex flex-col justify-center gap-4 rounded bg-primary text-primary-foreground"
           >
             <p>프로젝트 개요</p>
-            <p>
-              {project.summary}
-            </p>
+            <p>{project.summary}</p>
             <div className="flex items-center justify-between gap-4 text-sm font-medium">
               프로젝트 살펴보기
               <ChevronRight size={16} aria-hidden="true" />

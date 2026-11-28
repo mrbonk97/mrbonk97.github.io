@@ -1,4 +1,5 @@
 import { ProjectHeader } from "@/components/projects/project-header";
+import { ProjectScreenshots } from "@/components/projects/project-screenshots";
 import { ArticleSection } from "@/components/article/article-section";
 import {
   UploadGatewayDiagram,
@@ -18,6 +19,25 @@ export const metadata: Metadata = {
     "경량 파일 공유 서비스 LiteDrive의 풀스택 개발 기록. Cloudflare Worker에서 업로드 권한과 실제 파일 크기를 검증하고, 원자적 상태 전이로 요청 재사용을 차단했습니다.",
 };
 
+const screenshots = [
+  {
+    file: "litedrive_01.png",
+    alt: "서비스 소개와 회원가입, 로그인 버튼을 보여주는 LiteDrive 메인 화면",
+  },
+  {
+    file: "litedrive_02.png",
+    alt: "폴더 경로와 파일별 작성자, 등록일, 용량, 공유 상태를 보여주는 LiteDrive 파일 목록 화면",
+  },
+  {
+    file: "litedrive_03.png",
+    alt: "남은 저장 공간, 파일과 폴더 수, 공유 파일 수와 최근 활동을 보여주는 LiteDrive 대시보드",
+  },
+  {
+    file: "litedrive_04.png",
+    alt: "공유 코드에 해당하는 파일 정보와 다운로드 버튼을 보여주는 LiteDrive 다운로드 화면",
+  },
+];
+
 export default function Page() {
   const project = DEV_PROJECTS.find((item) => item.id === "litedrive");
   if (!project) notFound();
@@ -33,31 +53,44 @@ export default function Page() {
       />
 
       <article>
+        <ArticleSection title="스크린샷">
+          <ProjectScreenshots
+            projectId={project.id}
+            screenshots={screenshots}
+            width={2560}
+            height={1600}
+          />
+        </ArticleSection>
+
         <ArticleSection title="기술스택">
           <TechStack items={project.stack} />
         </ArticleSection>
 
         <ArticleSection title="주요 기능">
-          <dl className="space-y-4">
+          <dl className="space-y-12">
             <div>
               <dt className="font-semibold">파일 업로드, 다운로드, 공유</dt>
               <dd className="mt-2">
-                최소한의 인증으로 파일을 올리고 공유할 수 있도록 구성했습니다.
-                사용자와 대상 리소스의 접근 권한을 확인해 파일을 관리합니다.
+                <p>
+                  최소한의 인증으로 파일을 올리고 공유할 수 있도록 구성했습니다.
+                  사용자와 대상 리소스의 접근 권한을 확인해 파일을 관리합니다.
+                </p>
               </dd>
             </div>
             <div>
               <dt className="font-semibold">폴더 조작과 계층 구조 표현</dt>
               <dd className="mt-2">
-                드래그 앤 드롭으로 폴더를 조작하고, 계층형 쿼리로 폴더와 파일
-                트리를 구성했습니다.
+                <p>
+                  드래그 앤 드롭으로 폴더를 조작하고, 계층형 쿼리로 폴더와 파일
+                  트리를 구성했습니다.
+                </p>
               </dd>
             </div>
           </dl>
         </ArticleSection>
 
         <ArticleSection title="시스템 아키텍처">
-          <p className="mb-8">
+          <p>
             앱 서버는 사용자 인증과 업로드 승인을 담당하고, 파일은
             클라이언트에서 Worker를 거쳐 R2로 전송합니다. 앱 서버가 파일을 직접
             중계하지 않으면서도 Worker에서 업로드 정책을 검증하도록
@@ -68,7 +101,7 @@ export default function Page() {
 
         <ArticleSection title="문제 해결">
           <section>
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-2xl font-semibold">
               Presigned URL 직접 업로드에 추가한 검증 단계
             </h3>
             <p className="mt-4">
@@ -127,7 +160,7 @@ export default function Page() {
           </section>
 
           <section className="mt-16">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-2xl font-semibold">
               원자적 상태 전이로 동시 요청과 재사용 차단
             </h3>
             <p className="mt-4">
@@ -155,7 +188,7 @@ export default function Page() {
           </section>
 
           <section className="mt-16">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-2xl font-semibold">
               실제 수신 바이트를 세어 스트리밍 용량 제한
             </h3>
             <p className="mt-4">
@@ -165,9 +198,6 @@ export default function Page() {
               검사했습니다.
             </p>
             <UploadStreamDiagram />
-            <p className="mt-4 text-muted-foreground">
-              최대 크기는 10 × 1024 × 1024바이트(10 MiB)로 설정했습니다.
-            </p>
             <p className="mt-8">
               제한 안의 청크만 R2 바인딩의 put()으로 전달해 파일 전체를 메모리에
               적재하지 않도록 했습니다. 앱 서버가 파일 스트림을 직접 처리하지

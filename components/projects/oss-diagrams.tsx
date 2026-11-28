@@ -26,10 +26,7 @@ export function CollectionBatchDiagram() {
   return (
     <>
       <figure className="mt-8">
-        <figcaption className="font-medium text-custom-100">
-          문제 발생부터 수집 정책 변경까지
-        </figcaption>
-        <div className="mt-4 p-4 lg:p-8 rounded border">
+        <div className="p-4 rounded border">
           <ol className="mx-auto max-w-lg text-center">
             {collectionDecisions.map((step, index) => (
               <li key={step.title}>
@@ -53,13 +50,13 @@ export function CollectionBatchDiagram() {
             ))}
           </ol>
         </div>
+        <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+          [문제 발생부터 수집 정책 변경까지]
+        </figcaption>
       </figure>
 
       <figure className="mt-8">
-        <figcaption className="font-medium text-custom-100">
-          15분마다 1,000건을 선택한 근거
-        </figcaption>
-        <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
+        <dl className="p-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
           <div className="p-4">
             <dt className="font-medium">평소 유입량</dt>
             <dd className="mt-2 text-2xl font-semibold text-custom-200">
@@ -79,6 +76,9 @@ export function CollectionBatchDiagram() {
             </dd>
           </div>
         </dl>
+        <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+          [15분마다 1,000건을 선택한 근거]
+        </figcaption>
       </figure>
     </>
   );
@@ -87,22 +87,17 @@ export function CollectionBatchDiagram() {
 export function VersionNormalizationDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption className="font-medium text-custom-100">
-        원본을 보존한 버전 분리
-      </figcaption>
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
+      <div className="p-4 grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x rounded border">
         {[
           {
             original: "11.19.3-SNAPSHOT_3",
             base: "11.19.3",
             suffix: "SNAPSHOT_3",
-            note: "사전 릴리스 정보를 보존",
           },
           {
             original: "2.6.14-tuxcare.0",
             base: "2.6.14",
             suffix: "tuxcare.0",
-            note: "배포사 식별자를 보존",
           },
         ].map((version) => (
           <div key={version.original} className="p-4">
@@ -124,14 +119,12 @@ export function VersionNormalizationDiagram() {
                 </dd>
               </div>
             </dl>
-            <p className="mt-4 text-muted-foreground">{version.note}</p>
           </div>
         ))}
       </div>
-      <p className="mt-4 text-muted-foreground">
-        기본 버전과 접미사를 분리한 뒤, 생태계별 비교 규칙으로 영향 범위를
-        판단합니다.
-      </p>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [원본을 보존한 버전 분리]
+      </figcaption>
     </figure>
   );
 }

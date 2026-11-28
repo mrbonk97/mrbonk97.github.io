@@ -17,16 +17,7 @@ const steps = [
 export function DiagnosisWorkflowDiagram() {
   return (
     <figure className="mt-8">
-      <figcaption>
-        <p className="font-medium text-custom-100">
-          취약점 수집부터 프로젝트 재진단까지
-        </p>
-        <p className="mt-2 text-muted-foreground">
-          Node.js가 수집부터 작업 등록까지 처리하고, Spring Boot 워커가 재진단합니다.
-        </p>
-      </figcaption>
-
-      <div className="mt-4 p-4 lg:p-8 rounded border">
+      <div className="p-4 rounded border">
         <div className="mx-auto max-w-lg text-center">
           <ol>
             {steps.map((step) => (
@@ -67,6 +58,9 @@ export function DiagnosisWorkflowDiagram() {
           </div>
         </div>
       </div>
+      <figcaption className="mt-2 text-center font-medium text-muted-foreground">
+        [취약점 수집부터 프로젝트 재진단까지]
+      </figcaption>
     </figure>
   );
 }

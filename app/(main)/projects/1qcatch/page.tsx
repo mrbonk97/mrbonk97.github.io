@@ -11,15 +11,15 @@ import { notFound } from "next/navigation";
 export const metadata: Metadata = {
   title: "악성메일 모의훈련 솔루션 | mrbonk97",
   description:
-    "악성메일 모의훈련 솔루션의 프론트엔드 개발 기록. 대규모 대상자 목록의 검색과 복사 기능을 유지하면서 체크박스 선택 지연을 개선했습니다.",
+    "악성메일 모의훈련 솔루션의 프론트엔드 전담 개발 기록. 15,000명 목록에서 체크박스 INP를 5,464ms에서 176ms로 약 96.8% 단축하고, 브라우저 검색과 텍스트 복사 기능을 유지했습니다.",
 };
 
 const measurements = [
   { count: 100, before: 40, memoization: 16, virtualization: 16 },
-  { count: 500, before: 104, memoization: 24, virtualization: 16 },
   { count: 1000, before: 176, memoization: 32, virtualization: 16 },
-  { count: 2000, before: 216, memoization: 72, virtualization: 16 },
   { count: 5000, before: 862, memoization: 152, virtualization: 16 },
+  { count: 10000, before: 2872, memoization: 160, virtualization: 16 },
+  { count: 15000, before: 5464, memoization: 176, virtualization: 16 },
 ];
 
 export default function Page() {
@@ -37,44 +37,52 @@ export default function Page() {
       <ArticleSection title="시스템 아키텍처">
         <div className="p-4 lg:p-8 h-64 flex items-center justify-center flex-col gap-4 bg-secondary text-secondary-foreground rounded">
           <Skull className="stroke-muted-foreground" />
-          <p className="text-sm font-medium text-muted-foreground">비공개</p>
+          <p className="font-medium text-muted-foreground">비공개</p>
         </div>
       </ArticleSection>
 
       <ArticleSection title="문제 해결">
         <section>
-          <h3 className="text-lg font-semibold">
-            대규모 대상자 목록의 체크박스 선택 지연
+          <h3 className="text-2xl font-semibold">
+            15,000명 목록에서 발생한 체크박스 선택 지연
           </h3>
           <p className="mt-4">
-            관리자는 수천 명의 훈련 대상자를 하나의 목록에서 확인하고 선택해야
-            했습니다. 대상자가 늘어날수록 체크박스를 누른 뒤 화면에 반영되기까지
-            지연이 커졌고, Chrome DevTools로 측정한 결과 5,000명 기준 최대
-            862ms가 걸렸습니다.
+            관리자는 수천 명의 훈련 대상자를 하나의 목록에서 확인하고 수정해야
+            했습니다. 대상자가 늘어날수록 체크박스 선택이 화면에 반영되는 시간이
+            길어졌습니다. Chrome DevTools로 측정한 체크박스 반응 시간(INP)은
+            15,000명 기준 5,464ms였습니다.
           </p>
           <p className="mt-4">
-            렌더링 과정을 분석하니 한 명의 선택 상태가 바뀔 때 관련 없는 다른
-            행까지 다시 렌더링되고 있었습니다. 불필요한 행 렌더링을 줄이는
-            방법과, 화면에 렌더링하는 행 자체를 줄이는 방법을 각각 검증했습니다.
+            원인은 목록 전체로 확산되는 리렌더링이었습니다. 한 명의 선택 상태만
+            바뀌어도 선택과 무관한 행까지 다시 렌더링되고 있었습니다. 불필요한
+            리렌더링을 줄이는 메모이제이션과 렌더링할 행 수를 줄이는 가상
+            스크롤을 각각 적용해 비교했습니다.
           </p>
 
-          <dl className="mt-8 space-y-4">
+          <dl className="mt-8 space-y-12">
             <div>
               <dt className="font-semibold">
-                메모이제이션을 적용해 변경된 행 중심으로 렌더링
+                메모이제이션: 전체 목록을 유지하며 리렌더링 축소
               </dt>
               <dd className="mt-2">
-                각 행에 <code>React.memo</code>를 적용하고 이벤트 핸들러는{" "}
-                <code>useCallback</code>으로 함수 참조를 유지했습니다. 선택
-                상태가 바뀌지 않은 행의 불필요한 렌더링을 줄였습니다.
+                <p>
+                  각 행에 <code>React.memo</code>를 적용하고 이벤트 핸들러는{" "}
+                  <code>useCallback</code>으로 함수 참조를 유지했습니다. 선택
+                  상태가 바뀌지 않은 행의 리렌더링을 줄이면서 전체 목록의 DOM
+                  구조를 유지했습니다. 15,000명 기준 INP는 176ms로 줄었습니다.
+                </p>
               </dd>
             </div>
             <div>
-              <dt className="font-semibold">가상 스크롤로 렌더링 범위 제한</dt>
+              <dt className="font-semibold">
+                가상 스크롤: 화면에 보이는 범위로 렌더링 제한
+              </dt>
               <dd className="mt-2">
-                TanStack Virtual을 적용해 전체 목록 대신 화면에 보이는 행을
-                중심으로 렌더링했습니다. 목록이 커져도 실제 렌더링하는 행 수를
-                제한할 수 있었습니다.
+                <p>
+                  TanStack Virtual을 적용해 전체 목록 대신 화면에 보이는 행을
+                  중심으로 렌더링했습니다. 렌더링할 행 수를 줄인 결과, 15,000명
+                  기준 INP는 16ms로 줄었습니다.
+                </p>
               </dd>
             </div>
           </dl>
@@ -82,25 +90,26 @@ export default function Page() {
           <MailPerformance measurements={measurements} />
         </section>
 
-        <section className="mt-8">
-          <h3 className="text-lg font-semibold">
-            검색과 복사 작업을 유지하기 위한 선택
+        <section className="mt-16">
+          <h3 className="text-2xl font-semibold">
+            검색과 복사 작업을 유지하기 위해 메모이제이션 채택
           </h3>
           <p className="mt-4">
-            측정값은 가상 스크롤이 가장 빨랐습니다. 하지만 관리자들은 브라우저의{" "}
-            <kbd>Ctrl+F</kbd>로 특정 대상자를 찾고, 여러 행의 텍스트를 드래그해
-            Excel에 붙여넣는 방식으로 목록을 활용하고 있었습니다.
+            15,000명 기준 가상 스크롤의 INP는 16ms로, 메모이제이션의 176ms보다
+            낮았습니다. 그러나 관리자는 브라우저의 <kbd>Ctrl+F</kbd>로 대상자를
+            검색하고, 여러 행의 텍스트를 선택해 Excel에 붙여넣는 작업을 하고
+            있었습니다.
           </p>
           <p className="mt-4">
-            가상 스크롤에서는 화면 밖의 행이 DOM에 존재하지 않아 브라우저 검색과
-            연속적인 텍스트 복사를 기존처럼 유지하기 어려웠습니다. 전체 목록의
-            사용성을 보존하면서 지연을 줄일 수 있는 메모이제이션을 최종
-            선택했습니다.
+            가상 스크롤은 화면 밖의 행을 DOM에서 제외하므로 전체 목록에 대한
+            브라우저 검색과 연속적인 텍스트 선택이 제한됩니다. 이 작업 방식을
+            유지하기 위해 전체 목록의 DOM을 보존하는 메모이제이션을 최종
+            채택했습니다.
           </p>
           <p className="mt-4">
-            메모이제이션을 실제 서비스에 적용해 5,000명 기준 체크박스 반응시간을
-            862ms에서 152ms로 약 82% 단축했습니다. 관리자의 기존 검색과 복사
-            작업을 유지하면서 선택 지연을 개선했습니다.
+            그 결과 15,000명 기준 체크박스 INP를 5,464ms에서 176ms로, 5,288ms
+            줄였습니다. 최적화 전 대비 약 96.8% 단축했으며, 관리자의 기존 검색과
+            복사 작업도 유지했습니다.
           </p>
         </section>
       </ArticleSection>

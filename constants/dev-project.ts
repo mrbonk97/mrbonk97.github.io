@@ -18,9 +18,9 @@ export const DEV_PROJECTS: DevProject[] = [
     imgUrl: "/projects/1qcatch/1qcatch-cover.png",
     title: "악성메일 모의훈련 솔루션",
     summary:
-      "하나금융그룹 관계사 임직원을 위한 악성메일 모의훈련 솔루션입니다. 훈련 대시보드, 관리자 화면, 메일 에디터, 훈련 대상자 관리 기능의 프론트엔드를 개발했습니다.",
+      "하나금융그룹 관계사 임직원을 위한 악성메일 모의훈련 솔루션입니다. 프론트엔드 설계와 개발을 전담하며 훈련 대시보드, 대상자 관리, 관리자 화면, 메일 에디터를 구현했습니다.",
     stack: ["Next.js", "TanStack Query", "TanStack Virtual", "TinyMCE"],
-    role: "프론트엔드 개발",
+    role: "프론트엔드 전담 개발",
     size: "3명",
     duration: "2025.08 - 2026.03",
     tag: "frontend",

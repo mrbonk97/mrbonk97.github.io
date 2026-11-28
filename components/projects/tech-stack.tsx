@@ -17,7 +17,7 @@ export function TechStackLabel({
       className={
         compact
           ? "flex min-w-0 items-center gap-2"
-          : "flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:items-center"
+          : "min-w-0 flex flex-col sm:flex-row items-start sm:items-center gap-2"
       }
     >
       <span className={compact ? "size-4 shrink-0" : "size-8 shrink-0"}>

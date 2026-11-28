@@ -1,4 +1,5 @@
 import { ProjectHeader } from "@/components/projects/project-header";
+import { ProjectScreenshots } from "@/components/projects/project-screenshots";
 import { ArticleSection } from "@/components/article/article-section";
 import {
   AccountDeletionDiagram,
@@ -18,6 +19,25 @@ export const metadata: Metadata = {
     "끼니와 일상을 기록하는 안드로이드 앱 끼록의 1인 개발 기록. Outbox 기반 회원 탈퇴와 RoomDB 중심의 오프라인 동기화를 구현했습니다.",
 };
 
+const screenshots = [
+  {
+    file: "kkirok_home.png",
+    alt: "오늘과 어제의 식사 사진을 날짜별로 모아 보여주는 끼록 홈 화면",
+  },
+  {
+    file: "kkirok_detail.png",
+    alt: "식사 사진, 기록 시간, 평점, 공개 여부와 서버 저장 상태를 보여주는 끼록 기록 상세 화면",
+  },
+  {
+    file: "kkirok_group.png",
+    alt: "선택한 날짜의 그룹 구성원별 아침, 점심, 저녁 기록을 보여주는 끼록 그룹 화면",
+  },
+  {
+    file: "kkirok_widget.png",
+    alt: "구성원의 식사 사진과 이름을 휴대폰 홈 화면에서 확인하는 끼록 위젯",
+  },
+];
+
 export default function Page() {
   const project = DEV_PROJECTS.find((item) => item.id === "kkirok");
   if (!project) notFound();
@@ -35,12 +55,21 @@ export default function Page() {
       />
 
       <article>
+        <ArticleSection title="스크린샷">
+          <ProjectScreenshots
+            projectId={project.id}
+            screenshots={screenshots}
+            width={1080}
+            height={2340}
+          />
+        </ArticleSection>
+
         <ArticleSection title="기술스택">
           <TechStack items={project.stack} />
         </ArticleSection>
 
         <ArticleSection title="시스템 아키텍처">
-          <p className="mb-8">
+          <p>
             네트워크 연결 여부와 관계없이 기록을 조회하고 편집할 수 있도록
             RoomDB를 화면 데이터의 기준으로 삼았습니다. 화면은 로컬 데이터의
             변경을 구독하고, 서버 동기화는 백그라운드 Worker가 담당합니다.
@@ -49,8 +78,8 @@ export default function Page() {
         </ArticleSection>
 
         <ArticleSection title="문제 해결">
-          <section className="leading-relaxed">
-            <h3 className="text-lg font-semibold">
+          <section>
+            <h3 className="text-2xl font-semibold">
               Outbox로 탈퇴 요청과 실제 삭제 작업 분리
             </h3>
             <p className="mt-4">
@@ -74,21 +103,25 @@ export default function Page() {
               이미지 삭제가 모두 완료된 경우에만 서비스 DB의 회원 데이터를 최종
               삭제하도록 순서를 정했습니다.
             </p>
-            <dl className="mt-8 space-y-4">
+            <dl className="mt-8 space-y-12">
               <div>
                 <dt className="font-semibold">실패한 작업부터 재시도</dt>
                 <dd className="mt-2">
-                  성공한 Job은 Worker 테이블에서 제거하고, 실패한 Job은 지수
-                  백오프로 재시도했습니다. 서버가 중단되어도 테이블에 남은
-                  작업부터 이어서 처리할 수 있도록 했습니다.
+                  <p>
+                    성공한 Job은 Worker 테이블에서 제거하고, 실패한 Job은 지수
+                    백오프로 재시도했습니다. 서버가 중단되어도 테이블에 남은
+                    작업부터 이어서 처리할 수 있도록 했습니다.
+                  </p>
                 </dd>
               </div>
               <div>
                 <dt className="font-semibold">중복 실행에도 안전한 삭제</dt>
                 <dd className="mt-2">
-                  이미 삭제된 대상은 성공으로 간주했습니다. 최종 삭제 Job은 앞선
-                  두 Job이 테이블에 남아 있지 않을 때만 실행해 외부 데이터
-                  삭제가 완료되기 전에 회원 데이터가 사라지지 않도록 했습니다.
+                  <p>
+                    이미 삭제된 대상은 성공으로 간주했습니다. 최종 삭제 Job은 앞선
+                    두 Job이 테이블에 남아 있지 않을 때만 실행해 외부 데이터
+                    삭제가 완료되기 전에 회원 데이터가 사라지지 않도록 했습니다.
+                  </p>
                 </dd>
               </div>
             </dl>
@@ -98,8 +131,8 @@ export default function Page() {
             </p>
           </section>
 
-          <section className="mt-16 leading-relaxed">
-            <h3 className="text-lg font-semibold">
+          <section className="mt-16">
+            <h3 className="text-2xl font-semibold">
               네트워크 없이도 기록을 조회하고 편집하는 동기화 구조
             </h3>
             <p className="mt-4">
@@ -159,8 +192,8 @@ export default function Page() {
             </p>
           </section>
 
-          <section className="mt-16 leading-relaxed">
-            <h3 className="text-lg font-semibold">
+          <section className="mt-16">
+            <h3 className="text-2xl font-semibold">
               동기화 응답을 기다리는 동안 발생한 수정 보호
             </h3>
             <p className="mt-4">
